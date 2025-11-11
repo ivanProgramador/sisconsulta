@@ -10,7 +10,7 @@
 ## 💻 Tecnologias Utilizadas
 - **Linguagem principal:** PHP `8.2.12`  
 - **Framework:** Laravel `12`  
-- **Outras tecnologias e bibliotecas:** poderão ser atualizadas conforme o andamento do projeto.
+- **Tailwind css**
 
 ---
 

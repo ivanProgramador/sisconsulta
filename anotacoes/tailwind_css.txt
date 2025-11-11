@@ -1,0 +1,20 @@
+Esse sistema vai usar o framework tailwwind css como se trata de uma framework popular 
+ele tem condifgurações especificas parar avrios framework´s inclusive o laravel essas 
+instaruçoes mais especificas podem ser contratadas na documentação na cessão de  
+
+"framework guides"
+
+ele tem um passo apasso onde ele ensina como criar o projeto laravel  e depois instalar 
+o tailwwind nele, como o porjeto ja esta feito eu so preciso fazer o segundo passo que seria 
+o comando abaixo:
+
+  npm install tailwindcss @tailwindcss/vite
+
+O tailwind é um framwork que precisa do seu proprio servidor rodando então nesse caso eu 
+vou usar 2 terminais
+
+1 - vai servir pra apilica comandos no laravel 
+
+2 - vou executar npm run dev e deixar o servdor rodando o tailwind
+
+  
