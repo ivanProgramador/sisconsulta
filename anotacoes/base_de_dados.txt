@@ -1,0 +1,12 @@
+Users 
+
+A tabela de usuários terá so campods de autenticação tradicionais 
+assim como campos de controle de autorização,como se trata de uma 
+sistema de gerenciamento é importante qqque a hirarquia tenha uma 
+divisão clara  
+
+Company 
+
+Trata-se duma tabela que vai conter os dados da empresa contratatante 
+do sistema, assim todos os usuarios cadastrados vão estar associados 
+a ela, contexto das ataovbidades feitas dentro do sistema.
