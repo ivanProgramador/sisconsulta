@@ -11,21 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('queues', function (Blueprint $table) {
             $table->id();
-            $table->string('email',50)->unique();
-            $table->string('password',255)->nullable()->default(null);
             $table->integer('id_company')->default(0)->index();
-            $table->enum('role',['sys-admin','client-admin','client-user'])->default('client-user');
-            $table->dateTime('last_login')->nullable()->default(null);
-            $table->dateTime('code_expiration')->nullable()->default();
-            $table->boolean('active')->default(false);
-            $table->dateTime('blocked_until')->nullable()->default(null);
+            $table->string('name',100)->nullable();
+            $table->string('description',255)->nullable();
+            $table->string('service_name',50)->nullable();
+            $table->string('service_desk',20)->nullable();
+            $table->string('queue_prefix',10)->nullable();
+            $table->integer('queue_total_digits')->nullable()->default(3);
+            $table->integer('queue_colors',255)->nullable();
+            $table->integer('hash_code',64)->unique();
+            $table->enum('status',['active','inactive','done'])->default('inactive');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->dateTime('deleted_at')->nullable()->default(null);
             $table->timestamps();
-            
         });
     }
 
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('queues');
     }
 };
