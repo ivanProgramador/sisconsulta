@@ -1,0 +1,3 @@
+criando a migration eo um model ao mesmo tempo
+  php artisan make:model User -m
+

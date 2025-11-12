@@ -1,0 +1,9 @@
+
+ 
+ //teste de conexão 
+    try{
+        DB::connection()->getPdo();
+        echo'conectado';
+    }catch(Exception $e){
+        echo"erro: ".$e;
+    }
