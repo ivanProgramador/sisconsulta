@@ -1,12 +1,27 @@
 Users 
 
-A tabela de usuários terá so campods de autenticação tradicionais 
-assim como campos de controle de autorização,como se trata de uma 
-sistema de gerenciamento é importante qqque a hirarquia tenha uma 
-divisão clara  
+ A tabela de usuários terá so campods de autenticação tradicionais 
+ assim como campos de controle de autorização,como se trata de uma 
+ sistema de gerenciamento é importante qqque a hirarquia tenha uma 
+ divisão clara  
 
 Company 
 
-Trata-se duma tabela que vai conter os dados da empresa contratatante 
-do sistema, assim todos os usuarios cadastrados vão estar associados 
-a ela, contexto das ataovbidades feitas dentro do sistema.
+ Trata-se duma tabela que vai conter os dados da empresa contratatante 
+ do sistema, assim todos os usuarios cadastrados vão estar associados 
+ a ela, contexto das ataovbidades feitas dentro do sistema.
+
+queues table 
+ 
+ Guarda todos os dados dos tickets como o numero, prefixo, empresa 
+ tipo de atendimento, numero de digitos, cor da ficha de atendimento,
+ status da comanda.
+
+queues tickets 
+  
+  Guarda os dados de tickets como o status, a hora que foi chamada, 
+  o numero do ticket
+
+
+
+
