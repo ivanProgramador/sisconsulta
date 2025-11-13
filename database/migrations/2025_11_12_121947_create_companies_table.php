@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+       Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('company_name',100)->unique();
             $table->string('company_logo',255)->nullable();
@@ -20,11 +20,10 @@ return new class extends Migration
             $table->string('phone',20)->nullable();
             $table->string('email',100)->nullable();
             $table->enum('status',['active','inactive'])->default('active');
-            $table->dateTime('created_at')->useCurrent();
-            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->default(null);
-            $table->timestamps();
+            $table->softDeletes();   // cria deleted_at (nullable)
+            $table->timestamps();    // cria created_at e updated_at
         });
+
     }
 
     /**
