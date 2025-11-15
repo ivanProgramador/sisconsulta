@@ -17,4 +17,7 @@ vou usar 2 terminais
 
 2 - vou executar npm run dev e deixar o servdor rodando o tailwind
 
+como o tailwind tem uma sintaxe muito verbosa eu deixei uma lista de classes pre-definifidas dentro 
+do resources/css/app.css com uma alista de classes padrão
+
   
