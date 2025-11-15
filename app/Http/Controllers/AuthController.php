@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login()
     {
-        echo "Formulário de login ";
+          return view('auth/login_frm',['subtitle'=>'Login'] );
     }
 
     public function loginSubmit(){
