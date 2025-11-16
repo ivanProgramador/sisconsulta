@@ -29,9 +29,9 @@
  
  */
 
- if(!function_exists('ShowVlidattionError')){
+ if(!function_exists('ShowValidattionError')){
 
-    function ShowVlidationError($fieldName,$validationErrors){
+    function ShowValidationError($fieldName,$validationErrors){
 
         if($validationErrors->has($fieldName)){
            
@@ -42,4 +42,26 @@
             return '';
         }
     }
+
+
+    
+ }
+
+
+ if(!function_exists('ShowServerError')){
+
+    function ShowServerError(){
+
+        if(session()->has('server_error')){
+           
+            return '<div class="text-sm italic text-red-500" >'.session()->get('server_error').'</div>';
+
+        }else{
+
+            return '';
+        }
+    }
+
+
+    
  }

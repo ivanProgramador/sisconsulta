@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('role', ['sys-admin', 'client-admin', 'client-user'])->default('client-user');
             $table->dateTime('last_login')->nullable();
             $table->dateTime('code_expiration')->nullable();
+            $table->string('code', 20)->nullable();
             $table->boolean('active')->default(false);
             $table->dateTime('blocked_until')->nullable();
             $table->softDeletes(); // adds deleted_at

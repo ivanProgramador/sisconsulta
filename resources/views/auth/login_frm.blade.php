@@ -20,14 +20,15 @@
                      essa diretiva  1 dupla de chave 2 duplas de exclamações {!! !!}
                 --}}
 
-                {!! ShowVlidationError('username',$errors)  !!}
+                {!! ShowValidationError('username',$errors)  !!}
+                 {!! ShowServerError()  !!}
 
             </div>
 
             <div class="mb-4">
                 <label for="password" class="label">Senha</label>
                 <input type="password" class="input w-full" id="password" name="password" placeholder="Senha" value="{{ old('password')}}">
-                 {!! ShowVlidationError('password',$errors)  !!}
+                 {!! ShowValidationError('password',$errors)  !!}
             </div>
 
             <div class="text-center mb-4">

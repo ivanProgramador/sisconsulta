@@ -34,6 +34,6 @@ class CompanySeeder extends Seeder
 
         DB::table('companies')->insert($companies);
 
-        echo count($companies)."3 empresas cadastadas com sucesso !.\n";
+        echo count($companies)." empresas cadastadas com sucesso !.\n";
     }
 }
