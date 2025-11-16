@@ -18,21 +18,21 @@ class UserSeeder extends Seeder
         $users = [
                 [
                     'email'=>'useradmin@localhost.com',
-                    'password' => bcrypt('password123'),
+                    'password' => bcrypt('Password123'),
                     'id_company' => 0,
                     'role' => 'client-admin',
                     'active' => true
                 ],
                 [
                     'email'=>'useradmin1@localhost.com',
-                    'password' => bcrypt('password123'),
+                    'password' => bcrypt('Password123'),
                     'id_company' => 1,
                     'role' => 'client-admin',
                     'active' => true
                 ],
                 [
                     'email'=>'useradmin2@localhost.com',
-                    'password' => bcrypt('password123'),
+                    'password' => bcrypt('Password123'),
                     'id_company' => 2,
                     'role' => 'client-admin',
                     'active' => true

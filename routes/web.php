@@ -12,7 +12,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login',[AuthController::class,'login'])->name('login');
 
     //rota de tratamento do formulario de login
-    Route::post('/login/submit',[AuthController::class,'loginSubmit'])->name('login.submit');
+    Route::post('/login',[AuthController::class,'loginSubmit'])->name('login.submit');
     
 });
 

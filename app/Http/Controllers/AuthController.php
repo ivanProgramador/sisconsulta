@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use function Symfony\Component\Clock\now;
 
 class AuthController extends Controller
 {
@@ -30,6 +34,35 @@ class AuthController extends Controller
              'password.regex'=>' a senha deve conter de 6 a 16 caracteres, ter uma maiuscula, uma minuscula e um algarismo'
            ]
        );
+
+       $user = User::where('email',trim($request->username))
+                   ->where('active',true)
+                   ->whereNull('deleted_at')
+                   ->where(function($query){
+                      $query->whereNull('bloqued_until')
+                            ->orWhere('bloqued_until','<',now()); 
+                   })->first();
+
+       //verificando se o usuario existe e se a senha confere com o usuario informado
+       
+       if($user && Hash::check(trim($request->password), $user->password)){
+            
+           //logado com sucesso 
+           
+           auth()->login($user);
+
+           return redirect()->route('home');
+          
+       }else{
+
+           //falhou
+           
+           die('login invalido');
+       }
+
+       
+
+
 
        echo'passou pela validação !';
        
