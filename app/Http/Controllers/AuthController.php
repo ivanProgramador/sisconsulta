@@ -11,9 +11,8 @@ class AuthController extends Controller
 
          //se o cliente errar a validação a avarivel erros recebe o valor do erro
          //então quando o formulario voltar eu vou mandar os erros de volta pra ele ver
-         if(session('errors')){
-             dd(session()->all(),old());
-         }
+         
+         
           
           return view('auth/login_frm',['subtitle'=>'Login'] );
     }

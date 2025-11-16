@@ -15,12 +15,19 @@
 
             <div class="mb-4">
                 <label for="username" class="label">Usuário</label>
-                <input type="email" class="input w-full" id="username" name="username" placeholder="Usuário">
+                <input type="email" class="input w-full" id="username" name="username" placeholder="Usuário" value="{{ old('username')}}">
+                {{-- a funcção que vou chamar mostra uma html pronto então esse tipo de retorno deve ser passado usando
+                     essa diretiva  1 dupla de chave 2 duplas de exclamações {!! !!}
+                --}}
+
+                {!! ShowVlidationError('username',$errors)  !!}
+
             </div>
 
             <div class="mb-4">
                 <label for="password" class="label">Senha</label>
-                <input type="password" class="input w-full" id="password" name="password" placeholder="Senha">
+                <input type="password" class="input w-full" id="password" name="password" placeholder="Senha" value="{{ old('password')}}">
+                 {!! ShowVlidationError('password',$errors)  !!}
             </div>
 
             <div class="text-center mb-4">
