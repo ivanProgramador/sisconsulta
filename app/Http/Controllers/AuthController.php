@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 use function Symfony\Component\Clock\now;
@@ -97,7 +98,36 @@ class AuthController extends Controller
 
      public function changePasswordSubmit(Request $request)
     {
+
+        $request->validate(
+           [
+             'current_password'=>'required',
+             'new_password'=>'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/|confirmed'
+           ],[
+             'current_password'=>'a senha atual é obrigatória',
+             'new_password'=>'a nova senha é obrigatória',
+             'new_password.regex'=>' a nova senha deve conter de 6 a 16 caracteres, ter uma maiuscula, uma minuscula e um algarismo',
+             'new_password.confirmed'=>'a nova senha e a confirmação devem ser iguais'
+           ]
+       );
+
+       //buscando o usuario que esta logado 
+
+       $user = auth()->user();
+
+       //testando se a senha atual esta correta 
+       
+       if(Hash::check($request->current_password,$user->password)){
          
+          //atualizando a senha
+          $user->password = Hash::make($request->new_password);
+          $user->save();
+          
+          return redirect()->route('home')->with('message','Senha alterada com sucesso!');
+
+       }else{
+           return redirect()->back()->with('server_error','Senha atual invalida !');
+       }
     }
 
 

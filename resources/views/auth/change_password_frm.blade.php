@@ -10,23 +10,29 @@
             A senha deve ter entre 6 e 16 caracteres, uma letra maiúscula, uma letra minúscula e um dígito.
         </p>
     
-        <form action="change.password.submit" method="POST" novalidate>
+        <form action="{{ route('change.password.submit') }}" method="POST" novalidate>
 
            @csrf
     
             <div class="mb-4">
                 <label for="current_password" class="label">Senha atual</label>
                 <input type="password" class="input w-full" id="current_password" name="current_password" placeholder="Senha atual">
+                {!! ShowValidationError('current_password',$errors)  !!}
+                {!! ShowServerError()  !!}
             </div>
     
             <div class="mb-4">
                 <label for="new_password" class="label">Nova senha</label>
                 <input type="password" class="input w-full" id="new_password" name="new_password" placeholder="Nova senha">
+                {!! ShowValidationError('new_password',$errors)  !!}
+                {!! ShowServerError()  !!}
             </div>
     
             <div class="mb-4">
                 <label for="new_password_confirmation" class="label">Repetir senha</label>
                 <input type="password" class="input w-full" id="new_password_confirmation" name="new_password_confirmation" placeholder="Repetir nova senha">
+                {!! ShowValidationError('new_password_confirmation',$errors)  !!}
+                {!! ShowServerError()  !!}
             </div>
     
             <button type="submit" class="btn w-full mb-4">Alterar senha</button>
