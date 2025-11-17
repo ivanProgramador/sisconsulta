@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -16,13 +17,16 @@ Route::middleware(['guest'])->group(function () {
     
 });
 
-//rotas parara usuarios
+//rotas para usuarios
 Route::middleware(['auth'])->group(function () {
 
     //rota home 
-    Route::get('/', function () {
-        echo "pagina home ";
-    })->name('home');
+    Route::get('/', [MainController::class,'index'])->name('home');
+
+    //rotas para alterar a senha 
+    Route::get('/change-password',[AuthController::class,'changePassword'])->name('change.password');
+    Route::post('/change-password',[AuthController::class,'changePasswordSubmit'])->name('change.password.submit');
+    
 
     //rota de logout 
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');

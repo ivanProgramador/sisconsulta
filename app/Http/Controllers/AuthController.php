@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 use function Symfony\Component\Clock\now;
 
@@ -89,9 +90,32 @@ class AuthController extends Controller
         
     }
 
+    public function changePassword():View
+    {
+          return view('auth/change_password_frm',['subtitle'=>'Alterar Senha']);
+    }
+
+     public function changePasswordSubmit(Request $request)
+    {
+         
+    }
+
+
+
 
 
     public  function logout(){
-        echo "logout ";
+
+        //executando o logout 
+        auth()->logout();
+         
+        //limpando os dados da sessão 
+        session()->invalidate();
+
+        //regenerando o token da sessão
+        session()->regenerateToken();
+
+        //redirecionando para a pagina de login
+        return redirect()->route('login');
     }
 }

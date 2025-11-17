@@ -1,7 +1,7 @@
 <x-layouts.auth-layout subtitle="{{ $subtitle }}">
-    <h1 class="text-3xl text-center text-cyan-600 mt-10" >Welcome to {{ config('app.name') }}
-      <i class="fa-solid fa-thumbs-up me-2" ></i>
-
-    </h1>
+    
+   <div class="main-card" >
+      <h1>teste</h1>
+   </div>
    
 </x-layouts.auth-layout>

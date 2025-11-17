@@ -12,8 +12,10 @@
 <body class="bg-zinc-200" >
    
     {{-- barra de topo do usuario --}}
+    <x-layouts.user_top_bar />
 
    {{-- menu horizontal principal --}}
+    <x-layouts.main_menu />
 
    {{-- conteudo principal --}}
 
