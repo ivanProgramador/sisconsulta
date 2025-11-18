@@ -1,0 +1,12 @@
+A FILA DE ESPERA 
+
+ Uma fila de espera possui algumas caracteristicas importantes
+  1 - a que empresa a fila pertence 
+  2 - desdignação de serviço que seria por qual serviço o cliente está esperando
+     Balcão de atendimento que pode ser de(lachonete, consulta, aeroporto entre outros)
+  3 - qual é o balcão de atendimento que o clientte vai quando a senha for chamada na tela
+  4 - qual e o aspecto visual da senha que será chamada 
+  5 - A fila de espera esta ativa ou inativa ?
+
+
+
