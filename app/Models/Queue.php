@@ -11,7 +11,13 @@ class Queue extends Model
 
     //uma fila de espera so pode pertencer a uma empresa 
 
-     public function company(){
+    public function company(){
          return $this->belongsTo(Company::class,'id_company');
     }
+
+    public function tickets()
+    {
+         return $this->hasMany(QueueTicket::class,"id_queue");
+    }
+
 }

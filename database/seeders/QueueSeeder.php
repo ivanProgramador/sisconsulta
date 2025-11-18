@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class QueueSeeder extends Seeder
 {
@@ -37,12 +38,12 @@ class QueueSeeder extends Seeder
         ],
         [
             'id' => 2,
-            'id_company' => 1,
+            'id_company' => 2,
             'name' => 'Fila numero 2',
-            'description' => 'Atendimento especializado de Clientes VIP',
-            'service_name'=>'Atendimento VIP',
+            'description' => 'Consulta familiar',
+            'service_name'=>'Consulta familiar',
             'service_desk'=>'Balcão 2',
-            'queue_prefix'=>'V',
+            'queue_prefix'=>'B',
             'queue_total_digits'=>4,
             'queue_colors'=> json_encode([
                 'prefix_bg_color'=>'#FFD700',
@@ -58,11 +59,11 @@ class QueueSeeder extends Seeder
         ],
         [
             'id' => 3,
-            'id_company' => 1,
-            'name' => 'Fila numero 2',
-            'description' => 'Consulta familiar',
+            'id_company' => 3,
+            'name' => 'Fila numero 3',
+            'description' =>'Consulta familiar',
             'service_name'=>'Consulta familiar',
-            'service_desk'=>'Balcão 2',
+            'service_desk'=>'Balcão 3',
             'queue_prefix'=>'C',
             'queue_total_digits'=>4,
             'queue_colors'=> json_encode([
@@ -77,9 +78,11 @@ class QueueSeeder extends Seeder
             'updated_at'=>now(),
             'deleted_at'=>null
         ]
+    ];
 
+    DB::table('queues')->insert($data);
 
+    echo count($data)." Filas de espera adionadas !";
 
-        ];
     }
 }
