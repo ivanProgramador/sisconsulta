@@ -24,12 +24,31 @@ class MainController extends Controller
     }
 
     private function getQueuesList(){
-
         
+        $companyId = Auth::user()->id_company;
+        return Queue::where('id_company', $companyId)
+                    ->where('status','active')
+                    ->whereNull('deleted_at')
+                    ->withCount([
+                        
+                        'tickets as total_tickets' => function($query){
+                            $query->whereNotNull('queue_ticket_status')
+                                  ->whereNull('deleted_at');
+                        },
 
-        return Queue::where('id_company',Auth::user()->id_company)
-                         ->where('status','active')
-                         ->withCount('tickets')
-                         ->get()->sortBy('name');
+                        'tickets as total_dismissed'=> function($query){
+                            $query->where('queue_ticket_status','dismissed')
+                                  ->where('deleted_at','null');
+                        },
+                         'tickets as total_called'=> function($query){
+                            $query->where('queue_ticket_status','called')
+                                  ->where('deleted_at','null');
+                        },
+                        'tickets as total_waiting'=> function($query){
+                            $query->where('queue_ticket_status','waiting')
+                                  ->where('deleted_at','null');
+                        }
+
+                    ])->get();
     }
 }
