@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\DB;
 class QueueSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * As filas de espera do sistema 
      */
     public function run(): void
     {
+
+    
         $data=[
             [
             'id' => 1,

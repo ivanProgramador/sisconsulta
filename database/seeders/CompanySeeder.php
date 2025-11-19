@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\Echo_;
 class CompanySeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * As companias que são donas das filas de atendimento
      */
     public function run(): void
     {

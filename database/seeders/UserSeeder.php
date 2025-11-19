@@ -12,6 +12,7 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      * pra executar o seed abaixo use esse comando 
      *  php artisan db:seed --class=UserSeeder
+     * Essa seed cadastra so usuarios de administradores dos clientes
      */
     public function run(): void
     {
