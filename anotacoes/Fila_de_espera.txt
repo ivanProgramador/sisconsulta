@@ -2,11 +2,49 @@ A FILA DE ESPERA
 
  Uma fila de espera possui algumas caracteristicas importantes
   1 - a que empresa a fila pertence 
-  2 - desdignação de serviço que seria por qual serviço o cliente está esperando
+  2 - desdignação de serviço que seria, por qual serviço o cliente está esperando
      Balcão de atendimento que pode ser de(lachonete, consulta, aeroporto entre outros)
+
   3 - qual é o balcão de atendimento que o clientte vai quando a senha for chamada na tela
+
   4 - qual e o aspecto visual da senha que será chamada 
+  
   5 - A fila de espera esta ativa ou inativa ?
+
+CASO DE USO 
+----------------------------------------------------------------------------------------------
+A empresa Medical center cria uma cadastro no sistema, qua esta associado a uma funcionário gestor
+a clinica cria 3 tipos de fila de espera 
+
+fila 'N' para atendimento normal 
+  
+  Assim quando um paciente passa pelo dispensador de tickets de fila normal ele recebe  o ticket N1 
+  e conforme pacientes normais vem chegando eles recebem 
+  
+  N1,N2,N3 ......
+
+  Os tickets da fila 'N' tem a cor verde porque são pacientes com baixa gravidade    
+
+fila 'P' prioridade segue a mesma logica da fila N mas nesse caso se trata de pacientes idosos, Gestantes
+  que possuem uma certa prioridade acima dos normais nisso eles vaão chagndo e recebendo os tickets 
+
+  P1,P2,P3 .....
+
+  o ticket dessa fila ja possuem a cor laranja oque pra Medical center inidica pacientes da prioridade 
+
+fila 'R' clientes de retorno que segue a mesma logica das duas filas a diferença e que essa é uma fila de retorno
+   
+Cada fila dessas está associada a um balcão de atendimento ou guichê depdndendo da regra de negocio por exemplo
+
+BALCAO 1 -> atendimento de pacientes normais então a fila desse balcao seria a 'N'  
+
+BALCAO 2 -> atendimento de pacientes prioridade então a fila desse balcao seria a 'P' 
+
+BALCAO 3 -> atendimento de pacientes retorno então a fila desse balcao seria a 'R'
+
+Nesse caso a empresa cria uma fila para cada balcao 
+
+------------------------------------------------------------------------------------------------
 
 
 

@@ -13,56 +13,32 @@ class QueueTicketSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('queue_tickets')->pluck('id')->toArray();
+        //limpando a tabela de tickets antes de inserir novos dados 
+        DB::table('queue_tickets')->truncate();
+        
+        //pegando os ids das filas existentes e colocando em um array
 
-        $queueIds = DB::table('queues')->pluck('id')->toArray();
+        $queueIds = DB::table('queues')->pluck('id')->toArray();    
 
-        foreach ($queueIds as $queueID) {
+        //fazendo um for para ler o id de cada uma das filas dentro do array
+        foreach($queueIds as $queueId){
 
-            $totalTickets = rand(50, 200);
-            $createdAt = now();
-            $calledAt = now()->addMinutes(2);
-
-            for($i=0; $i<$totalTickets;$i++){
-
-                $status='';
-                $statusTmp = rand(1,4);
-
-                if($statusTmp == 1){
-                    $status = 'waiting';
-                } elseif ($statusTmp == 2) {
-                    $status = 'called';
-                } elseif ($statusTmp == 3) {
-                    $status = 'not_attended';
-                } elseif($statusTmp == 4) {
-                    $status = 'dismissed';
-                }
-
-                //criando e inserindo os tickets
-
-                DB::table('queue_tickets')->insert([
-                    'id_queue' => $queueID,
-                    'queue_ticket_number'=> $i + 1,
-                    'queue_ticket_created_at'=> $createdAt,
-                    'queue_ticket_called_at'=> $status == 'called' ? $calledAt : null,
-                    'queue_ticket_called_by'=> $status == 'called' ? rand(1,10) : null,
-                    'queue_ticket_status'=> $status,
-                    'created_at'=> now(),
-                    'updated_at'=> now(),
-                ]);
-
-                $createdAt->addMinutes(2);
-                $calledAt->addMinutes(2);
-
-
-
+            //gerando um numero aleatorio de tickets para cada fila entre 50 e 200
+          
+            $totalTickets = rand(50, 200); 
 
             
-            
-         }
+
+
 
         }
 
+        
+               
+         
+
     }
+
+    
 
 }
