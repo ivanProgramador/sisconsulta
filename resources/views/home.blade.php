@@ -8,9 +8,49 @@
     
 
 
+   {{--
+      A classe overflow auto(taiwind) serve parara criar um scroll alareal caso so dados extrpolem o tamanho
+      do elemento   
+   --}}
 
-   <div class="main-card" >
-      <h1>teste</h1>
+   <div class="main-card overflow-auto " >
+      
+     <table id="tabela">
+
+       <thead class="bg-black" >
+           <tr>
+              <th class="text-xs w-3/14">Nome</th>
+              <th class="text-xs w-3/14">Serviço</th>
+              <th class="text-xs w-2/14">Balcao</th>
+              <th class="text-xs w-1/14">Estado</th>
+              <th class="text-xs text-center w-1/14">Tickets</th>
+              <th class="text-xs text-center w-1/14">Ignorados</th>
+              <th class="text-xs text-center w-1/14">Atendidos</th>
+              <th class="text-xs text-center w-1/14">Não atendidos</th>
+              <th class="text-xs text-center w-1/14">Em espera</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           @foreach($queues as $queue)
+               <tr>
+                  <td>{{ $queue->name }}</td>
+                  <td>{{ $queue->service_name }}</td>
+                  <td>{{ $queue->service_desk }}</td>
+                  <td>{{ $queue->status }}</td>
+                  <td>{{ $queue->total_tickets }}</td>
+                  <td>{{ $queue->total_dismissed }}</td>
+                  <td>{{ $queue->total_not_attended }}</td>
+                  <td>{{ $queue->total_called }}</td>
+                  <td>{{ $queue->total_waiting }}</td>
+               </tr>
+                   
+           @endforeach
+       </tbody>
+       
+     </table>
+
+
    </div>
 
 
@@ -23,7 +63,11 @@
                messageElement.remove();
             }, 3000);
          }
-      })
+      });
+
+      //apontando o datatabela pra minha tabela 
+
+      $('#tabela').DataTable();
 
    </script>
    

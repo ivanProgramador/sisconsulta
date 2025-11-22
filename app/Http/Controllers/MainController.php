@@ -18,7 +18,7 @@ class MainController extends Controller
             'queues'  => $queues
         ];
 
-        dd($data);
+       
 
         return view('home',$data);
     }

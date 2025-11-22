@@ -1,0 +1,18 @@
+
+O datatables oferece uma conjunto de funcionalidades js e elementos html, 
+para o controle de dados de forma visual ele fornece 
+caixas de pesquisa
+controles de tabelas 
+entre outros elementos  
+
+instalando o datatables 
+
+    {{-- datatables --}}
+    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+
+ //apontando o datatabela pra minha tabela 
+      
+  $('#tabela').DataTable();
+
+https://datatables.net/

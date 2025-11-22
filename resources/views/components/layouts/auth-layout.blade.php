@@ -7,6 +7,12 @@
     <title> {{ config('app.name') }} {!! empty($subtitle) ? '' : ' &vellip; ' . e($subtitle) !!}</title>
     <link rel="short icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
+
+    {{-- datatables --}}
+    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-zinc-200" >
