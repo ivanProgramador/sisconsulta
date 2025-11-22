@@ -20,7 +20,7 @@ class MainController extends Controller
 
        
 
-        return view('home',$data);
+        return view('main.home',$data);
     }
 
     private function getQueuesList(){

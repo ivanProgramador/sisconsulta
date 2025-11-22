@@ -14,10 +14,24 @@
    --}}
 
    <div class="main-card overflow-auto " >
-      
-     <table id="tabela">
 
-       <thead class="bg-black" >
+      <p class="title-2">Filas de espera</p>
+      <hr class="mt-2 mb-4">
+      <div class="mb-4">
+          <a href="#" class="btn"><i class="far fa-plus me-2"></i>Criar nova fila ...</a>
+      </div>
+
+      @if($queues->count() === 0)
+        
+       <div class="text-center my-12 text-gray-500">
+           <p class="text-lg">Não existem filas de espera</p>
+           <p class="text-sm">Clique no botão acima para criar uma nova fila</p>
+       </div>
+
+      @else 
+        <table id="tabela">
+
+         <thead class="bg-black" >
            <tr>
               <th class="text-xs w-3/14">Nome</th>
               <th class="text-xs w-3/14">Serviço</th>
@@ -29,9 +43,9 @@
               <th class="text-xs text-center w-1/14">Não atendidos</th>
               <th class="text-xs text-center w-1/14">Em espera</th>
            </tr>
-       </thead>
+        </thead>
 
-       <tbody>
+        <tbody>
            @foreach($queues as $queue)
                <tr>
                   <td>{{ $queue->name }}</td>
@@ -45,10 +59,13 @@
                   <td>{{ $queue->total_waiting }}</td>
                </tr>
                    
-           @endforeach
-       </tbody>
+            @endforeach
+         </tbody>
        
-     </table>
+        </table>
+      @endif
+      
+    
 
 
    </div>
