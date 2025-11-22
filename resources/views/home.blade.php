@@ -67,7 +67,14 @@
 
       //apontando o datatabela pra minha tabela 
 
-      $('#tabela').DataTable();
+      $('#tabela').DataTable({
+         //traduzindo os componetes pra portugues
+
+         language:{
+             url:"{{ asset('assets/datatables/pt-PT.json') }}"
+         }
+      }
+     );
 
    </script>
    
