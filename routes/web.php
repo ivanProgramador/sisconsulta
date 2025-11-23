@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
     //rota home 
     Route::get('/', [MainController::class,'index'])->name('home');
 
+    //rota para detalhes da fila 
+    Route::get('/queue/{id}',[MainController::class,'queueDetails'])->name('queue.details');
+
     //rotas para alterar a senha 
     Route::get('/change-password',[AuthController::class,'changePassword'])->name('change.password');
     Route::post('/change-password',[AuthController::class,'changePasswordSubmit'])->name('change.password.submit');
@@ -32,3 +35,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
     
 });
+
+

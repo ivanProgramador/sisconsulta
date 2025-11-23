@@ -1,0 +1,7 @@
+Não esquecer de usar  o encriptador de id nas urls de consulta 
+
+Crypt::encrypt($queue->id)
+
+ 
+ 
+<a href="{{ route('queue.details',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-white" title="detalhes"><i class="fa-solid fa-bars" ></i></a>
