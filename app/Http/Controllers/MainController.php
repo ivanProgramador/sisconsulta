@@ -27,8 +27,6 @@ class MainController extends Controller
         
         $companyId = Auth::user()->id_company;
         return Queue::where('id_company',Auth::user()->id_company)
-                      ->where('status','active')
-                      ->whereNull('deleted_at')
                       ->withCount([
 
                         //abaixo estou criando uma lista de queries por estado dos tikests relacionados 
