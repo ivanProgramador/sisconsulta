@@ -65,3 +65,53 @@
 
     
  }
+
+ if(!function_exists('getFormatedTicketNumber')){
+    
+    //Essa função serve para formatar a apresentação do prefixo das senhas das filas 
+
+    function getFormatedTicketNumber($ticketNumber, $prefix = null, $totalDigits=3){
+      
+        $result ='';
+
+        //prefix
+
+        if($prefix){
+            $result = $prefix;
+        }
+
+        //numbers
+        
+        if($totalDigits > 0){
+            $result .= str_pad($ticketNumber, $totalDigits,'0',STR_PAD_LEFT); 
+
+        }
+
+        return $result;
+
+
+    }
+ }
+
+ if(!function_exists('getTicketStateText')){
+
+    function getTicketStateText($state){
+        
+        //os reultados vem em ingles das rotas e da base 
+        //essa função vai servir para mostrar esses estados em portugues 
+
+        $rules = [
+            'waiting' => 'Aguardando',
+            'called'  => 'Atendido',
+            'not_attended' => 'Não atendido',
+            'dismissed'=>'dispensado'
+        ];
+
+        //se por acaso por passado um estado diferente do esperado 
+        //o sistema não vai travar ele vai retorenar o estado desconhecido 
+
+        return $rules[$state]??'Desconhecido';
+
+    }
+
+ }

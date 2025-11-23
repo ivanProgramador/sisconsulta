@@ -16,13 +16,20 @@
                                                                                                             
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Balcão: <span class="text-black font-bold">{{ $queue->service_desk }}</span></p>
 
-        {{-- no caso desse dado eu precisei pegar 2 informações 1 foi o prefixo pra mostrar e a outra foi a quantidade de digitos da fila eu coloquei o prefixo e concatenei com a função basica str_repeat
-             que recebe 2 parametros 1 e oque ela tem qua repetir no caso eu coloquei '0' e no seundos pararmtro é quantas vezes ela tem que repetir então eu passei o total de digitos da fila  
+        {{-- 
+           A função que estou usando pra formatar o prefixo está no helper ela so precisa de 3 parametros
+           Ela está lá no helper
+            
+           1 - o numero que deve ser repetido com basee na quantidade de didigtos do prefixo 
+           2 - o prefixo do ticket da fila 
+           3 - a quantidade total de digitos  
         --}}
-        <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-full p-2">Formato: <span class="text-black font-bold">{{ $queue->queue_prefix.str_repeat('0',$queue->queue_total_digits) }}</span></p>
+
+        <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-full p-2">Formato: <span class="text-black font-bold">{{ getFormatedTicketNumber(0,$queue->queue_prefix,$queue->queue_total_digits) }}</span></p>
     </div>
 
     <div class="flex gap-4 mb-4">
+       
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Estado: <span class="text-black font-bold">{{ $queue->status }}</span></p>
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Criada em: <span class="text-black font-bold">{{ $queue->created_at }}</span></p>
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-full p-2">Código: <span class="text-black font-bold">{{ $queue->hash_code }}</span></p>
@@ -64,11 +71,18 @@
                           ela vai gerar algo parecido com isso " A002 " na view
                         
                         --}}
-                        <td class="border-1 border-slate-300">{{$queue->queue_prefix.str_pad($ticket->queue_ticket_number, $queue->queue_total_digits,'0', STR_PAD_LEFT )  }}</td>
+                        <td class="border-1 border-slate-300">{{ getFormatedTicketNumber($ticket->queue_ticket_number, $queue->queue_prefix, $queue->queue_total_digits) }}</td>
 
 
                         <td class="border-1 border-slate-300">{{ $ticket->queue_ticket_created_at }}</td>
-                        <td class="border-1 border-slate-300">{{ $ticket->queue_ticket_status }}</td>
+
+                         {{--
+                             a função  getTicketStateText() recebe o estado faz a comparação e retorna o equivalente em portugues
+                            ela so recebe um paramnetro o 'estado' essa função esta no helper 
+                          --}}
+
+
+                        <td class="border-1 border-slate-300">{{ getTicketStateText($ticket->queue_ticket_status) }}</td>
                         <td class="border-1 border-slate-300">{{ $ticket->queue_ticket_called_at ?? '--' }}</td>
                         <td class="border-1 border-slate-300">{{ $ticket->queue_ticket_called_by ?? '--' }}</td>
                     </tr>
