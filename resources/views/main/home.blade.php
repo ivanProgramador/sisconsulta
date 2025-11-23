@@ -53,21 +53,14 @@
                   <td>{{ $queue->service_name }}</td>
                   <td>{{ $queue->service_desk }}</td>
 
-
-                  <td>
-                     @if($queue->status === 'active')
-                       <i class="fa-regular fa-circle-check text-green-700" title="ativa"></i>
-                     @elseif($queue->status === 'inactive')
-                       <i class="fa-regular fa-circle-xmark text-red-700" title="inativa"></i>
-                     @elseif($queue->status === 'done')
-                       <i class="fa-solid fa-ban text-slate-300" title="concluida"></i>
-                     @endif
-
-                     
+                  {{--
+                    A função "getQueueStateIcon" retorna codigo html
+                    para mostrar o icone se esse função não estiver dentro
+                    dessa diretiva " {!! <função aqui > !!} "  o html não será 
+                    processado   
+                  --}}
                   
-                  </td>
-
-
+                  <td> {!! getQueueStateIcon($queue->status) !!} </td>
                   <td>{{ $queue->total_tickets }}</td>
                   <td>{{ $queue->total_dismissed }}</td>
                   <td>{{ $queue->total_not_attended }}</td>

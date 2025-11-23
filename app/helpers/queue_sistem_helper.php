@@ -115,3 +115,41 @@
     }
 
  }
+
+ if(!function_exists('getQueueStateIcon')){
+  
+    function getQueueStateIcon($state){
+       
+        //uma fila tem 3 estados 
+        // active, inactive, done esse array possui um estado no indice e um icone para cada estado 
+        $icons= [
+            'active'=>'<i class="fa-regular fa-circle-check text-green-700" title="ativa"></i>',
+            'inactive'=>' <i class="fa-regular fa-circle-xmark text-red-700" title="inativa"></i>',
+            'done' =>'<i class="fa-solid fa-ban text-slate-300" title="concluida"></i>'
+        ];
+        
+        //aqui eu retorno o array icons no indice compativel com o estado recebido pela função
+        // se vier ms estado desconhecido ele vai retornar so um ifen 
+
+        return $icons[$state] ?? '-';
+     
+    }
+}
+
+if(!function_exists('getQueuetStateText')){
+
+    function getQueuetStateText($state){
+        
+       
+        $rules = [
+            'active' => 'Ativa',
+            'inactive'  => 'Inativa',
+            'done' => 'Concluida',
+            
+        ]; 
+
+        return $rules[$state]??'Desconhecido';
+
+    }
+
+ }

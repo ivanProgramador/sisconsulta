@@ -30,7 +30,7 @@
 
     <div class="flex gap-4 mb-4">
        
-        <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Estado: <span class="text-black font-bold">{{ $queue->status }}</span></p>
+        <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Estado: <span class="text-black font-bold">{{ getQueuetStateText($queue->status) }}</span></p>
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-1/2 p-2">Criada em: <span class="text-black font-bold">{{ $queue->created_at }}</span></p>
         <p class="bg-zinc-100 border-1 border-slate-300 rounded-md w-full p-2">Código: <span class="text-black font-bold">{{ $queue->hash_code }}</span></p>
     </div>
