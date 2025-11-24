@@ -45,6 +45,24 @@
 
     @else
 
+       <div class="flex justify-between gap-4 my-4">
+          <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Total<br><strong class="text-3xl">{{ $queue->total_tickets }}</strong>
+          </div>
+          <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Dispensados<br><strong class="text-3xl">{{ $queue->total_dismissed }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Não atendidos<br><strong class="text-3xl">{{ $queue->total_not_attended }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Atendidos <br><strong class="text-3xl">{{ $queue->total_called }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Esperando <br><strong class="text-3xl">{{ $queue->total_waiting }}</strong>
+          </div>
+       </div>
+
         <table id="table-tickets">
             <thead class="bg-black text-white">
                 <tr>
