@@ -13,16 +13,13 @@ class MainController extends Controller
 {
     public function index():View
     {
-        $queues = $this->getQueuesList();
-
+       
         $data=[
             'subtitle'=>'Home',
             'queues'  => $this->getQueuesList(),
             'companyName' => Auth::user()->company->company_name,
-            'companyTotal' => $this->getCompanyTotals()
+            'companyTotals' => $this->getCompanyTotals()
         ];
-
-        dd($data);
 
        
 
@@ -32,25 +29,33 @@ class MainController extends Controller
     private function getCompanyTotals(){
 
         $companyId = Auth::user()->id_company;
+
         $totalQueues = Queue::where('id_company',$companyId)->count();
 
-        //pegando todos os tickets ligados a empresa do susuario que esta logado
+        //pegando todos os tickets ligados a empresa do usuario que esta logado
 
         $tickets = QueueTicket::whereHas('queue',function($query) use ($companyId){
             $query->where('id_company',$companyId);
-        });
+        })->get();
 
         //fazendo o retorno dos dados com base nos tickets buscados acima
 
         return [
-            'total_queues' => $totalQueues,
-            'total_tickets' => $tickets->count(),
-            'total_dismissed' => $tickets->where('queue_ticket_status','dismissed')->count(),
-            'total_not_attended' => $tickets->where('queue_ticket_status','not_attended')->count(),
-            'total_called' => $tickets->where('queue_ticket_status','called')->count(),
-            'total_waiting' => $tickets->where('queue_ticket_status','waiting')->count()
+            'total_queues'=>$totalQueues,
+            'total_tickets'=>$tickets->count(),
+            'total_dismissed'=> $tickets->where('queue_ticket_status','dismissed')->count(),
+            'total_not_attended'=> $tickets->where('queue_ticket_status','not_attended')->count(),
+            'total_called'=> $tickets->where('queue_ticket_status','called')->count(),
+            'total_waiting'=> $tickets->where('queue_ticket_status','waiting')->count()
+
+
         ];       
     }
+
+
+
+
+
 
     private function getQueuesList(){
         

@@ -5,6 +5,7 @@
          {{ session('message') }}
       </div>
    @endif
+
     
 
 
@@ -14,6 +15,14 @@
    --}}
 
    <div class="main-card overflow-auto " >
+
+      
+   <div class="flex justify-between items-center">
+       <p class="title-2">Filas de espera</p>
+       <p class="title-3">Empresa: <strong>{{ $companyName }}</strong> </p>
+   </div>
+
+
 
       <p class="title-2">Filas de espera</p>
       <hr class="mt-2 mb-4">
@@ -29,6 +38,26 @@
        </div>
 
       @else 
+
+        <div class="flex justify-between gap-4 my-4">
+          <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Total<br><strong class="text-3xl">{{ $companyTotals['total_queues'] }}</strong>
+          </div>
+          <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Dispensados<br><strong class="text-3xl">{{ $companyTotals['total_dismissed'] }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Não atendidos<br><strong class="text-3xl">{{ $companyTotals['total_not_attended'] }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Atendidos <br><strong class="text-3xl">{{ $companyTotals['total_called'] }}</strong>
+          </div>
+           <div class="bg-gradient-to-b from-slate-200 to-slate-50 border-1 border-slate-300 rounded-xl w-full p-4 text-center text-xl">
+            Esperando <br><strong class="text-3xl">{{ $companyTotals['total_waiting'] }}</strong>
+          </div>
+       </div>
+
+
         <table id="tabela">
 
          <thead class="bg-black" >
