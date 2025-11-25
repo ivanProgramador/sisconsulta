@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class MainController extends Controller
 {
-    public function index():View
-    {
+    public function index():View {
        
         $data=[
             'subtitle'=>'Home',
@@ -51,11 +50,6 @@ class MainController extends Controller
 
         ];       
     }
-
-
-
-
-
 
     private function getQueuesList(){
         
@@ -163,4 +157,19 @@ class MainController extends Controller
         return view('main.queue_details',$data);
 
     }
+
+    public function createQueue():View
+    {       
+            $data=[
+                'subtitle'=>'Criar Fila'
+            ];
+            return view('main.queue_create_frm',$data);
+    }
+
+    public function createQueueSubmit(Request $request){
+        
+    }
+
+
+
 }

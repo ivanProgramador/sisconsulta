@@ -23,6 +23,11 @@ Route::middleware(['auth'])->group(function () {
     //rota home 
     Route::get('/', [MainController::class,'index'])->name('home');
 
+    //rotas para criar uma nova fila 
+    Route::get('/queue/create',[MainController::class,'createQueue'])->name('queue.create');
+    Route::post('/queue/create',[MainController::class,'createQueueSubmit'])->name('queue.create.submit');
+
+
     //rota para detalhes da fila 
     Route::get('/queue/{id}',[MainController::class,'queueDetails'])->name('queue.details');
 
@@ -30,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/change-password',[AuthController::class,'changePassword'])->name('change.password');
     Route::post('/change-password',[AuthController::class,'changePasswordSubmit'])->name('change.password.submit');
     
-
     //rota de logout 
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
     
