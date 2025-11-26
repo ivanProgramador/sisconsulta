@@ -74,6 +74,15 @@
 
                 <div class="main-card flex !p-4 mb-4">
 
+                    {{---
+                       Nessa parte existe um aponto importante a ser abordado
+                       uma agrande maioria dos usuarios não sabe usar codigos hexadecimais 
+                       para configurar a cores então eu adicionei a biblioteca coloris 
+                       que gera uma mini palheta onde ele pode esclehr de forma visual 
+                       a cor que ele deseja no ticket da fila    
+                    
+                    --}}
+
                     <div class="w-1/2">
                         <div class="mb-4">
                             <label class="label">Prefixo - Cor de fundo</label>
@@ -116,7 +125,31 @@
 </div>
 
 <script>
-    // javascript goes here
+
+     // integrando o coloris nos elementos necessários
+     //a coloris no caso dese porjeto eu vou usar apenas 3 configurações
+     //mas ela tem bem mais possibilidades  
+     
+     /*
+       a funcção coloris nesse caso vai receber um objeto com  3 dados 
+       
+       el: é o elemento que desejo que receba uma palheta de cores eu pasei o id  
+       alpha: eu coloquei o valor false porque eu não quero que o usuario possa mexer na transparencia das cores 
+       defaultColor: é uma cor padrão que fica na palheta 
+       
+
+
+     */
+
+     Coloris({el:'#color_1',alpha:false,defaultColor:'0d3561'});
+     Coloris({el:'#color_2',alpha:false,defaultColor:'0d3561'});
+     Coloris({el:'#color_3',alpha:false,defaultColor:'0d3561'});
+     Coloris({el:'#color_4',alpha:false,defaultColor:'0d3561'});
+     
+     
+
+
+
 </script>
 
 </x-layouts.auth-layout>
