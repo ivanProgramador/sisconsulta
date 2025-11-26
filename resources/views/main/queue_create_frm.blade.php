@@ -40,9 +40,23 @@
 
                     <div class="w-full">
                         <label for="prefix" class="label">Prefixo</label>
+
                         <select name="prefix" id="prefix" class="input w-full">
-                            <option value="-">Sem prefixo</option>
+                             <option value="-">sem prefixo</option>
+
+                            @php 
+                              $prefixes = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                            @endphp
+                           
+                            @foreach($prefixes as $prefix)
+                               
+                               <option value="{{ $prefix }}" {{ $prefix ==='A' ? 'selected' :'' }} >{{ $prefix }}</option>
+                                                                 
+                            @endforeach
                         </select>
+
+
+
                     </div>
 
                     <div class="w-full">
@@ -145,11 +159,67 @@
      Coloris({el:'#color_2',alpha:false,defaultColor:'0d3561'});
      Coloris({el:'#color_3',alpha:false,defaultColor:'0d3561'});
      Coloris({el:'#color_4',alpha:false,defaultColor:'0d3561'});
+
+     //capturando os elementos para montar uma iteração
+
+     const prefix = document.querySelector("#prefix");
+     const total_digits = document.querySelector("#total_digits");
+     const color1 = document.querySelector("#color_1");
+     const color2 = document.querySelector("#color_2");
+     const color3 = document.querySelector("#color_3");
+     const color4 = document.querySelector("#color_4");
      
+     //elementos da preview do ticket
+     const example_prefix = document.querySelector("#example_prefix");
+     const example_number = document.querySelector("#example_number");
+
+     //função que atualiza o elemento de preview
      
+     function updateTicketPreview(){
+        
+        //constante que vai pegar todos os atributos 
+        // do elemento visual do ticket 
+
+        const ticketProperties = {
+            hasPrefix: prefix.value !== '-',
+            prefix: prefix.value,
+            totalDigits: parseInt(total_digits.value),
+            prefixBackgroundColor: color1.value,
+            prefixTextColor: color2.value,
+            numberBackGroundColor: color3.value,
+            numberTextColor: color4.value,
+        };
+
+        //atualizando o prefixo
+        if(ticketProperties.hasPrefix){
+            example_prefix.textContent = ticketProperties.prefix;
+            example_prefix.style.backgroundColor = ticketProperties.prefixBackgroundColor;
+            example_prefix.style.color = ticketProperties.prefixTextColor;
+            example_prefix.classList.remove('hidden'); 
+            example_number.classList.remove('hidden');
+            example_prefix.classList.add('rounded-tl-2xl','rounded-bl-2xl');
+        }else{
+             example_prefix.classList.add('hidden');
+        } 
+
+        //atualizando o numero 
+        example_number.textContent = String(1).padStart(ticketProperties.totalDigits,'0');
+        example_number.style.backgroundColor = ticketProperties.numberBackGroundColor;
+        example_number.style.color = ticketProperties.numberTextColor;
 
 
 
-</script>
+
+
+       }
+
+     prefix.addEventListener('change',updateTicketPreview);
+     total_digits.addEventListener('change',updateTicketPreview);
+     color1.addEventListener('change',updateTicketPreview); 
+     color2.addEventListener('change',updateTicketPreview); 
+     color3.addEventListener('change',updateTicketPreview); 
+     color4.addEventListener('change',updateTicketPreview); 
+
+   </script>
 
 </x-layouts.auth-layout>
