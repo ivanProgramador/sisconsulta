@@ -128,7 +128,7 @@
         </div>
 
         <div class="flex w-1/2 justify-center items-center">
-            <div id="color_preview" class="flex main-card">
+            <div id="color_preview" class="flex main-card !bg-slate-200">
                 <p id="example_prefix" class="rounded-tl-2xl rounded-bl-2xl text-center text-9xl font-bold p-6" style="background-color: #0d3561; color: #ffffff;">A</p>
                 <p id="example_number" class="rounded-tr-2xl rounded-br-2xl text-center text-9xl font-bold p-6" style="background-color: #adb4b9; color: #011020;">01</p>
             </div>
@@ -150,15 +150,41 @@
        el: é o elemento que desejo que receba uma palheta de cores eu pasei o id  
        alpha: eu coloquei o valor false porque eu não quero que o usuario possa mexer na transparencia das cores 
        defaultColor: é uma cor padrão que fica na palheta 
-       
+     */
 
+     /*
+       Em alguns casos o usuario não vai querer usar paleta porque pode levar tempo 
+       ate encontrar a cor certa para colocar no ticket da fila então o coloris 
+       tambem fornece a porssibilidade de colocar core fixas pre-definidas
+       usando a diretiva 
+       
+       swatches
+       
+       Nisso eu posso definir uma grupo de cores fixas qie vão ficar disponiveis para o usuario escolher  
 
      */
 
-     Coloris({el:'#color_1',alpha:false,defaultColor:'0d3561'});
-     Coloris({el:'#color_2',alpha:false,defaultColor:'0d3561'});
-     Coloris({el:'#color_3',alpha:false,defaultColor:'0d3561'});
-     Coloris({el:'#color_4',alpha:false,defaultColor:'0d3561'});
+     const fixedColors = [
+                '#ff0000',
+                '#660000',
+                '#0000ff',
+                '#000066',
+                '#00ff00',
+                '#006600',
+                '#ffa800',
+                '#aa6600',
+                '#ffff00',
+                '#666600',
+                '#000000',
+                '#ffffff',
+    ];
+
+    
+
+     Coloris({el:'#color_1',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
+     Coloris({el:'#color_2',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
+     Coloris({el:'#color_3',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
+     Coloris({el:'#color_4',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
 
      //capturando os elementos para montar uma iteração
 
