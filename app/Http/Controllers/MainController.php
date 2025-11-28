@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
@@ -168,6 +169,23 @@ class MainController extends Controller
 
     public function createQueueSubmit(Request $request){
         
+    }
+
+    public function generateQueueHash(){
+
+        //gerando uma hash unica de  64 bits
+
+        $hash = hash('sha256',Str::random(40));
+
+        //tendo certeza que ela é unica enquanto não for será gerada uma nova hash 
+        
+        while(Queue::where('hash_code',$hash)->exists()){
+            $hash = hash('sha256',Str::random(40));
+        }
+
+        //retornando a hash
+        
+        return response()->json(['hash'=>$hash]);
     }
 
 

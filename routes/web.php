@@ -27,12 +27,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/create',[MainController::class,'createQueue'])->name('queue.create');
     Route::post('/queue/create',[MainController::class,'createQueueSubmit'])->name('queue.create.submit');
 
+    //rota pra gerar a hash da fila 
+    Route::get('/queue/generate-hash',[MainController::class,'generateQueueHash'])->name('queue.generate.hash');
+
 
     //rota para detalhes da fila 
     Route::get('/queue/{id}',[MainController::class,'queueDetails'])->name('queue.details');
 
     //rotas para alterar a senha 
     Route::get('/change-password',[AuthController::class,'changePassword'])->name('change.password');
+    
     Route::post('/change-password',[AuthController::class,'changePasswordSubmit'])->name('change.password.submit');
     
     //rota de logout 

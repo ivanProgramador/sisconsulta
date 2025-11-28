@@ -82,9 +82,12 @@
                     <p class="label">Código de hash</p>
                     <div class="flex gap-2">
                         <p class="input bg-slate-100 w-full" id="hash_code">&nbsp;</p>
-                        <button type="button" class="btn"><i class="fa-solid fa-rotate"></i></button>
+                        <button type="button" id="btn_hash_code" class="btn"><i class="fa-solid fa-rotate"></i></button>
                     </div>
                 </div>
+
+
+
 
                 <div class="main-card flex !p-4 mb-4">
 
@@ -245,6 +248,43 @@
      color2.addEventListener('change',updateTicketPreview); 
      color3.addEventListener('change',updateTicketPreview); 
      color4.addEventListener('change',updateTicketPreview); 
+
+     function getHashCode(){
+
+        //vou  urr o fetch pra acionar a rota 
+        //e pagar o resultado que seria a hash 
+
+        fetch("{{ route('queue.generate.hash') }}")
+
+          //depois de requisitar eu coloco o conteudo da resposta dentro de um json 
+
+             .then(response => response.json())
+             
+          //mas na resposta não vem so a hash ela é um objeto com varios dados
+          //eu passo esses dados pra variavel data  
+             .then(data=>{
+
+                //aqui eu seleciono o input que mostra a hash pelo id 
+                //depois eu pego o conteudo de texto dele e adiono somente a hash do objeto 
+
+                document.querySelector("#hash_code").textContent = data.hash;
+
+
+                //eu coloquei esse catch aqui no caso de falha mas essa url so falha se o servidor estiver offline 
+                //então nesse caso a pagina nem seria carregada 
+
+             })
+             .catch(error =>{
+                 alert('Aconteceu um erro ao gerar a hash !');
+             });
+     }
+
+
+     getHashCode();
+
+     //gerando uma nova hash com o clique do botão 
+     
+     document.querySelector('#btn_hash_code').addEventListener('click',getHashCode);
 
    </script>
 
