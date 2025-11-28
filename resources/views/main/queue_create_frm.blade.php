@@ -12,7 +12,11 @@
 
         <div class="w-1/2">
 
-            <form action="#" method="POST" novalidate>
+            <form action="{{ route('queue.create.submit') }}" method="POST" novalidate>
+
+                @csrf 
+
+                <input type="hidden" id="hidden_hash_code" name="hidden_hash_code" value="" >
 
                 <div class="mb-4">
                     <label for="name" class="label">Nome da fila</label>
@@ -268,6 +272,7 @@
                 //depois eu pego o conteudo de texto dele e adiono somente a hash do objeto 
 
                 document.querySelector("#hash_code").textContent = data.hash;
+                document.querySelector('input[name="hidden_hash_code"]').value = data.hash;
 
 
                 //eu coloquei esse catch aqui no caso de falha mas essa url so falha se o servidor estiver offline 

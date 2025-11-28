@@ -168,6 +168,67 @@ class MainController extends Controller
     }
 
     public function createQueueSubmit(Request $request){
+
+        $request->validate(
+          [
+                    'name'=>'required|min:5|max:100',
+                    'description'=>'required|min:5|max:255',
+                    'service' =>'required|min:3|max:50',
+                    'desk'=>'required|min:1|max:20',
+                    'prefix'=>'required|regex:/^[A-Z]\-$/',
+                    'total_digits'=>'required|integer|min:2|max:4',
+                    'color_1'=>'required|regex:/^\#[a-f0-9]{6}$/',
+                    'color_2'=>'required|regex:/^\#[a-f0-9]{6}$/',
+                    'color_3'=>'required|regex:/^\#[a-f0-9]{6}$/',
+                    'color_4'=>'required|regex:/^\#[a-f0-9]{6}$/',
+                    'hidden_hash_code'=>'required|size:64',
+                    'status' =>'required|in:active,inactive',
+        ],
+        [
+                    'name.required' => 'O campo nome é obrigatório.',
+                    'name.min' => 'O nome deve ter no mínimo 5 caracteres.',
+                    'name.max' => 'O nome deve ter no máximo 100 caracteres.',
+
+                    'description.required' => 'O campo descrição é obrigatório.',
+                    'description.min' => 'A descrição deve ter no mínimo 5 caracteres.',
+                    'description.max' => 'A descrição deve ter no máximo 255 caracteres.',
+
+                    'service.required' => 'O campo serviço é obrigatório.',
+                    'service.min' => 'O serviço deve ter no mínimo 3 caracteres.',
+                    'service.max' => 'O serviço deve ter no máximo 50 caracteres.',
+
+                    'desk.required' => 'O campo guichê é obrigatório.',
+                    'desk.min' => 'O guichê deve ter no mínimo 1 caractere.',
+                    'desk.max' => 'O guichê deve ter no máximo 20 caracteres.',
+
+                    'prefix.required' => 'O campo prefixo é obrigatório.',
+                    'prefix.regex' => 'O prefixo deve conter apenas uma letra maiúscula seguida de um hífen (ex: A-).',
+
+                    'total_digits.required' => 'O campo total de dígitos é obrigatório.',
+                    'total_digits.integer' => 'O total de dígitos deve ser um número inteiro.',
+                    'total_digits.min' => 'O total de dígitos deve ser no mínimo 2.',
+                    'total_digits.max' => 'O total de dígitos deve ser no máximo 4.',
+
+                    'color_1.required' => 'A cor 1 é obrigatória.',
+                    'color_1.regex' => 'A cor 1 deve estar no formato hexadecimal (ex: #a1b2c3).',
+
+                    'color_2.required' => 'A cor 2 é obrigatória.',
+                    'color_2.regex' => 'A cor 2 deve estar no formato hexadecimal (ex: #a1b2c3).',
+
+                    'color_3.required' => 'A cor 3 é obrigatória.',
+                    'color_3.regex' => 'A cor 3 deve estar no formato hexadecimal (ex: #a1b2c3).',
+
+                    'color_4.required' => 'A cor 4 é obrigatória.',
+                    'color_4.regex' => 'A cor 4 deve estar no formato hexadecimal (ex: #a1b2c3).',
+
+                    'hidden_hash_code.required' => 'O código hash é obrigatório.',
+                    'hidden_hash_code.size' => 'O código hash deve ter exatamente 64 caracteres.',
+
+                    'status.required' => 'O campo status é obrigatório.',
+                    'status.in' => 'O status deve ser "active" ou "inactive".',
+                ]
+      );
+
         
     }
 
