@@ -169,13 +169,15 @@ class MainController extends Controller
 
     public function createQueueSubmit(Request $request){
 
+       
+
         $request->validate(
           [
                     'name'=>'required|min:5|max:100',
                     'description'=>'required|min:5|max:255',
                     'service' =>'required|min:3|max:50',
                     'desk'=>'required|min:1|max:20',
-                    'prefix'=>'required|regex:/^[A-Z]\-$/',
+                    'prefix'=>'required|regex:/^[A-Z\-]{1}$/',
                     'total_digits'=>'required|integer|min:2|max:4',
                     'color_1'=>'required|regex:/^\#[a-f0-9]{6}$/',
                     'color_2'=>'required|regex:/^\#[a-f0-9]{6}$/',

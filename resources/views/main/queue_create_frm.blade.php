@@ -1,4 +1,11 @@
 <x-layouts.auth-layout subtitle="{{ $subtitle }}">
+
+    @php 
+      if(session()->has('errors')){
+         dd(session('errors'));
+      }
+    @endphp
+
 <div class="main-card overflow-auto">
 
     <div class="flex justify-between items-center">
