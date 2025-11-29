@@ -1,10 +1,6 @@
 <x-layouts.auth-layout subtitle="{{ $subtitle }}">
 
-    @php 
-      if(session()->has('errors')){
-         dd(session('errors'));
-      }
-    @endphp
+   
 
 <div class="main-card overflow-auto">
 
@@ -27,23 +23,34 @@
 
                 <div class="mb-4">
                     <label for="name" class="label">Nome da fila</label>
-                    <input type="text" name="name" id="name" class="input w-full" placeholder="Nome da fila">
+                    <input type="text" name="name" id="name" class="input w-full" placeholder="Nome da fila" value="{{ old('name')}}">
+
+                     {!! ShowValidationError('name',$errors)  !!}
+                     {!! ShowServerError()  !!}
                 </div>
 
                 <div class="mb-4">
                     <label for="description" class="label">Descrição</label>
-                    <input type="text" name="description" id="description" class="input w-full" placeholder="Descrição da fila">
+                    <input type="text" name="description" id="description" class="input w-full" placeholder="Descrição da fila" value="{{ old('description')}}">
+
+                    {!! ShowValidationError('description',$errors)  !!}
+                     {!! ShowServerError()  !!}
                 </div>
 
                 <div class="flex gap-4 mb-4">
                     <div class="w-1/2">
                         <label for="service" class="label">Serviço</label>
-                        <input type="text" name="service" id="service" class="input w-full" placeholder="Serviço">
+                        <input type="text" name="service" id="service" class="input w-full" placeholder="Serviço" value="{{ old('service') }}">
+                        {!! ShowValidationError('service',$errors)  !!}
+                        {!! ShowServerError()  !!}
                     </div>
 
                     <div class="w-1/2">
                         <label for="desk" class="label">Balcão de atendimento</label>
-                        <input type="text" name="desk" id="desk" class="input w-full" placeholder="Balcão de atendimento">
+                        <input type="text" name="desk" id="desk" class="input w-full" placeholder="Balcão de atendimento" value="{{ old('desk') }}" >
+                        {!! ShowValidationError('desk',$errors)  !!}
+                        {!! ShowServerError()  !!}
+
                     </div>
                 </div>
 
@@ -65,6 +72,8 @@
                                                                  
                             @endforeach
                         </select>
+                        {!! ShowValidationError('prefix',$errors)  !!}
+
 
 
 
@@ -77,6 +86,7 @@
                             <option value="3">000</option>
                             <option value="4">0000</option>
                         </select>
+                          {!! ShowValidationError('total_digits',$errors)  !!}
                     </div>
 
                     <div class="w-full">
@@ -85,6 +95,7 @@
                             <option value="active" selected>Ativa</option>
                             <option value="inactive">Inativa</option>
                         </select>
+                          {!! ShowValidationError('status',$errors)  !!}
                     </div>
 
                 </div>
@@ -95,6 +106,7 @@
                         <p class="input bg-slate-100 w-full" id="hash_code">&nbsp;</p>
                         <button type="button" id="btn_hash_code" class="btn"><i class="fa-solid fa-rotate"></i></button>
                     </div>
+                      {!! ShowValidationError('hidden_hash_code',$errors)  !!}
                 </div>
 
 
@@ -115,10 +127,12 @@
                         <div class="mb-4">
                             <label class="label">Prefixo - Cor de fundo</label>
                             <input type="text" class="input text-zinc-900" name="color_1" id="color_1" value="#0d3561">
+                             {!! ShowValidationError('color_1',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Prefixo - Cor do texto</label>
                             <input type="text" class="input text-zinc-900" name="color_2" id="color_2" value="#ffffff">
+                            {!! ShowValidationError('color_2',$errors)  !!}
                         </div>
                     </div>
 
@@ -126,10 +140,12 @@
                         <div class="mb-4">
                             <label class="label">Número - Cor de fundo</label>
                             <input type="text" class="input text-zinc-900" name="color_3" id="color_3" value="#adb4b9">
+                            {!! ShowValidationError('color_3',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Número - Cor do texto</label>
                             <input type="text" class="input text-zinc-900" name="color_4" id="color_4" value="#011020">
+                            {!! ShowValidationError('color_4',$errors)  !!}
                         </div>
                     </div>
 

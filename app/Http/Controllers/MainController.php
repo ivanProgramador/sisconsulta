@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class MainController extends Controller
@@ -229,7 +230,34 @@ class MainController extends Controller
                     'status.required' => 'O campo status é obrigatório.',
                     'status.in' => 'O status deve ser "active" ou "inactive".',
                 ]
-      );
+           );
+
+           //testando se ja existe uma fla de espera com um nome igual para a mesma empresa
+
+           $companyId = Auth::user()->id_company;
+           $queueExists = Queue::where('id_company',$companyId)
+                               ->where('name',$request->name)
+                               ->exists();
+           if($queueExists){
+              return redirect()->back()->withInput()->with(['server_error' =>'Já existe uma fila com esse nome para essa empresa ']);
+           }
+
+           //verificar novamente se a hash code da fila é unica em toda a base de dados
+
+           $hashCode = $request->hidden_hash_code; 
+           $hashExists = Queue::where('hash_code',$hashCode)->exists();
+           if($hashExists){
+              return redirect()->back()->withInput()->with(['server_error' =>'Esse hash code ja esta sendo usado por favor gere um novo']);
+           }
+
+           dd($request);
+           
+           
+
+
+
+
+      
 
         
     }
