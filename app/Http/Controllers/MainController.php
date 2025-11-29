@@ -250,17 +250,33 @@ class MainController extends Controller
               return redirect()->back()->withInput()->with(['server_error' =>'Esse hash code ja esta sendo usado por favor gere um novo']);
            }
 
-           dd($request);
+           //preparando os dados pra gravar
            
+           $newQueue = new Queue();
+           $newQueue->id_company = Auth::user()->id_company;
+           $newQueue->name = trim($request->name);
+           $newQueue->description = trim($request->description);
+           $newQueue->service_name = trim($request->service);
+           $newQueue->service_desk = trim($request->desk);
+           $newQueue->queue_prefix = strtoupper(trim($request->prefix));
+           $newQueue->queue_total_digits = (int) trim($request->total_digits);
+           //em relação a cores eu vou receber um array e converter ele para um json
+           $newQueue->queue_colors = json_encode([
+             'prefix_bg_color' => trim($request->color_1),
+             'prefix_text_color' => trim($request->color_2),
+             'number_bg_color' => trim($request->color_3),
+             'number_text_color' => trim($request->color_4),
+           ]);
+           $newQueue->hash_code = trim($request->hidden_hash_code);
+           $newQueue->status = trim($request->status);
+
+           //gravando na base
            
+           $newQueue->save();
 
-
-
-
-      
-
+           return redirect()->route('home'); 
         
-    }
+        }
 
     public function generateQueueHash(){
 
