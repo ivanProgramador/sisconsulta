@@ -27,6 +27,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/create',[MainController::class,'createQueue'])->name('queue.create');
     Route::post('/queue/create',[MainController::class,'createQueueSubmit'])->name('queue.create.submit');
 
+    //rotas para editar uma fila
+    Route::get('/queue/edit/{id}',[MainController::class,'editQueue'])->name('queue.edit');
+    Route::post('/queue/edit',[MainController::class,'editQueueSubmit'])->name('queue.edit.submit'); 
+
+
     //rota pra gerar a hash da fila 
     Route::get('/queue/generate-hash',[MainController::class,'generateQueueHash'])->name('queue.generate.hash');
 

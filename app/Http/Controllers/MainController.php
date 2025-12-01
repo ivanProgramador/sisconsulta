@@ -56,6 +56,8 @@ class MainController extends Controller
     private function getQueuesList(){
         
         $companyId = Auth::user()->id_company;
+
+        
         return Queue::where('id_company',Auth::user()->id_company)
                       ->withCount([
 
@@ -294,6 +296,56 @@ class MainController extends Controller
         
         return response()->json(['hash'=>$hash]);
     }
+
+    public function editQueue($id):View
+    {
+       //decodificando o id recebido pela requisição
+       //e testando se é um numero de id valido 
+
+       try{
+          $id = Crypt::decrypt($id);
+       }catch(\Exception $e){
+          abort(403,'ID de fila invalido ');
+       }
+
+       //verificando se a fila existe e se pertence ao usuario 
+       //que esta logado 
+       
+       $queue = Queue::where('id',$id)
+                     ->where('id_company',Auth::user()->id_company)
+                     ->firstOrFail();
+
+       //testando se alguma fila foi achada na consulta
+
+       if(!$queue){
+          abort(404,'Fila não encontrada !');
+       }
+
+       //caso exista os dados dela serão passado pra esse array 
+       //o queue colors vai chegar como um json por isso eu tenho que decodificar 
+       //para que ele possa ser lido pela interface
+       //como um array associativo
+       
+       $data = [
+          'subtitle' =>'Editar Fila',
+          'queue' =>$queue,
+          'queue_colors' => json_decode($queue->queue_colors,true)
+       ];
+       
+       return view('main.queue_edit_frm',$data);
+
+    }
+
+    public function editQueueSubmit(Request $request){
+
+        echo"requisicao recebida";
+
+    }
+
+
+
+
+    
 
 
 
