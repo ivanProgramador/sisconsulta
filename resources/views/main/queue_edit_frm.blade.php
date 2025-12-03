@@ -1,12 +1,11 @@
-<x-layouts.auth-layout subtitle="{{ $subtitle }}">
+<x-layouts.auth-layout subtitle="{{ empty('subtitle') ? '' : $subtitle }}">
 
-   
 
 <div class="main-card overflow-auto">
 
     <div class="flex justify-between items-center">
-        <p class="title-2">Editar fila de espera </p>
-        <a href="{{route('home')}}" class="btn"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
+        <p class="title-2">Editar fila de espera</p>
+        <a href="{{ route('home')}}" class="btn"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
     </div>
 
     <hr class="my-4">
@@ -19,12 +18,11 @@
 
                 @csrf 
 
-                <input type="hidden" id="hidden_hash_code" name="hidden_hash_code" value="" >
-                <input type="hidden" name="queue_id" value="{{ Crypt::encrypt($queue->id) }}">
+                <input type="hidden" name="queue_id" value="{{ Crypt::encrypt($queue->id) }} " >
 
                 <div class="mb-4">
                     <label for="name" class="label">Nome da fila</label>
-                    <input type="text" name="name" id="name" class="input w-full" placeholder="Nome da fila" value="{{ old('name',$queue->name)}}">
+                    <input type="text" name="name" id="name" class="input w-full" placeholder="Nome da fila" value="{{ old('name',$queue->name )}}">
 
                      {!! ShowValidationError('name',$errors)  !!}
                      {!! ShowServerError()  !!}
@@ -61,7 +59,9 @@
                         <label for="prefix" class="label">Prefixo</label>
 
                         <select name="prefix" id="prefix" class="input w-full">
-                             <option value="-" {{ $queue->queue_prefix === '-' ? 'selected':'' }} >sem prefixo</option>
+
+
+                             <option value="-" {{ $queue->queue_prefix ==='-' ? 'selected' :''}} >sem prefixo</option>
 
                             @php 
                               $prefixes = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -69,30 +69,22 @@
                            
                             @foreach($prefixes as $prefix)
                                
-                               <option value="{{ $prefix }}" {{ $prefix === $queue->queue_prefix ? 'selected':'' }} >{{ $prefix }}</option>
+                               <option value="{{ $prefix }}" {{ $prefix === $queue->queue_prefix ? 'selected' :'' }} >{{ $prefix }}</option>
                                                                  
                             @endforeach
                         </select>
                         {!! ShowValidationError('prefix',$errors)  !!}
 
-
-
-
                     </div>
 
-                    
-
-                   
+                  
 
                     <div class="w-full">
                         <label for="status" class="label">Estado</label>
                         <select name="status" id="status" class="input w-full">
-
                             <option value="active" {{ $queue->status === 'active' ? 'selected':'' }}>Ativa</option>
                             <option value="inactive" {{ $queue->status === 'inactive' ? 'selected':'' }}>Inativa</option>
                             <option value="done" {{ $queue->status === 'done' ? 'selected':'' }} >Encerrada</option>
-
-
                         </select>
                           {!! ShowValidationError('status',$errors)  !!}
                     </div>
@@ -101,16 +93,9 @@
 
                 <div class="mb-4">
                     <p class="label">Código de hash</p>
-
-                     {{-- 
-                        O hash code de cada fila é único por isso ele será exibido
-                        mas não sera editavel  
-                     
-                     --}}
-
                     <div class="flex gap-2">
-                        <p class="input bg-slate-100 w-full" id="hash_code">&nbsp;</p>
-                    
+                        <p class="input bg-slate-100 w-full" id="hash_code">{{ $queue->hash_code }}</p>
+                        
                     </div>
                       {!! ShowValidationError('hidden_hash_code',$errors)  !!}
                 </div>
@@ -132,12 +117,12 @@
                     <div class="w-1/2">
                         <div class="mb-4">
                             <label class="label">Prefixo - Cor de fundo</label>
-                            <input type="text" class="input text-zinc-900" name="color_1" id="color_1" value="{{ old('color_1','#0d3561') }}">
+                            <input type="text" class="input text-zinc-900" name="color_1" id="color_1" value="{{ old('color_1',$queueColors['prefix_bg_color']) }}">
                              {!! ShowValidationError('color_1',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Prefixo - Cor do texto</label>
-                            <input type="text" class="input text-zinc-900" name="color_2" id="color_2" value="{{old('color_2','#ffffff')}}">
+                            <input type="text" class="input text-zinc-900" name="color_2" id="color_2" value="{{ old('color_2',$queueColors['prefix_text_color']) }}">
                             {!! ShowValidationError('color_2',$errors)  !!}
                         </div>
                     </div>
@@ -145,19 +130,19 @@
                     <div class="w-1/2">
                         <div class="mb-4">
                             <label class="label">Número - Cor de fundo</label>
-                            <input type="text" class="input text-zinc-900" name="color_3" id="color_3" value="{{ old('color_3','#adb4b9') }}">
+                            <input type="text" class="input text-zinc-900" name="color_3" id="color_3" value="{{ old('color_3',$queueColors['number_bg_color']) }}">
                             {!! ShowValidationError('color_3',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Número - Cor do texto</label>
-                            <input type="text" class="input text-zinc-900" name="color_4" id="color_4" value="{{ old('color_4','#011020') }}">
+                            <input type="text" class="input text-zinc-900" name="color_4" id="color_4" value="{{ old('color_4',$queueColors['number_text_color']) }}">
                             {!! ShowValidationError('color_4',$errors)  !!}
                         </div>
                     </div>
 
                 </div>
 
-                <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Criar nova fila</button>
+                <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Salvar alterações</button>
 
             </form>
 
@@ -173,6 +158,7 @@
     </div>
 
 </div>
+
 
 <script>
 
@@ -215,16 +201,25 @@
                 '#ffffff',
     ];
 
+    /*
+     #od3561
+     #ffffff
+     #adb4b9
+     #011020
+    
+    */
+
     
 
-     Coloris({el:'#color_1',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_2',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_3',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_4',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
+     Coloris({el:'#color_1',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_1',$queueColors['prefix_bg_color'])   }}'});
+     Coloris({el:'#color_2',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_2',$queueColors['prefix_text_color']) }}'});
+     Coloris({el:'#color_3',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_3',$queueColors['number_bg_color'])   }}'});
+     Coloris({el:'#color_4',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_4',$queueColors['number_text_color']) }}'});
 
      //capturando os elementos para montar uma iteração
 
      const prefix = document.querySelector("#prefix");
+     const total_digits = {{ $queue->queue_total_digits }};
      const color1 = document.querySelector("#color_1");
      const color2 = document.querySelector("#color_2");
      const color3 = document.querySelector("#color_3");
@@ -244,6 +239,7 @@
         const ticketProperties = {
             hasPrefix: prefix.value !== '-',
             prefix: prefix.value,
+            totalDigits: total_digits,
             prefixBackgroundColor: color1.value,
             prefixTextColor: color2.value,
             numberBackGroundColor: color3.value,
@@ -273,51 +269,26 @@
 
        }
 
+    updateTicketPreview();
+
      prefix.addEventListener('change',updateTicketPreview);
      color1.addEventListener('change',updateTicketPreview); 
      color2.addEventListener('change',updateTicketPreview); 
      color3.addEventListener('change',updateTicketPreview); 
      color4.addEventListener('change',updateTicketPreview); 
+
      
+     //chamada inicial
+     updateTicketPreview();
 
-     function getHashCode(){
-
-        //vou  urr o fetch pra acionar a rota 
-        //e pagar o resultado que seria a hash 
-
-        fetch("{{ route('queue.generate.hash') }}")
-
-          //depois de requisitar eu coloco o conteudo da resposta dentro de um json 
-
-             .then(response => response.json())
-             
-          //mas na resposta não vem so a hash ela é um objeto com varios dados
-          //eu passo esses dados pra variavel data  
-             .then(data=>{
-
-                //aqui eu seleciono o input que mostra a hash pelo id 
-                //depois eu pego o conteudo de texto dele e adiono somente a hash do objeto 
-
-                document.querySelector("#hash_code").textContent = data.hash;
-                document.querySelector('input[name="hidden_hash_code"]').value = data.hash;
-
-
-                //eu coloquei esse catch aqui no caso de falha mas essa url so falha se o servidor estiver offline 
-                //então nesse caso a pagina nem seria carregada 
-
-             })
-             .catch(error =>{
-                 alert('Aconteceu um erro ao gerar a hash !');
-             });
-     }
-
-
-     getHashCode();
-
-     //gerando uma nova hash com o clique do botão 
      
-     document.querySelector('#btn_hash_code').addEventListener('click',getHashCode);
+     
+     
+     
+    
 
+     
    </script>
+
 
 </x-layouts.auth-layout>

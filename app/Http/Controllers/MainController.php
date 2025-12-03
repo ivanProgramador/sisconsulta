@@ -329,7 +329,7 @@ class MainController extends Controller
        $data = [
           'subtitle' =>'Editar Fila',
           'queue' =>$queue,
-          'queue_colors' => json_decode($queue->queue_colors,true)
+          'queueColors' => json_decode($queue->queue_colors,true)
        ];
        
        return view('main.queue_edit_frm',$data);

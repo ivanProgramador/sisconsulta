@@ -126,12 +126,12 @@
                     <div class="w-1/2">
                         <div class="mb-4">
                             <label class="label">Prefixo - Cor de fundo</label>
-                            <input type="text" class="input text-zinc-900" name="color_1" id="color_1" value="#0d3561">
+                            <input type="text" class="input text-zinc-900" name="color_1" id="color_1" value="{{ old('color_1','#0d3561') }}">
                              {!! ShowValidationError('color_1',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Prefixo - Cor do texto</label>
-                            <input type="text" class="input text-zinc-900" name="color_2" id="color_2" value="#ffffff">
+                            <input type="text" class="input text-zinc-900" name="color_2" id="color_2" value="{{ old('color_2','#ffffff') }}">
                             {!! ShowValidationError('color_2',$errors)  !!}
                         </div>
                     </div>
@@ -139,12 +139,12 @@
                     <div class="w-1/2">
                         <div class="mb-4">
                             <label class="label">Número - Cor de fundo</label>
-                            <input type="text" class="input text-zinc-900" name="color_3" id="color_3" value="#adb4b9">
+                            <input type="text" class="input text-zinc-900" name="color_3" id="color_3" value="{{ old('color_3','#adb4b9') }}">
                             {!! ShowValidationError('color_3',$errors)  !!}
                         </div>
                         <div>
                             <label class="label">Número - Cor do texto</label>
-                            <input type="text" class="input text-zinc-900" name="color_4" id="color_4" value="#011020">
+                            <input type="text" class="input text-zinc-900" name="color_4" id="color_4" value="{{ old('color_4','#011020') }}">
                             {!! ShowValidationError('color_4',$errors)  !!}
                         </div>
                     </div>
@@ -209,12 +209,20 @@
                 '#ffffff',
     ];
 
+    /*
+     #od3561
+     #ffffff
+     #adb4b9
+     #011020
+    
+    */
+
     
 
-     Coloris({el:'#color_1',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_2',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_3',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
-     Coloris({el:'#color_4',alpha:false, swatches:fixedColors, defaultColor:'0d3561'});
+     Coloris({el:'#color_1',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_1','#od3561') }}'});
+     Coloris({el:'#color_2',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_2','#ffffff') }}'});
+     Coloris({el:'#color_3',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_3','#adb4b9') }}'});
+     Coloris({el:'#color_4',alpha:false, swatches:fixedColors, defaultColor:'{{ old('color_4','#011020') }}'});
 
      //capturando os elementos para montar uma iteração
 
@@ -269,6 +277,8 @@
 
        }
 
+    updateTicketPreview();
+
      prefix.addEventListener('change',updateTicketPreview);
      total_digits.addEventListener('change',updateTicketPreview);
      color1.addEventListener('change',updateTicketPreview); 
@@ -276,6 +286,10 @@
      color3.addEventListener('change',updateTicketPreview); 
      color4.addEventListener('change',updateTicketPreview); 
 
+     
+     
+     
+     
      function getHashCode(){
 
         //vou  urr o fetch pra acionar a rota 
