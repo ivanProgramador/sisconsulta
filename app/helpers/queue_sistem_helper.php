@@ -29,7 +29,7 @@
  
  */
 
- if(!function_exists('ShowValidattionError')){
+ if(!function_exists('ShowValidationError')){
 
     function ShowValidationError($fieldName,$validationErrors){
 
@@ -48,23 +48,19 @@
  }
 
 
- if(!function_exists('ShowServerError')){
+ if (!function_exists('ShowServerError')) {
 
-    function ShowServerError(){
+    function ShowServerError() {
 
-        if(session()->has('server_error')){
-           
-            return '<div class="text-sm italic text-red-500" >'.session()->get('server_error').'</div>';
-
-        }else{
-
-            return '';
+        if (session()->has('server_error')) {
+            return '<div class="text-sm italic text-red-500">' 
+                . session('server_error') . 
+                '</div>';
         }
+
+        return '';
     }
-
-
-    
- }
+}
 
  if(!function_exists('getFormatedTicketNumber')){
     

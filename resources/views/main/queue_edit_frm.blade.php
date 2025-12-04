@@ -18,14 +18,18 @@
 
                 @csrf 
 
+                {!! ShowServerError()  !!}
+
                 <input type="hidden" name="queue_id" value="{{ Crypt::encrypt($queue->id) }} " >
+
 
                 <div class="mb-4">
                     <label for="name" class="label">Nome da fila</label>
                     <input type="text" name="name" id="name" class="input w-full" placeholder="Nome da fila" value="{{ old('name',$queue->name )}}">
 
                      {!! ShowValidationError('name',$errors)  !!}
-                     {!! ShowServerError()  !!}
+                      
+                    
                 </div>
 
                 <div class="mb-4">
@@ -33,7 +37,7 @@
                     <input type="text" name="description" id="description" class="input w-full" placeholder="Descrição da fila" value="{{ old('description',$queue->description)}}">
 
                     {!! ShowValidationError('description',$errors)  !!}
-                     {!! ShowServerError()  !!}
+                    
                 </div>
 
                 <div class="flex gap-4 mb-4">
@@ -41,14 +45,14 @@
                         <label for="service" class="label">Serviço</label>
                         <input type="text" name="service" id="service" class="input w-full" placeholder="Serviço" value="{{ old('service',$queue->service_name) }}">
                         {!! ShowValidationError('service',$errors)  !!}
-                        {!! ShowServerError()  !!}
+                        
                     </div>
 
                     <div class="w-1/2">
                         <label for="desk" class="label">Balcão de atendimento</label>
                         <input type="text" name="desk" id="desk" class="input w-full" placeholder="Balcão de atendimento" value="{{ old('desk',$queue->service_desk) }}" >
                         {!! ShowValidationError('desk',$errors)  !!}
-                        {!! ShowServerError()  !!}
+                        
 
                     </div>
                 </div>

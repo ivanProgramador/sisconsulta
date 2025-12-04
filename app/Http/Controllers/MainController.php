@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MainController extends Controller
 {
@@ -393,8 +394,44 @@ class MainController extends Controller
            );
 
 
+           //testando se o id veio do formulario 
+           if($request->has('queue_id')){
+              abort(403,'Operação invalida');
+           }
 
+           //testando se o id foi alterado manualmente
 
+            try{
+                Crypt::decrypt($request->queue_id);
+            }catch(\Exception $e){
+                abort(403,'Operação invalida ');
+            } 
+
+            //tentando se o id da fila editada pertence a mesma compania 
+            //do usuario que esta logado
+
+            $queueId = Crypt::decrypt($request->queue_id);
+            $companyId = Auth::user()->id_company;
+
+            $queue = Queue::where('id',$queueId)
+                          ->where('id_company',$companyId)
+                          ->firstOrFail();
+
+            if(!$queue){
+                abort(404,'Fila não encontrada !');
+            }
+
+            //testando se o nome da fila que foi alterado ja esta sendo usado 
+            //por outra fila da mesma empresa
+            
+            $queueExists = Queue::where('id_company',$companyId)
+                                ->where('name',$request->name)
+                                ->where('id','!=',$queueId)
+                                ->exists();
+
+            if($queueExists){
+                return redirect()->back()->withInput()->with(['server_error' =>'Já existe uma fila com esse nome para essa empresa ']);
+            }
         
 
         dd($request->all());
