@@ -65,11 +65,12 @@
 
                             @php 
                               $prefixes = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                              $queuePrefix = old('prefix',$queue->queue_prefix);
                             @endphp
                            
                             @foreach($prefixes as $prefix)
                                
-                               <option value="{{ $prefix }}" {{ $prefix === $queue->queue_prefix ? 'selected' :'' }} >{{ $prefix }}</option>
+                               <option value="{{ $prefix }}" {{ $queuePrefix === $prefix ? 'selected' : '' }} >{{ $prefix }}</option>
                                                                  
                             @endforeach
                         </select>
@@ -81,10 +82,14 @@
 
                     <div class="w-full">
                         <label for="status" class="label">Estado</label>
+
+                        @php
+                            $queueStatus = old('status',$queue->status);
+                        @endphp
                         <select name="status" id="status" class="input w-full">
-                            <option value="active" {{ $queue->status === 'active' ? 'selected':'' }}>Ativa</option>
-                            <option value="inactive" {{ $queue->status === 'inactive' ? 'selected':'' }}>Inativa</option>
-                            <option value="done" {{ $queue->status === 'done' ? 'selected':'' }} >Encerrada</option>
+                            <option value="active" {{ $queueStatus === 'active' ? 'selected':'' }}>Ativa</option>
+                            <option value="inactive" {{ $queueStatus === 'inactive' ? 'selected':'' }}>Inativa</option>
+                            <option value="done" {{ $queueStatus === 'done' ? 'selected':'' }} >Encerrada</option>
                         </select>
                           {!! ShowValidationError('status',$errors)  !!}
                     </div>
