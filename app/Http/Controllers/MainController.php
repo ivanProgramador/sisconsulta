@@ -455,6 +455,18 @@ class MainController extends Controller
     }
 
 
+    public function cloneQueue($id){
+
+    }
+
+    public function cloneQueueSubmit(Request $request){
+        
+        dd($request->all());
+    }
+
+
+
+
 
 
     

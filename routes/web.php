@@ -31,6 +31,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/edit/{id}',[MainController::class,'editQueue'])->name('queue.edit');
     Route::post('/queue/edit',[MainController::class,'editQueueSubmit'])->name('queue.edit.submit'); 
 
+    //rota de clonagem de fila
+    Route::get('/queue/clone/{id}',[MainController::class,'cloneQueue'])->name('queue.clone');
+    Route::post('/queue/clone/{id}',[MainController::class,'cloneQueueSubmit'])->name('queue.clone.submit');  
+
+
 
     //rota pra gerar a hash da fila 
     Route::get('/queue/generate-hash',[MainController::class,'generateQueueHash'])->name('queue.generate.hash');
