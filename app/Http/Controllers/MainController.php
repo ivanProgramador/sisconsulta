@@ -395,7 +395,7 @@ class MainController extends Controller
 
 
            //testando se o id veio do formulario 
-           if($request->has('queue_id')){
+           if(!$request->has('queue_id')){
               abort(403,'Operação invalida');
            }
 
@@ -434,8 +434,24 @@ class MainController extends Controller
             }
         
 
-        dd($request->all());
+          //preparando os dados pra salvar 
+          $queue->name = trim($request->name);
+          $queue->description = trim($request->description);
+          $queue->service_name = trim($request->service);
+          $queue->service_desk = trim($request->desk);
+          $queue->queue_prefix = trim($request->prefix);
+          $queue->queue_colors = json_encode([
+            'prefix_bg_color'=>trim($request->color_1),
+            'prefix_text_color'=>trim($request->color_2),
+            'number_bg_color'=>trim($request->color_3),
+            'number_text_color'=>trim($request->color_4),
+          ]);
+          $queue->status = trim($request->status);
 
+          $queue->save();
+
+         return redirect()->route('home');
+          
     }
 
 
