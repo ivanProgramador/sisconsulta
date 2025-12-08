@@ -8,7 +8,7 @@
 
     <hr class="my-4">
 
-    <form action="{{ route('queue.edit.submit') }}" method="post">
+    <form action="{{ route('queue.clone.submit') }}" method="post">
 
         @csrf
 

@@ -491,10 +491,45 @@ class MainController extends Controller
         return view('main.queue_clone_frm',$data);
      }
 
+
+
     public function cloneQueueSubmit(Request $request){
+
+        $request->validate(
+            [
+                        'name'=>'required|min:5|max:100',
+            ],
+            [
+                        'name.required' => 'O nome da fila é obrigatório.',
+                        'name.min' => 'O nome deve ter no mínimo 5 caracteres.',
+                        'name.max' => 'O nome deve ter no máximo 100 caracteres.',
+            ]   
+        );
+
+        //testando se o id original da fila veio no formulario 
+        if(!$request->has('original_queue_id')){
+            abort(403,'Operação invalida');
+        }
+
+        //testando se o id foi alterado de forma manual
         
-        dd($request->all());
+        try{
+            Crypt::decrypt($request->original_queue_id);
+        }catch(\Exception $e){
+            abort(403,'Operação invalida ');
+        }
+
+
+        echo'ok';
     }
+
+
+}
+
+
+     
+
+    
 
 
 
@@ -505,4 +540,14 @@ class MainController extends Controller
 
 
 
-}
+    
+
+
+    
+   
+
+
+
+
+
+    
