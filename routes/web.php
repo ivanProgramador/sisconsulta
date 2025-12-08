@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     //rota de clonagem de fila
     Route::get('/queue/clone/{id}',[MainController::class,'cloneQueue'])->name('queue.clone');
-    Route::post('/queue/clone/{id}',[MainController::class,'cloneQueueSubmit'])->name('queue.clone.submit');  
+    Route::post('/queue/clone',[MainController::class,'cloneQueueSubmit'])->name('queue.clone.submit');  
 
 
 

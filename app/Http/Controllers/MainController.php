@@ -163,8 +163,7 @@ class MainController extends Controller
 
     }
 
-    public function createQueue():View
-    {       
+    public function createQueue(){       
             $data=[
                 'subtitle'=>'Criar Fila'
             ];
@@ -298,8 +297,7 @@ class MainController extends Controller
         return response()->json(['hash'=>$hash]);
     }
 
-    public function editQueue($id):View
-    {
+    public function editQueue($id){
        //decodificando o id recebido pela requisição
        //e testando se é um numero de id valido 
 
@@ -456,8 +454,42 @@ class MainController extends Controller
 
 
     public function cloneQueue($id){
+        
+        //decodficando id que veio da requisição 
+        try{
 
-    }
+            $id = Crypt::decrypt($id);
+
+        }catch(\Exception $e){
+
+            abort(403,'ID de fila invalido ');
+        }
+
+        //verficando se a fila que veio da requisição para a clonagem pertence a empresa do usuario que esta logado
+        //se a fila for encontrada ela será inserida na variavel $queue
+
+        $queue = Queue::where('id',$id)
+                       ->where('id_company',Auth::user()->id_company)
+                       ->firstOrFail();
+         
+        //aqui eu faço um tete pra verificar se essa varivel esta vazia 
+        //se estuver e porque nenhum registro foi encontrado com esses pararmetros
+        //então eu retono um 404
+
+        if(!$queue){
+            abort(404,'Fila não encontrada !'); 
+        }
+
+        //se a fila for encontrada eu vou moistrar o formaulario de clonagem com os dados  
+        //da fila que sera clonada 
+
+        $data =[
+            'subtitle'=>'Clonar Fila',
+            'queue'=>$queue
+        ];
+      
+        return view('main.queue_clone_frm',$data);
+     }
 
     public function cloneQueueSubmit(Request $request){
         
