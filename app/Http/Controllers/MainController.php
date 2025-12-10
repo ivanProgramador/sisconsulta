@@ -514,10 +514,36 @@ class MainController extends Controller
         //testando se o id foi alterado de forma manual
         
         try{
-            Crypt::decrypt($request->original_queue_id);
+           $queueId = Crypt::decrypt($request->original_queue_id);
         }catch(\Exception $e){
             abort(403,'Operação invalida ');
         }
+
+        //verificando se o id da fila original pertence a empresa do usuario que esta logado 
+        $queue = Queue::where('id',$queueId)
+                      ->where('id_company',Auth::user()->id_company)
+                      ->firstOrFail();
+        
+        //testando se veio uma fila ou se a consulta deu um retorno vazio           
+
+        if(!$queue){
+            abort(403,'Operação invalida ');
+        }
+
+        //mesmo sendo uma fila clone não pode existir outr fla com o mesmo nome dela 
+        //relacionada a mesma empresa 
+        //pra manter a consistencia
+        
+        $queueExists = Queue::where('name',$request->name)
+                            ->where('id_company',Auth::user()->id_company)
+                            ->exists();
+
+        if($queueExists){
+            return redirect()->back()->withInput()->with(['server_error' => 'Já existe uma fila com o mesmo nome e nomes duplicados não são permitidos']);
+        }
+
+        dd($request->all());
+
 
 
         echo'ok';
