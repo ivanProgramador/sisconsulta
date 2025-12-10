@@ -570,6 +570,19 @@ class MainController extends Controller
     }
 
 
+    public function deleteQueue($id){
+
+        
+
+    }
+
+    public function deleteQueueConfirm($id){
+
+        echo 'confirmada a exlusão da fila';
+    }
+
+
+
 }
 
 

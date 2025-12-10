@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/clone/{id}',[MainController::class,'cloneQueue'])->name('queue.clone');
     Route::post('/queue/clone',[MainController::class,'cloneQueueSubmit'])->name('queue.clone.submit');  
 
+    //rota parar deletar fila com soft delete
+    Route::get('/queue/delete/{id}',[MainController::class,'deleteQueue'])->name('queue.delete');
+    Route::get('/queue/delete-confirm/{id}',[MainController::class,'deleteQueueConfirm'])->name('queue.delete.confirm');
+    
 
 
     //rota pra gerar a hash da fila 
