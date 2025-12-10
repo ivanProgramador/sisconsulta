@@ -534,7 +534,7 @@ class MainController extends Controller
         //relacionada a mesma empresa 
         //pra manter a consistencia
         
-        $queueExists = Queue::where('name',$request->name)
+        $queueExists = Queue::where('name',trim($request->name))
                             ->where('id_company',Auth::user()->id_company)
                             ->exists();
 
@@ -542,11 +542,31 @@ class MainController extends Controller
             return redirect()->back()->withInput()->with(['server_error' => 'Já existe uma fila com o mesmo nome e nomes duplicados não são permitidos']);
         }
 
-        dd($request->all());
+        //preparando dados para gravar
+        $newQueue = new Queue();
+        $newQueue->id_company = Auth::user()->id_company;
+        $newQueue->name = trim($request->name);
+        $newQueue->description = $queue->service_name;
+        $newQueue->service_name = $queue->service_name;
+        $newQueue->service_desk = $queue->service_desk;
+        $newQueue->queue_prefix = $queue->queue_prefix;
+        $newQueue->queue_total_digits = $queue->queue_total_digits;
+        $newQueue->queue_colors = $queue->queue_colors;
+        $newQueue->status = $queue->status;
 
+        //a hash tambem não pode se repetir
+        //então uma nova será criada 
+        
+        $hash_code = hash('sha256',Str::random(40));
+        while(Queue::where('hash_code',$hash_code)->exists()){
+            $hash_code = hash('sha256',Str::random(40));
+        }
 
+        $newQueue->hash_code = $hash_code;
 
-        echo'ok';
+        $newQueue->save(); 
+
+        return redirect()->route('home');
     }
 
 
