@@ -102,11 +102,17 @@
                         vão esperar uma hash para converter 
                      --}}
 
+                     @if($queue->delete_at === null)
 
-                     <a href="{{ route('queue.details',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-white" title="detalhes"><i class="fa-solid fa-bars" ></i></a>
-                     <a href="{{ route('queue.edit',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-white" title="Editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                     <a href="{{ route('queue.clone',['id'=> Crypt::encrypt($queue->id)]) }}"class="btn-white" title="Duplicar"> <i class="fa-regular fa-clone" ></i> </a>
-                     <a class="btn-red"  title="Eliminar"><i class="fa-regular fa-trash-can" ></i></a>
+                        <a href="{{ route('queue.details',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-white" title="detalhes"><i class="fa-solid fa-bars" ></i></a>
+                        <a href="{{ route('queue.edit',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-white" title="Editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a href="{{ route('queue.clone',['id'=> Crypt::encrypt($queue->id)]) }}"class="btn-white" title="Duplicar"> <i class="fa-regular fa-clone" ></i> </a>
+                        <a href="{{ route('queue.delete',['id'=> Crypt::encrypt($queue->id)]) }}" class="btn-red"  title="Eliminar"><i class="fa-regular fa-trash-can" ></i></a>
+                     @else()
+
+                     @endif
+
+   
 
 
                    </td>

@@ -59,7 +59,7 @@ class MainController extends Controller
         $companyId = Auth::user()->id_company;
 
         
-        return Queue::where('id_company',Auth::user()->id_company)
+        return Queue::withTrashed()->where('id_company',Auth::user()->id_company)
                       ->withCount([
 
                         //abaixo estou criando uma lista de queries por estado dos tikests relacionados 
@@ -67,29 +67,24 @@ class MainController extends Controller
                          
                         
                          'tickets as total_tickets' => function($query){
-                             $query->whereNotNull('queue_ticket_status')
-                                   ->whereNull('deleted_at');
+                             $query->whereNotNull('queue_ticket_status');
                          },
 
                          'tickets as total_dismissed' => function($query){
                              $query->whereNotNull('queue_ticket_status')
-                                   ->where('queue_ticket_status','dismissed')
-                                   ->whereNull('deleted_at');
+                                   ->where('queue_ticket_status','dismissed');
                          },
                          'tickets as total_not_attended' => function($query){
                              $query->whereNotNull('queue_ticket_status')
-                                   ->where('queue_ticket_status','not_attended')
-                                   ->whereNull('deleted_at');
+                                   ->where('queue_ticket_status','not_attended');
                          },
                          'tickets as total_called' => function($query){
                              $query->whereNotNull('queue_ticket_status')
-                                   ->where('queue_ticket_status','called')
-                                   ->whereNull('deleted_at');
+                                   ->where('queue_ticket_status','called');
                          },
                          'tickets as total_waiting' => function($query){
                              $query->whereNotNull('queue_ticket_status')
-                                   ->where('queue_ticket_status','waiting')
-                                   ->whereNull('deleted_at');
+                                   ->where('queue_ticket_status','waiting');
                          },
                          
 
@@ -572,13 +567,61 @@ class MainController extends Controller
 
     public function deleteQueue($id){
 
-        
+          //decodficando id que veio da requisição 
+        try{
 
+            $id = Crypt::decrypt($id);
+
+        }catch(\Exception $e){
+
+            abort(403,'ID de fila invalido ');
+        }
+
+         //verificando se o id da fila original pertence a empresa do usuario que esta logado 
+        $queue = Queue::where('id',$id)
+                      ->where('id_company',Auth::user()->id_company)
+                      ->firstOrFail();
+
+        if(!$queue){
+                abort(404,'Fila não encontrada !');
+        }
+
+        //mostrando a pagina de confirmação
+        
+        $data=[
+            'subtitle'=>'Eliminar fila !',
+            'queue'=>$queue
+        ];
+
+        return view('main.queue_delete',$data);
     }
 
     public function deleteQueueConfirm($id){
 
-        echo 'confirmada a exlusão da fila';
+         //decodficando id que veio da requisição 
+        try{
+
+            $id = Crypt::decrypt($id);
+
+        }catch(\Exception $e){
+
+            abort(403,'ID de fila invalido ');
+        }
+
+         //verificando se o id da fila original pertence a empresa do usuario que esta logado 
+        $queue = Queue::where('id',$id)
+                      ->where('id_company',Auth::user()->id_company)
+                      ->firstOrFail();
+
+        if(!$queue){
+                abort(404,'Fila não encontrada !');
+        }
+
+        $queue->delete();
+
+        return redirect()->route('home');
+
+
     }
 
 
