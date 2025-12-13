@@ -81,6 +81,15 @@
                   <td>{{ $queue->name }}</td>
                   <td>{{ $queue->service_name }}</td>
                   <td>{{ $queue->service_desk }}</td>
+                  {{--
+                    Ajuda visual de identificação de fila atraves de um icone 
+                  --}}
+                  @if($queue->deleted_at === null)
+                     <td> {!! getQueueStateIcon($queue->status) !!} </td>
+                  @else 
+                      <td><i class="fa-regular fa-trash-can" ></i></td>
+                     
+                  @endif
 
                   {{--
                     A função "getQueueStateIcon" retorna codigo html
@@ -88,8 +97,10 @@
                     dessa diretiva " {!! <função aqui > !!} "  o html não será 
                     processado   
                   --}}
+
+
                   
-                  <td> {!! getQueueStateIcon($queue->status) !!} </td>
+                 
                   <td>{{ $queue->total_tickets }}</td>
                   <td>{{ $queue->total_dismissed }}</td>
                   <td>{{ $queue->total_not_attended }}</td>
