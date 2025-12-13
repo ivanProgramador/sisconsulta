@@ -77,7 +77,7 @@
 
         <tbody>
            @foreach($queues as $queue)
-               <tr>
+               <tr class="{{ $queue->deleted_at ? 'text-red-500':'' }}">
                   <td>{{ $queue->name }}</td>
                   <td>{{ $queue->service_name }}</td>
                   <td>{{ $queue->service_desk }}</td>

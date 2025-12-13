@@ -40,6 +40,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/delete-confirm/{id}',[MainController::class,'deleteQueueConfirm'])->name('queue.delete.confirm');
 
     //rota para restaurar fila
+    /*
+      O comando que restaura fila deve estar disponivel somente para os gestores 
+      mediante aurização da empresa eles podem cancelar ou recuprar a existencia de uma fila a qualquer momento 
+      conforme a necessidade da operação, o fato de uma fila apagada causar um soft dele nos tickets 
+      associados ainda esta em dicussão. 
+    
+    */
     Route::get('/queue/restore/{id}',[MainController::class,'restoreQueue'])->name('queue.restore');
      
 

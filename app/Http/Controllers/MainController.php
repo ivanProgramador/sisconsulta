@@ -58,7 +58,9 @@ class MainController extends Controller
         
         $companyId = Auth::user()->id_company;
 
-        
+        //as filas mesmo apagadas devem ser retornadas para que o getor possa 
+        //reverter fechamentos de fila por acidente
+          
         return Queue::withTrashed()->where('id_company',Auth::user()->id_company)
                       ->withCount([
 
@@ -637,7 +639,9 @@ class MainController extends Controller
             abort(403,'ID de fila invalido ');
         }
 
-      //verificando se o id da fila original pertence a empresa do usuario que esta logado 
+      //verificando se o id da fila original pertence a empresa do usuario que esta logado
+      
+      
         $queue = Queue::withTrashed()->where('id',$id)
                       ->where('id_company',Auth::user()->id_company)
                       ->firstOrFail();
