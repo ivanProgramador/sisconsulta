@@ -625,6 +625,40 @@ class MainController extends Controller
     }
 
 
+    public function restoreQueue($id){
+
+      //decodficando id que veio da requisição 
+        try{
+
+            $id = Crypt::decrypt($id);
+
+        }catch(\Exception $e){
+
+            abort(403,'ID de fila invalido ');
+        }
+
+      //verificando se o id da fila original pertence a empresa do usuario que esta logado 
+        $queue = Queue::withTrashed()->where('id',$id)
+                      ->where('id_company',Auth::user()->id_company)
+                      ->firstOrFail();
+
+        if(!$queue){
+                abort(404,'Fila não encontrada !');
+        }
+
+        //recuperando a fila apagada 
+
+        $queue->restore();
+
+        return redirect()->route('home');
+
+
+
+
+
+    }
+
+
 
 }
 

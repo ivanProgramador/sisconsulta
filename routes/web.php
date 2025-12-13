@@ -38,6 +38,11 @@ Route::middleware(['auth'])->group(function () {
     //rota parar deletar fila com soft delete
     Route::get('/queue/delete/{id}',[MainController::class,'deleteQueue'])->name('queue.delete');
     Route::get('/queue/delete-confirm/{id}',[MainController::class,'deleteQueueConfirm'])->name('queue.delete.confirm');
+
+    //rota para restaurar fila
+    Route::get('/queue/restore/{id}',[MainController::class,'restoreQueue'])->name('queue.restore');
+     
+
     
 
 
