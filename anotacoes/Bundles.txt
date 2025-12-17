@@ -1,0 +1,23 @@
+Blundles de fila de espera
+
+ Para facilitar o controle das filas de espera ela serão dividas em grupos a divisão em grupos 
+ ajuda no controle de tadimento do mais de uma segmento de fila, um empresa pode ter varios setores ou serviços de atendimento,
+ então pode ser que sejam nessários criar varios grupos de filas exemplo 
+
+ 1 - filas de atendimento 
+
+    - reclamações 
+    - vendas 
+    - cancelamentos 
+    - financeiro 
+    - agendamentos
+
+2 - filas de entrega
+
+    - devolução de produtos 
+    - correção de nota
+    - agendamento de entrega
+    - cancelamento de envio
+    - devolução de produto danificado     
+
+Esse controle seria essencial para que os clientes sejam direcionados para o local correto 

@@ -20,6 +20,8 @@ Route::middleware(['guest'])->group(function () {
 //rotas para usuarios
 Route::middleware(['auth'])->group(function () {
 
+    #Filas ======================================================================
+
     //rota home 
     Route::get('/', [MainController::class,'index'])->name('home');
 
@@ -50,15 +52,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/queue/restore/{id}',[MainController::class,'restoreQueue'])->name('queue.restore');
      
 
-    
-
-
     //rota pra gerar a hash da fila 
     Route::get('/queue/generate-hash',[MainController::class,'generateQueueHash'])->name('queue.generate.hash');
 
 
     //rota para detalhes da fila 
     Route::get('/queue/{id}',[MainController::class,'queueDetails'])->name('queue.details');
+
+    #GRUPOS DE FILAS =================================================================================================
+    
+
+
+
+
+
+    # USUARIOS =================================================================================================
 
     //rotas para alterar a senha 
     Route::get('/change-password',[AuthController::class,'changePassword'])->name('change.password');
