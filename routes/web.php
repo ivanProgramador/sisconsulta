@@ -64,6 +64,15 @@ Route::middleware(['auth'])->group(function () {
     
      Route::get('/bundles',[BundlesController::class,'index'])->name('bundles.home');
 
+     //rota apara o formulario d cadastro de coleção de filas 
+     Route::get('/bundles/create',[BundlesController::class,'createBundles'])->name('bundles.create');
+
+     //rota para a função de gravação de coleção de fila no banco 
+     Route::post('/bundles/create',[BundlesController::class,'createBundlesSubmit'])->name('bundles.create.submit');
+
+     
+
+
 
 
 

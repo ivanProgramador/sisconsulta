@@ -8,6 +8,11 @@ class BundlesController extends Controller
 {
     public function index()
     {
-        return view('bundles.home');
+        $data =[
+            'subtitle'=>'Bundles',
+            'bundles'=> collect() //cria uma coleção de dados vazia 
+
+        ];
+        return view('bundles.home',$data);
     }
 }
