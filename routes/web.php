@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BundlesController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
 
     #GRUPOS DE FILAS =================================================================================================
     
-
+     Route::get('/bundles',[BundlesController::class,'index'])->name('bundles.home');
 
 
 
