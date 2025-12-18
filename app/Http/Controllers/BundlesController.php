@@ -10,7 +10,7 @@ class BundlesController extends Controller
     {
         $data =[
             'subtitle'=>'Bundles',
-            'bundles'=> collect() //cria uma coleção de dados vazia 
+            'bundles'=> collect(['teste'=>'teste']) //cria uma coleção de dados vazia 
 
         ];
         return view('bundles.home',$data);
