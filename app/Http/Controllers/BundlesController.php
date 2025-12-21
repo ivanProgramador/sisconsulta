@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BundlesController extends Controller
 {
@@ -10,9 +11,11 @@ class BundlesController extends Controller
     {
         $data =[
             'subtitle'=>'Bundles',
-            'bundles'=> collect(['teste'=>'teste']) //cria uma coleção de dados vazia 
+            'bundles' => auth()->user()->company->bundles()->get(),
 
         ];
+
+         
         return view('bundles.home',$data);
     }
 }

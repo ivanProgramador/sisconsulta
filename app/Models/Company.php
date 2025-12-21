@@ -23,5 +23,13 @@ class Company extends Model
           
         return $this->hasMany(Queue::class,'id_company');
     }
+
+    //relação entre compania e coleção de filas , uma empresa pode ter varias coleções 
+    //de filas de atendimento
+    
+    public function bundles()
+    {
+           return $this->hasMany(Bundle::class,'id_company');
+    }
    
 }
