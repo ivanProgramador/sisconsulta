@@ -13,7 +13,7 @@
 
         <div class="w-full">
 
-            <form action="#" method="post">
+            <form action="{{ route('bundles.create.submit') }}" method="post">
 
                 @csrf
 

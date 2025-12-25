@@ -164,7 +164,7 @@ if(!function_exists('getQueuetStateText')){
             $previewHTML = '<span style="padding: 2px 6px; background-color:'.$colors['prefix_bg_color'].'; color:'.$colors['prefix_text_color'].';">'.$queue->queue_prefix.'</span>';
         }
 
-        $previewHTML .= '<span>'.getFormatedTicketNumber(1,null,$queue->queue_total_digits).'<span>';
+        $previewHTML .= '<span style="padding: 2px 6px; background-color:'.$colors['number_bg_color'].'; color:'.$colors['number_text_color'].' ">'.getFormatedTicketNumber(1,null,$queue->queue_total_digits).'<span>';
 
         $previewHTML .= '</div>';
 

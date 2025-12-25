@@ -32,5 +32,10 @@ class BundlesController extends Controller
 
     }
 
+    public function createBundlesSubmit(Request $request){
+      
+         dd($request->all());
+    }
+
 
 }
