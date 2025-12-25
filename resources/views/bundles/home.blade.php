@@ -5,7 +5,7 @@
        </div>
        <hr class="my-4">
        <div class="mb-4">
-          <a href="#" class="btn"><i class="far fa-plus me-2"></i> Criar nova coleção</a>
+          <a href="{{ route('bundles.create') }}" class="btn"><i class="far fa-plus me-2"></i> Criar nova coleção</a>
        </div>
        @if($bundles->count() === 0)
          <p class="text-slate-400 text-center my-12">Nenhuma coleção de filas encotrada </p>
@@ -24,8 +24,8 @@
                  @foreach($bundles as $bundle)
                    <tr>
                         <td>{{ $bundle->name }}</td>
-                         <td>{{ $bundle->queues ?? '-' }}</td>
-                        <td>{{ $bundle->credentials ?? '-' }}</td>
+                         <td>{{ count(json_decode($bundle->queues)) }}</td>
+                        <td>{{ $bundle->credential_password}}</td>
                         <td>Ações</td>
                 </tr>
               @endforeach

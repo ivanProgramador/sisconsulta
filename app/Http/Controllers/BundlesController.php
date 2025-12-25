@@ -18,4 +18,19 @@ class BundlesController extends Controller
          
         return view('bundles.home',$data);
     }
+
+    public function createBundles(){
+
+         $data =[
+            'subtitle'=>'Bundles',
+            'queues' => auth()->user()->company->queues()->get()  
+        ];
+
+        return view('bundles.create_bundle_frm',$data);
+
+
+
+    }
+
+
 }
