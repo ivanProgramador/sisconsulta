@@ -138,7 +138,7 @@
                 //verificar se a fila já está na lista
 
                 if(queues.some(queue => queue.hash_code === queueHashCode)){
-                    queues.filter( queue => queue.hash_code !== queueHashCode);
+                    queues = queues.filter( queue => queue.hash_code !== queueHashCode);
                 }else{
                     queues.push({
                         hash_code: queueHashCode,
@@ -162,8 +162,8 @@
             }else{
                 queues.forEach( queue => {
                     html+='<div class="flex bg-white justify-between items-center p-2 mb-1 rouded-lg border-gray-300">';
-                    html+=`<span>${queue.name}</span><i>X</i>`;
-                    html+='<div>';
+                    html+=`<span class="font-bold">${queue.name}</span><i class="fa-regular text-red-500 cursor-pointer fa-trash-can"  onclick="deleteFromQueue('${queue.hash_code}')"></i>`;
+                    html+='</div>';
                 });
 
 
@@ -171,11 +171,13 @@
 
             document.querySelector('#div_queues').innerHTML = html;
 
-            
+            document.querySelector('input[name="queues_list"]').value = JSON.stringify(queues);
+}
 
+        function deleteFromQueue(hash_code){
+            queues = queues.filter( q => q.hash_code !== hash_code);
+            renderQueues(queues);
         }
-
-
 
 
 
