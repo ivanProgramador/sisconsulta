@@ -1,0 +1,9 @@
+Criando grupos 
+
+A ideia e criar um, grupo de filas então nesse caso eu tenho que capturar os dados de varias 
+filas para definir um grupo por isso a interface tem uam lista de filas cadastradas na lateral 
+e um botão de adicionar. 
+
+Cada vez que eu dou um clieque em uma botão de adionar a fila, ela vem pararra o grupo em questão.
+nisso eu vou monmetando a lista para poder criar o grupo de filas.
+

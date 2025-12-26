@@ -3,7 +3,7 @@
     <div class="main-card overflow-auto">
 
     <div class="flex justify-between items-center">
-        <p class="title-2">Criar novo bundle</p>
+        <p class="title-2">Criar novo grupo de filas</p>
         <a href="#" class="btn"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
     </div>
 
@@ -17,8 +17,10 @@
 
                 @csrf
 
+                <input type="hidden" name="queues_list" value="" >
+
                 <div class="mb-4">
-                    <label for="bundle_name" class="label">Nome do bundle</label>
+                    <label for="bundle_name" class="label">Nome do grupo</label>
                     <input type="text" id="bundle_name" name="bundle_name" class="input w-full" placeholder="Nome do bundle">
                 </div>
 
@@ -41,12 +43,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <p class="title-3 mb-2">Filas de espera do bundle</p>
-                    <div class="main-card p-4">
-
-                        <p class="text-center text-slate-400">Não existem filas de espera no bundle</p>
-
-                    </div>
+                    <p class="title-3 mb-2">Filas de espera do grupo </p>
+                    <div id="div_queues" class="main-card !bg-slate-100 !p-4"></div>
                 </div>
 
                 <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Criar bundle</button>
@@ -77,7 +75,12 @@
                  <tbody>
                      @foreach($queues as $queue)
                         <tr>
-                            <td><button class="btn"><i class="fa-solid fa-circle-plus"></i></button></td>
+                           {{-- 
+                               foram adicionados alguns atributos nesse botão que idenficam a 
+                               fila que eu quero adicionar, esses atributos serão usados no javascript
+                               para adicionar a fila na lista de filas do grupo  
+                            --}}
+                            <td><button class="btn" id="btn-queue" data-queue-hash-code="{{ $queue->hash_code }}" data-queue-name="{{ $queue->name }}" ><i class="fa-solid fa-circle-plus"></i></button></td>
                             <td>{{ $queue->name }}</td>
                             <td>{{ $queue->service_name }}</td>
                             <td>{{ $queue->service_desk }}</td>
@@ -112,6 +115,73 @@
         );
           
         });
+
+        /*
+          a definição da lista de fila do grupo vai começar pela parte visual
+          devido a velocidade de processamento, depois que tudo estiver definido 
+          visualmente, ai sim eu atualizo o input hidden que vai enviar a lista
+          de filas para o backend, pra economizar processamento no servidor 
+        */ 
+
+        let queues = [];
+
+        renderQueues(queues);
+
+        document.querySelectorAll('#btn-queue').forEach( btn => {
+
+            btn.addEventListener('click', function(){
+
+                const queueHashCode = this.getAttribute('data-queue-hash-code');
+
+                const queueName = this.getAttribute('data-queue-name');
+
+                //verificar se a fila já está na lista
+
+                if(queues.some(queue => queue.hash_code === queueHashCode)){
+                    queues.filter( queue => queue.hash_code !== queueHashCode);
+                }else{
+                    queues.push({
+                        hash_code: queueHashCode,
+                        name: queueName
+                    });
+                }
+
+                renderQueues(queues);
+
+         });
+
+        });
+
+        function renderQueues(queues){
+
+            let html = '';
+
+            if(queues.length === 0 ){
+
+                html='<p class="text-center text-slate-400"> Não existem filas no grupo</p>';
+            }else{
+                queues.forEach( queue => {
+                    html+='<div class="flex bg-white justify-between items-center p-2 mb-1 rouded-lg border-gray-300">';
+                    html+=`<span>${queue.name}</span><i>X</i>`;
+                    html+='<div>';
+                });
+
+
+            }
+
+            document.querySelector('#div_queues').innerHTML = html;
+
+            
+
+        }
+
+
+
+
+
+
+
+
 
 </script>
 
