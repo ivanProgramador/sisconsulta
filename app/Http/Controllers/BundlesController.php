@@ -33,7 +33,9 @@ class BundlesController extends Controller
     }
 
     public function createBundlesSubmit(Request $request){
-      
+         $request->validate([
+            'bundle_name'=>'required'
+         ]);
          dd($request->all());
     }
 

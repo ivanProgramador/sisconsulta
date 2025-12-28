@@ -17,7 +17,7 @@
 
                 @csrf
 
-                <input type="hidden" name="queues_list" value="" >
+                <input type="hidden" name="queues_list" value="{{ old('queues_list') }}" >
 
                 <div class="mb-4">
                     <label for="bundle_name" class="label">Nome do grupo</label>
@@ -123,7 +123,7 @@
           de filas para o backend, pra economizar processamento no servidor 
         */ 
 
-        let queues = [];
+        let queues = getQueueListFromInputHidden();
 
         renderQueues(queues);
 
@@ -177,6 +177,26 @@
         function deleteFromQueue(hash_code){
             queues = queues.filter( q => q.hash_code !== hash_code);
             renderQueues(queues);
+        }
+
+        function getQueueListFromInputHidden(){
+
+            const queueListInput = document.querySelector('input[name = "queues_list"]');
+
+            if(queueListInput){
+                try {
+
+                    return JSON.parse(queueListInput.value);
+
+                } catch (e) {
+
+                     return [];
+                    
+                }
+            }
+
+            return [];
+
         }
 
 

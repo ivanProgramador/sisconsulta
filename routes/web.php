@@ -70,10 +70,10 @@ Route::middleware(['auth'])->group(function () {
      //rota para a função de gravação de coleção de fila no banco 
      Route::post('/bundles/create',[BundlesController::class,'createBundlesSubmit'])->name('bundles.create.submit');
 
+     //rota pra gerar hash das credenciais 
+     Route::post('/bundles/generate-credential-value/{num_chars}',[BundlesController::class,'generateCredentialValue'])->name('bundles.generate.credential.value');
+
      
-
-
-
 
 
     # USUARIOS =================================================================================================
