@@ -35,11 +35,49 @@ class BundlesController extends Controller
     }
 
     public function createBundlesSubmit(Request $request){
-         $request->validate([
-            'bundle_name'=>'required'
+         
+        
+        $request->validate([
+            'bundle_name'=>'required|string|min:5|max:100',
+            'credential_username' =>'required|string:size:64',
+            'credential_password' =>'required|string:size:64',
+            'queue_list' => 'required'
+           ],[
+            'bundle_name.required'=>'o nome do grupo é obrigatório ',
+            'bundle_name.string' =>'o nome precisar ser um texto ',
+            'bundle_name.min' =>'O nome do grupo deve ter no minimo 5 caracteres',
+            'bundle_name.max' => 'O nome pode ter no maximo 100 caracteres',
+            'credential_username.required'=>'a credencial do nome é obrigatória',
+            'credential_username.string'=>'a credencial do nome deve ser um texto',
+            'credential_username.size' => 'o usuario da credencial deve ter pelo menos 64 caracteres',
+            'credential_password.required'=>'a senha é obrigatoria',
+            'credential_password.string'=>'a senha deve ser um texto',
+            'credential_password.size' => 'a senha deve ter pelo menos 64 caracteres'
          ]);
-         dd($request->all());
+
+         //verificando se a lista de filas é um json valido e se não esta vazio
+         if(
+            empty($request->queue_list) ||
+            json_decode($request->queue_list) == null || 
+            empty(json_decode($request->queue_list)) 
+           ){
+             return redirect()->back()->withInput()->withErrors(['queues_list' =>'A lista de filas é obrigatória ']);
+           }
+           
+         //verificando se  nome da fila ja existe na base de dados
+         
+         $bundle_name = $request->bundle_name; 
+         $bundleExists = auth()->user()->company->bundles()
+                       ->where('name',$bundle_name)
+                       ->exists();
+         
+        if($bundleExists){
+            return redirect()->back()->withInput()->withErrors(['bundle_name'=>'já existe um grupo com esse nome ']);
+        }
+             
+        dd($request->all());
     }
+
 
     public function generateCredentialValue($num_chars){
 

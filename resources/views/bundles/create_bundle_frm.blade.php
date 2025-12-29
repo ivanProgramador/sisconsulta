@@ -21,14 +21,16 @@
 
                 <div class="mb-4">
                     <label for="bundle_name" class="label">Nome do grupo</label>
-                    <input type="text" id="bundle_name" name="bundle_name" class="input w-full" placeholder="Nome do bundle">
+                    <input type="text" id="bundle_name" name="bundle_name" class="input w-full" placeholder="Nome do bundle" value="{{ old('bundle_name')}}">
+                    {!! ShowValidationError('bundle_name',$errors)  !!}
                 </div>
 
                 <div class="flex justify-between gap-4">
                     <div class="mb-4 w-full">
                         <label for="credential_username" class="label">Credencial username</label>
                         <div class="flex gap-2">
-                            <input type="text" id="credential_username" name="credential_username" class="input w-full" placeholder="Credencial user">
+                            <input type="text" id="credential_username" name="credential_username" class="input w-full" placeholder="Credencial username" value="{{ old('credential_username')}}" >
+                            {!! ShowValidationError('credential_username',$errors)  !!}
                             <button type="button" id="btn_generate_credencial_username" class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
                         </div>
                     </div>
@@ -36,7 +38,8 @@
                     <div class="mb-4 w-full">
                         <label for="credential_password" class="label">Credencial senha</label>
                         <div class="flex gap-2">
-                            <input type="text" id="credential_password" name="credential_password" class="input w-full" placeholder="Credencial user">
+                            <input type="text" id="credential_password" name="credential_password" class="input w-full" placeholder="Credencial user" value="{{ old('credential_username')}}">
+                            {!! ShowValidationError('credential_password',$errors)  !!}
                             <button type="button" id="btn_generate_credencial_password" class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
                         </div>
                     </div>
@@ -201,7 +204,7 @@
 
         //gerando a credencial 
         document.querySelector("#btn_generate_credencial_username").addEventListener('click',function(){
-            fetch("{{ route('bundles.generate.credential.value',['num_chars'=>32]) }}")
+            fetch("{{ route('bundles.generate.credential.value',['num_chars'=> 64 ]) }}")
                  .then(response => response.json())
                  .then(data =>{
                     document.querySelector("#credential_username").value = data.hash;
@@ -210,7 +213,7 @@
         });
 
         document.querySelector("#btn_generate_credencial_password").addEventListener('click',function(){
-            fetch("{{ route('bundles.generate.credential.value',['num_chars'=>32]) }}")
+            fetch("{{ route('bundles.generate.credential.value',['num_chars'=> 64]) }}")
                  .then(response => response.json())
                  .then(data =>{
                     document.querySelector("#credential_password").value = data.hash;
