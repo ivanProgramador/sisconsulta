@@ -4,6 +4,13 @@ A ideia e criar um, grupo de filas então nesse caso eu tenho que capturar os da
 filas para definir um grupo por isso a interface tem uam lista de filas cadastradas na lateral 
 e um botão de adicionar. 
 
-Cada vez que eu dou um clieque em uma botão de adionar a fila, ela vem pararra o grupo em questão.
-nisso eu vou monmetando a lista para poder criar o grupo de filas.
+Cada vez que eu dou um clique em uma botão de adionar a fila, ela vem para o grupo em questão.
+nisso eu vou montando a lista para poder criar o grupo de filas.
+
+cada grupo de filas possui suas credenciais, para uma situação onde o dispensador está em  
+outra maquina assim o funcionario não precisa fazer todo o processo de login, basta colocar 
+as credenciais do grupo de filas pra ter acesso. essas credenciais vaão ser geradas pelo gestor,
+que nesse caso é o responsável por agrupar essas filas.
+
+
 

@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
      Route::post('/bundles/create',[BundlesController::class,'createBundlesSubmit'])->name('bundles.create.submit');
 
      //rota pra gerar hash das credenciais 
-     Route::post('/bundles/generate-credential-value/{num_chars}',[BundlesController::class,'generateCredentialValue'])->name('bundles.generate.credential.value');
+     Route::get('/bundles/generate-credential-value/{num_chars}',[BundlesController::class,'generateCredentialValue'])->name('bundles.generate.credential.value');
 
      
 

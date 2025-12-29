@@ -199,10 +199,24 @@
 
         }
 
+        //gerando a credencial 
+        document.querySelector("#btn_generate_credencial_username").addEventListener('click',function(){
+            fetch("{{ route('bundles.generate.credential.value',['num_chars'=>32]) }}")
+                 .then(response => response.json())
+                 .then(data =>{
+                    document.querySelector("#credential_username").value = data.hash;
+                 })
+                 .catch(error => console.error('Error: ', error));
+        });
 
-
-
-
+        document.querySelector("#btn_generate_credencial_password").addEventListener('click',function(){
+            fetch("{{ route('bundles.generate.credential.value',['num_chars'=>32]) }}")
+                 .then(response => response.json())
+                 .then(data =>{
+                    document.querySelector("#credential_password").value = data.hash;
+                 })
+                 .catch(error => console.error('Error: ', error));
+        });
 
 
 </script>
