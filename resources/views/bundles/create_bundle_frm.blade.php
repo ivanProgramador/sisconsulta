@@ -38,7 +38,7 @@
                     <div class="mb-4 w-full">
                         <label for="credential_password" class="label">Credencial senha</label>
                         <div class="flex gap-2">
-                            <input type="text" id="credential_password" name="credential_password" class="input w-full" placeholder="Credencial user" value="{{ old('credential_username')}}">
+                            <input type="text" id="credential_password" name="credential_password" class="input w-full" placeholder="Credencial user" value="{{ old('credential_password')}}">
                             {!! ShowValidationError('credential_password',$errors)  !!}
                             <button type="button" id="btn_generate_credencial_password" class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
                         </div>
@@ -49,6 +49,7 @@
                     <p class="title-3 mb-2">Filas de espera do grupo </p>
                     <div id="div_queues" class="main-card !bg-slate-100 !p-4"></div>
                 </div>
+                {!! ShowValidationError('queues_list',$errors) !!}
 
                 <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Criar bundle</button>
 
@@ -83,7 +84,13 @@
                                fila que eu quero adicionar, esses atributos serão usados no javascript
                                para adicionar a fila na lista de filas do grupo  
                             --}}
-                            <td><button class="btn" id="btn-queue" data-queue-hash-code="{{ $queue->hash_code }}" data-queue-name="{{ $queue->name }}" ><i class="fa-solid fa-circle-plus"></i></button></td>
+                            <td>
+                                <button class="btn btn-queue"
+                                  data-queue-hash-code="{{ $queue->hash_code }}"
+                                  data-queue-name="{{ $queue->name }}">
+                                 <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </td>
                             <td>{{ $queue->name }}</td>
                             <td>{{ $queue->service_name }}</td>
                             <td>{{ $queue->service_desk }}</td>
@@ -130,7 +137,7 @@
 
         renderQueues(queues);
 
-        document.querySelectorAll('#btn-queue').forEach( btn => {
+        document.querySelectorAll('.btn-queue').forEach( btn => {
 
             btn.addEventListener('click', function(){
 

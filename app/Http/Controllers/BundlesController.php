@@ -41,7 +41,7 @@ class BundlesController extends Controller
             'bundle_name'=>'required|string|min:5|max:100',
             'credential_username' =>'required|string:size:64',
             'credential_password' =>'required|string:size:64',
-            'queue_list' => 'required'
+            'queues_list' => 'required'
            ],[
             'bundle_name.required'=>'o nome do grupo é obrigatório ',
             'bundle_name.string' =>'o nome precisar ser um texto ',
@@ -57,9 +57,9 @@ class BundlesController extends Controller
 
          //verificando se a lista de filas é um json valido e se não esta vazio
          if(
-            empty($request->queue_list) ||
-            json_decode($request->queue_list) == null || 
-            empty(json_decode($request->queue_list)) 
+            empty($request->queues_list) ||
+            json_decode($request->queues_list) == null || 
+            empty(json_decode($request->queues_list)) 
            ){
              return redirect()->back()->withInput()->withErrors(['queues_list' =>'A lista de filas é obrigatória ']);
            }
