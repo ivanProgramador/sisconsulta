@@ -72,11 +72,74 @@ class BundlesController extends Controller
                        ->exists();
          
         if($bundleExists){
-            return redirect()->back()->withInput()->withErrors(['bundle_name'=>'já existe um grupo com esse nome ']);
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['bundle_name'=>'já existe um grupo com esse nome ']);
         }
-             
-        dd($request->all());
+
+        //validação pra não deixar passar filas que pertencem a outras empresas
+        //eu vou validar cada uma delas
+        
+        //vou começar pegando o json que vem na requisição
+        //ao decodificar ele esse json vira um array 
+        //eu coloquei um tru como segundo parametro para ter certeza que ele vaio ser um array associativo 
+        //não é algo necessário é só uma garantia 
+
+         $queues_list = json_decode($request->queues_list,true);
+
+        /*
+         Eu vou recebr as filas nesse fomato 
+
+         array:3 [▼ // app\Http\Controllers\BundlesController.php:91
+                0 => array:2 [▼
+                 "hash_code" => "CqErFiJ9yEjYdqkaGIghiqTD4tSzfrm4lykdJZRpXaZWJL6VQDZplDlcHNhjdsQe"
+                 "name" => "Fila numero 1 teste"
+                ]
+                 1 => array:2 [▼
+                   "hash_code" => "z41SggVrsLqZnLFP5Z7QXQnpVDmRPLN8fyGwXKdSgoJwxbIvTzk3K7HEfxSBoHSy"
+                   "name" => "Fila numero 2"
+                 ]
+                 2 => array:2 [▼
+                   "hash_code" => "0358f824f310bf4f8573de921b59ed27e0435cc222d3c687561764f1ec250cf6"
+                   "name" => "triagem cirurgia plastica"
+                 ]
+                ]
+        */
+        
+        //oque torna uma fila unica é a hash dela então nesse array associativo 
+        //eu vou receber o nome da fila(que não me interessa)
+        //e a hash que será usada para a validação
+        //o array map receb 2 argumentos 
+        // 1 - a função com uma varivel que vai receber os dados mapeados e retornar 
+        // 2 - o array que sera mapeado 
+
+        $queues_hash_codes = array_map(function($queue){
+
+            //retonando somente o conteudo do indice hash_code
+            return $queue['hash_code'];
+
+        },$queues_list);
+
+        //agora eu vou testar se todas as filas petencem a empres do usuario que esta logado no sistema 
+        
+        $valid_queues = auth()->user()->company->queues()
+                        ->whereIn('hash_code',$queues_hash_codes)
+                        ->pluck('hash_code')
+                        ->toArray();
+
+        if(count($valid_queues) !==  count($queues_hash_codes)){
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['queues_list'=>'Algumas filas selecionadas não existem ou não pertencem a sua empresa']);
+        }
+
+        dd($request);
     }
+
+
+
 
 
     public function generateCredentialValue($num_chars){
