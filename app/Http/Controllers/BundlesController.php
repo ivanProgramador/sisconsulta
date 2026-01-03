@@ -135,7 +135,18 @@ class BundlesController extends Controller
                    ->withErrors(['queues_list'=>'Algumas filas selecionadas não existem ou não pertencem a sua empresa']);
         }
 
-        dd($request);
+        //gravando os dados 
+        $newBundle = new Bundle();
+        $newBundle->id_company = auth()->user()->company->id;
+        $newBundle->name = $bundle_name;
+        $newBundle->queues = json_encode($valid_queues);
+        $newBundle->credential_username = $request->credential_username;
+        $newBundle->credential_password = bcrypt($request->credential_password);
+        $newBundle->save();
+
+        return redirect()->route('bundles.home');
+
+
     }
 
 
