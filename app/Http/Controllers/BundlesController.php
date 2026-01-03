@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bundle;
+use App\Models\Queue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 
 class BundlesController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $data =[
             'subtitle'=>'Bundles',
             'bundles' => auth()->user()->company->bundles()->get(),
@@ -149,10 +150,6 @@ class BundlesController extends Controller
 
     }
 
-
-
-
-
     public function generateCredentialValue($num_chars){
 
         //validando o pedido de crenciais 
@@ -171,6 +168,81 @@ class BundlesController extends Controller
         return response()->json(['hash'=>$credentialValue]);
         
 
+    }
+
+    public function edit($id){
+        
+        // verificando se o id da lista de filas é valido
+        try{
+          $id = Crypt::decrypt($id);
+        }catch(\Exception $e){
+            abort(403,'ID de bundle invalido ');
+        }
+
+        //buscando pela lista de filas 
+        $bundle  = Bundle::find($id);
+
+        if(!$bundle || $bundle->id_company !== auth()->user()->company->id){
+            return redirect()->route('bundles.home');
+        }
+
+        $data=[
+            'subtitle'=>'Editar grupo',
+            'bundle' => $bundle,
+            'bundle_queue_list' => $this->getBundleQueuList($id), 
+            'queue'=> auth()->user()->company->queues()->get()
+        ];
+
+       
+
+        dd($data);
+
+    }
+
+      private function getBundleQueuList($id)
+     {
+
+        $bundle = Bundle::find($id);
+
+        
+
+        //aqui eu pego as as filas que ja existem associadas ao grupo 
+
+       $queues = is_array($bundle->queues)? $bundle->queues: json_decode($bundle->queues, true);
+      
+      
+
+        //aqui eu pego todas as filas que estão associadas a empresa que o usuario logado esta associado 
+        //e coloco essas filas dentro de um array 
+
+        $companyQueues = Queue::where('id_company',auth()->user()->company->id)
+                                ->whereIn('hash_code',$queues)
+                                ->get();
+
+                                   
+        $queueList = [];
+        
+        //agora eu vou fazer um foreach para pegar todas as filas que vieram
+        //nomes e hashes eu vou precisar disso pra mostrar tanto as filas que ja estão no grupo 
+        //quando as filas que o usuario pode escolher  
+        
+        foreach($companyQueues as $queue){
+            $queueList[]=[
+                'name'=> $queue->name,
+                'hash_code' => $queue->hash_code
+            ];
+
+        }
+
+        //retornando a lista 
+        return $queueList;
+
+     } 
+
+    
+
+    public function editSubmit(Request $request){
+      echo 'Atualizar bundle';
     }
 
 

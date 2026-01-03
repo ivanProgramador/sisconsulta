@@ -73,7 +73,11 @@ Route::middleware(['auth'])->group(function () {
      //rota pra gerar hash das credenciais 
      Route::get('/bundles/generate-credential-value/{num_chars}',[BundlesController::class,'generateCredentialValue'])->name('bundles.generate.credential.value');
 
-     
+     //rota para o formulario de edição 
+     Route::get('/bundle/edit/{id}',[BundlesController::class,'edit'])->name('bundle.edit');
+
+     //rota para executar a edição 
+     Route::post('/bundle/edit/',[BundlesController::class,'editSubmit'])->name('bundle.edit.submit');
 
 
     # USUARIOS =================================================================================================
