@@ -29,7 +29,7 @@ class BundlesController extends Controller
             'queues' => auth()->user()->company->queues()->get()  
         ];
 
-        return view('bundles.create_bundle_frm',$data);
+        return view('bundles.bundle_create_frm',$data);
 
 
 
@@ -190,12 +190,12 @@ class BundlesController extends Controller
             'subtitle'=>'Editar grupo',
             'bundle' => $bundle,
             'bundle_queue_list' => $this->getBundleQueuList($id), 
-            'queue'=> auth()->user()->company->queues()->get()
+            'queues'=> auth()->user()->company->queues()->get()
         ];
 
        
 
-        dd($data);
+        return view('bundles.bundle_edit_frm',$data);
 
     }
 

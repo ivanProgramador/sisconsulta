@@ -51,7 +51,7 @@
                 </div>
                 {!! ShowValidationError('queues_list',$errors) !!}
 
-                <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Criar bundle</button>
+                <button type="submit" class="btn"><i class="fa-solid fa-check me-2"></i>Criar grupo</button>
 
             </form>
 
