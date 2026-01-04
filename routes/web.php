@@ -79,6 +79,19 @@ Route::middleware(['auth'])->group(function () {
      //rota para executar a edição 
      Route::post('/bundle/edit/',[BundlesController::class,'editSubmit'])->name('bundle.edit.submit');
 
+     //rota aparar o formulario de apagar 
+     Route::get('/bundle/delete/{id}',[BundlesController::class,'delete'])->name('bundle.delete');
+
+     //rota para a confirmação 
+     Route::post('/bundle/delete-confirm/{id}',[BundlesController::class,'deleteConfirm'])->name('bundle.delete.confirm');
+
+     //rota pra restaurar
+     Route::post('/bundle/restore/{id}',[BundlesController::class,'restore'])->name('bundle.restore');
+
+
+
+
+
 
     # USUARIOS =================================================================================================
 

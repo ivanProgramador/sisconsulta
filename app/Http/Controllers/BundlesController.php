@@ -15,14 +15,13 @@ class BundlesController extends Controller
     public function index(){
         $data =[
             'subtitle'=>'Bundles',
-            'bundles' => auth()->user()->company->bundles()->get(),
+            'bundles' => auth()->user()->company->bundles()->withTrashed()->get(),
 
         ];
 
          
         return view('bundles.home',$data);
     }
-
     public function createBundles(){
 
          $data =[
@@ -35,7 +34,6 @@ class BundlesController extends Controller
 
 
     }
-
     public function createBundlesSubmit(Request $request){
          
         
@@ -150,7 +148,6 @@ class BundlesController extends Controller
 
 
     }
-
     public function generateCredentialValue($num_chars){
 
         //validando o pedido de crenciais 
@@ -170,7 +167,6 @@ class BundlesController extends Controller
         
 
     }
-
     public function edit($id){
         
         // verificando se o id da lista de filas é valido
@@ -199,9 +195,7 @@ class BundlesController extends Controller
         return view('bundles.bundle_edit_frm',$data);
 
     }
-
-      private function getBundleQueuList($id)
-     {
+    private function getBundleQueuList($id){
 
         $bundle = Bundle::find($id);
 
@@ -335,6 +329,25 @@ class BundlesController extends Controller
         return redirect()->route('bundles.home');
 
     }
+    public function delete($id){
+
+         //desencriptando o bundle_id 
+         Try{
+             $id = Crypt::decrypt($id);
+         }catch(\Exception $e){
+           return redirect()->route('bundles.home'); 
+         }
+
+         dd('delete bundle', $id);
+
+
+
+
+    }
+    public function deleteConfirm($id){}
+    public function restore($id){}
+
+
 
 
 }

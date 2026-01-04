@@ -22,13 +22,20 @@
 
              <tbody>
                  @foreach($bundles as $bundle)
-                   <tr>
+                   <tr class="{{ $bundle->deleted_at !== null ? 'text-red-500': '' }}" >
                         <td>{{ $bundle->name }}</td>
                          <td>{{ count(json_decode($bundle->queues)) }}</td>
                         <td>{{ $bundle->credential_password}}</td>
                         <td>
                            <div class="flex justify-end">
-                              <a href="{{ route('bundle.edit',['id'=> Crypt::encrypt($bundle->id) ])}}" class="btn me-2" ><i class="far fa-edit"></i></a>
+                             
+                              @if($bundle->deleted_at === null)
+                                <a href="{{ route('bundle.delete',['id'=> Crypt::encrypt($bundle->id) ])}}" class="btn-red me-2" ><i class="fa fa-trash-can"></i></a>
+                                <a href="{{ route('bundle.edit',['id'=> Crypt::encrypt($bundle->id) ])}}" class="btn me-2" ><i class="far fa-edit"></i></a>
+                              @else
+                                 <a href="{{ route('bundle.restore',['id'=> Crypt::encrypt($bundle->id) ])}}" class="btn-white" ><i class="fa-solid fa-trash-arrow-up"></i></a>
+                               
+                              @endif
                            </div>
 
                            
