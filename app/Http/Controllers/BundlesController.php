@@ -318,7 +318,21 @@ class BundlesController extends Controller
                    ->withErrors(['queues_list'=>'Algumas filas selecionadas não existem ou não pertencem a sua empresa']);
         }
 
-        dd($request->all());
+        //a possibilidade do update afetar um grupo que não pertença a empresa e pequena mas mesmo 
+        //assim vou colocar uma camada extra de segurança
+        
+        $bundle = Bundle::find($bundle_id);
+        if(!$bundle || $bundle->id_company != auth()->user()->company->id ){
+            return redirect()->route('bundles.home');
+        }
+
+        //gravando as alterações 
+
+        $bundle->name = $bundle_name;
+        $bundle->queues = json_encode($valid_queues);
+        $bundle->save();
+
+        return redirect()->route('bundles.home');
 
     }
 
