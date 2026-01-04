@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\TryCatch;
 
 class BundlesController extends Controller
 {
@@ -242,7 +243,83 @@ class BundlesController extends Controller
     
 
     public function editSubmit(Request $request){
-      echo 'Atualizar bundle';
+        
+         
+        $request->validate([
+            'bundle_name'=>'required|string|min:5|max:100',
+            'queues_list' => 'required'
+           ],[
+            'bundle_name.required'=>'o nome do grupo é obrigatório ',
+            'bundle_name.string' =>'o nome precisar ser um texto ',
+            'bundle_name.min' =>'O nome do grupo deve ter no minimo 5 caracteres',
+            'bundle_name.max' => 'O nome pode ter no maximo 100 caracteres',
+            'queues_list.required' =>'A lista de filas é obrigatória'
+
+         ]);
+
+         //verificando se o id que veio é valido
+
+         if(empty($request->bundle_id)){
+             return redirect()->route('bundles.home');
+         }
+
+         //desencriptando o bundle_id 
+         Try{
+
+             $bundle_id = Crypt::decrypt($request->bundle_id);
+
+         }catch(\Exception $e){
+
+           abort(403,'ID invalido');   
+
+         }
+         
+         if(
+            empty($request->queues_list) ||
+            json_decode($request->queues_list) == null || 
+            empty(json_decode($request->queues_list)) 
+           ){
+             return redirect()->back()->withInput()->withErrors(['queues_list' =>'A lista de filas é obrigatória ']);
+           }
+           
+         
+         
+         $bundle_name = trim($request->bundle_name); 
+
+         $bundleExists = auth()->user()->company->bundles()
+                       ->where('name',$bundle_name)
+                       ->where('id','!=',$bundle_id) //estou validando o id porque se o nome do grupo não for alterado na edição ele não vai deixar salvar 
+                       ->exists();
+         
+        if($bundleExists){
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['bundle_name'=>'já existe um grupo com esse nome ']);
+        }
+
+       
+
+        $queues_list = json_decode($request->queues_list,true);
+        $queues_hash_codes = array_map(function($queue){
+            return $queue['hash_code'];
+        },$queues_list);
+        
+        
+        $valid_queues = auth()->user()->company->queues()
+                        ->whereIn('hash_code',$queues_hash_codes)
+                        ->pluck('hash_code')
+                        ->toArray();
+
+        if(count($valid_queues) !==  count($queues_hash_codes)){
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['queues_list'=>'Algumas filas selecionadas não existem ou não pertencem a sua empresa']);
+        }
+
+        dd($request->all());
+
     }
 
 
