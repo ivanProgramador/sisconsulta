@@ -83,10 +83,10 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/bundle/delete/{id}',[BundlesController::class,'delete'])->name('bundle.delete');
 
      //rota para a confirmação 
-     Route::post('/bundle/delete-confirm/{id}',[BundlesController::class,'deleteConfirm'])->name('bundle.delete.confirm');
+     Route::get('/bundle/delete-confirm/{id}',[BundlesController::class,'deleteConfirm'])->name('bundle.delete.confirm');
 
      //rota pra restaurar
-     Route::post('/bundle/restore/{id}',[BundlesController::class,'restore'])->name('bundle.restore');
+     Route::get('/bundle/restore/{id}',[BundlesController::class,'restore'])->name('bundle.restore');
 
 
 

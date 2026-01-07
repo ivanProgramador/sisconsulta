@@ -337,15 +337,73 @@ class BundlesController extends Controller
          }catch(\Exception $e){
            return redirect()->route('bundles.home'); 
          }
+         
+         $bundle = Bundle::find($id);
 
-         dd('delete bundle', $id);
+         if(!$bundle || $bundle->id_company != auth()->user()->company->id){
+            return redirect()->route('bundles.home');
+         }
+
+         //preparando os dados para  a view de confirmação 
+
+         $data = [
+            'subtitle' => 'Eliminar Grupo',
+            'bundle'   => $bundle
+         ];
+
+         return view('bundles.bundle_delete_confirm',$data);
 
 
 
 
     }
-    public function deleteConfirm($id){}
-    public function restore($id){}
+    public function deleteConfirm($id){
+
+         //desencriptando o bundle_id 
+         Try{
+             $id = Crypt::decrypt($id);
+         }catch(\Exception $e){
+           return redirect()->route('bundles.home'); 
+         }
+         
+         $bundle = Bundle::find($id);
+         if(!$bundle || $bundle->id_company != auth()->user()->company->id){
+            return redirect()->route('bundles.home');
+         }
+
+         //isso não vai apagar o registro da base so vai preencher o campo deleted_at porque é soft delete
+
+         $bundle->delete();
+
+          return redirect()->route('bundles.home');
+
+
+
+         
+    }
+    public function restore($id){
+
+         //desencriptando o bundle_id 
+         Try{
+             $id = Crypt::decrypt($id);
+         }catch(\Exception $e){
+           return redirect()->route('bundles.home'); 
+         }
+         
+         $bundle = Bundle::withTrashed()->find($id);
+         if(!$bundle || $bundle->id_company != auth()->user()->company->id){
+            return redirect()->route('bundles.home');
+         }
+
+         //restaurando o grupo 
+         $bundle->restore();
+
+         return redirect()->route('bundles.home');
+
+
+
+
+    }
 
 
 
