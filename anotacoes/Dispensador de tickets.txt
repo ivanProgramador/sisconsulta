@@ -1,0 +1,11 @@
+Dispensadores de tickets 
+
+   São maquinas que normalamente ficam nas repções de clinicas , cinemas, consultórios, bancos 
+  e são utilizadas para organizar  filas de usuarios,a mauina vai apresentar um tela de login que 
+  recebe as duas hashes (que serão inseridas no inicio do dia pelo gestor ) de autenticação do grupo de filas, 
+  e o usuario não vai precisar fazer nada além de tocar na fila corespondente ao seu tipo de atendimento.
+
+
+  
+
+
