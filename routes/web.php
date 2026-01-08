@@ -105,4 +105,8 @@ Route::middleware(['auth'])->group(function () {
     
 });
 
+//rotas publicas para o dispensador 
+
+
+
 

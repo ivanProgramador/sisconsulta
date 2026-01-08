@@ -9,16 +9,18 @@ use Illuminate\Support\Str;
 class QueueAndBundleSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     */
+     * O objetivo dessa seed e criar Filas, tickets e grupo de filas  
+     * Atenção com as credenciais de grupo porque o dispensadador vai precisar 
+     * 
+     *      */
     public function run(): void
     {
-        // truncate queues, queue_tickets e bundles
+        // Zerando as tabelas 
         DB::table('queues')->truncate();
         DB::table('queue_tickets')->truncate();
         DB::table('bundles')->truncate();
 
-        // generate queues for company id = 1
+        // gerando grupo de filas para a empresa com id = 1
         $queues = $this->generateQueues();
 
         echo "Filas criadas com sucesso! Lista de hash_codes" . PHP_EOL;
@@ -26,7 +28,7 @@ class QueueAndBundleSeeder extends Seeder
             echo $queue['hash_code'] . PHP_EOL;
         }
 
-        // generate bundles for company id = 1
+         // gerando grupo de filas para a empresa com id = 2
         $bundles = $this->generateBundles(array_map(function ($queue) {
             return $queue['hash_code'];
         }, $queues));
@@ -39,6 +41,7 @@ class QueueAndBundleSeeder extends Seeder
         }
     }
 
+    //essa função gera filas com dados de forma padrão 
     private function generateQueues()
     {
         $queueColors = [
@@ -116,7 +119,7 @@ class QueueAndBundleSeeder extends Seeder
                 'status' => 'active',
             ],
         ];
-
+        //fazendo um loop nos arrays a inserindo as filas na base  
         foreach ($data as $queue) {
             DB::table('queues')->insert([
                 'id_company' => 1, // Assuming company_id = 1
@@ -131,7 +134,7 @@ class QueueAndBundleSeeder extends Seeder
                 'status' => $queue['status'],
             ]);
         }
-
+        //gerando as hashes para filas 
         return array_map(function ($queue) {
             return [
                 'hash_code' => $queue['hash_code'],
@@ -139,6 +142,7 @@ class QueueAndBundleSeeder extends Seeder
         }, $data);
     }
 
+    //gerando um grupo de filas 
     private function generateBundles($hash_codes)
     {
         $data = [
@@ -161,7 +165,7 @@ class QueueAndBundleSeeder extends Seeder
                 'credential_password' => Str::random(64),
             ],
         ];
-
+        //insenrido as filas no grupo 
         foreach ($data as $bundle) {
             DB::table('bundles')->insert([
                 'id_company' => 1, // Assuming company_id = 1
@@ -172,7 +176,9 @@ class QueueAndBundleSeeder extends Seeder
             ]);
         }
 
-        // return the bundles credentials
+
+        // retornando as cradenciais de grupo
+          
         return array_map(function ($bundle) {
             return [
                 'name' => $bundle['name'],
