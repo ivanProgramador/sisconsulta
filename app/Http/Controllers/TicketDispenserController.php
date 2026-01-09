@@ -12,7 +12,8 @@ class TicketDispenserController extends Controller
    }
 
    public function credentials(){
-       echo 'formulário de autenticação';
+       
+    return view('ticket_dispenser.credential_frm');
       
    }
 
