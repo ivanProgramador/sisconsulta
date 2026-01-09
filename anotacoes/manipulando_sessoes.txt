@@ -1,0 +1,18 @@
+Sessôes funcionan como um array de dados, patindo dessa loigica eu posso 
+colocar ou remover dados desse array usando requisições pra fazer isso
+
+1 - colocando dados em uma sessão aqui eu coloco uma senha e um usuário
+    com isso eu  posso condicionar o acesso dele a pagina oua a num recurso 
+    especifico. 
+
+
+    Route::get('/colocando_dados',function(){
+       session()->put('senha','Abcteste');
+    });
+
+2 - removendo dados da secessão aqui eu faço um limpeza na sessão e posso tambem usar 
+    a sessão vazia parara condicionar o acesso do usuário a um um recurso ou pagina. 
+
+    Route::get('/removendo_dados',function(){
+           session()->forget();
+     });

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BundlesController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\TicketDispenserController;
+use App\Http\Middleware\TicketDispenserSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -105,7 +107,19 @@ Route::middleware(['auth'])->group(function () {
     
 });
 
+//essa rota esta sendo pogida por um mid que leva o usuario de volta ao formulario caso ele não esteja
+//autenticado
+  
+Route::middleware([TicketDispenserSession::class])->group(function(){
+   Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
+});
+
+
 //rotas publicas para o dispensador 
+Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
+Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+
+
 
 
 
