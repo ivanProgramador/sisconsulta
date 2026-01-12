@@ -7,15 +7,19 @@
        </div>
 
        <div class="main-card w-200">
-          <form action="dispenser.credentials.submit" method="post" class="flex flex-col gap-4">
+          <form action="{{ route('dispenser.credentials.submit') }}" method="post" class="flex flex-col gap-4">
              @csrf
              <div class="mb-2">
                  <label for="credential_username">Credential username</label>
-                 <input type="text" class="input w-full" name="credential_username" id="credential_username" >
+                 <input type="text" class="input w-full" name="credential_username" id="credential_username" value="{{ old('credential_username') }}">
+                 {!! showValidationError('credential_username',$errors) !!}
+                 {!! showServerError() !!}
              </div> 
              <div class="mb-2">
                  <label for="credential_password">Credential password</label>
-                 <input type="password" class="input w-full" name="credential_password" id="credential_password" >
+                 <input type="password" class="input w-full" name="credential_password" id="credential_password" value="{{ old('credential_password') }}">
+                   {!! showValidationError('credential_password',$errors) !!}
+                   {!! showServerError() !!}
              </div> 
 
              <button type="submit" class="btn"><i class="fa-solid fa-up-right-from-square mr-2"></i>Apresentar filas</button>

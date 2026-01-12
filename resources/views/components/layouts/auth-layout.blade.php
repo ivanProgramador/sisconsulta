@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('assets/coloris/coloris.min.css') }}">
     <script src="{{ asset('assets/coloris/coloris.min.js') }}"></script>
 
+    {{--helper --}}
+    <script src="{{ asset('app/js/helper.js') }}"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
