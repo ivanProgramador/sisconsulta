@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bundle;
+use Illuminate\Support\Facades\Hash;
 
 class TicketDispenserController extends Controller
 {
@@ -31,16 +33,41 @@ class TicketDispenserController extends Controller
          'credential_password.size'=>'A senha deve ter 64 caracteres'
       ]);
 
+      //validando credenciais recebidas 
+
+      //testando hash do usuario
+
+      $result = Bundle::where('credential_username', $request->credential_username)->firstOrFail();
+
+      if(!$result){
+         return back()->withInput()->withErrors(['server_error'=>'Credenciais inválidas. Por favor, tente novamente.']);
+      }
+
+      //testando se a senha bate com o hash
+      if(!Hash::check($request->credential_password, $result->credential_password)){
+         return back()->withInput()->withErrors(['server_error'=>'Credenciais inválidas. Por favor, tente novamente.']);
+      }
+
+      //se chegou aqui, as credenciais estão ok
+      //colocvando as variaveis de sessão
       /*
-         Exemplo de credenciais válidas para testes
+       
 
-        95stCQyWgTnFKvomcXPtG0ou5NSahvbphfWfWEEgab4xMxbGt73zX89Nfe78jebl
-        Np0YudcycEVfjpU3CRxbES857HcBGPnkInAJjK8JXWXEe2kJT6AxOylZpNTzedFu
-      
-      
+
       */
+      session()->put('ticket_dispenser_credential', $request->credential_username);
 
-      dd($request->all());
+      return redirect()->route('dispenser');
+      
+       
+
+      }
+
+
+    
+                       
+
+     
 
 
 
@@ -51,4 +78,4 @@ class TicketDispenserController extends Controller
 
 
    }
-}
+
