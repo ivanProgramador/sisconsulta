@@ -9,13 +9,23 @@ use Illuminate\Support\Facades\Hash;
 class TicketDispenserController extends Controller
 {
    public function index(){
+
+        $data=[
+          'subtitle' =>'Dispensador'
+        ];
+
+        return view('ticket_dispenser.dispenser');
       
-        echo 'dispensador de tickets';
+       
    }
 
    public function credentials(){
+
+    $data=[
+       'subtitle' =>'Dispensador'
+    ];
        
-    return view('ticket_dispenser.credential_frm');
+    return view('ticket_dispenser.credential_frm',$data);
       
    }
 
@@ -50,6 +60,18 @@ class TicketDispenserController extends Controller
 
       //se chegou aqui, as credenciais estão ok
       //colocvando as variaveis de sessão
+
+      /* 
+      name 
+      C0bkdp0HlcfNWUWuWng0QvdoBxLUovYkXC7y9G1OVNKp9vCOSHWMSTjNZ7QxnvH6
+      pass
+      9U46KuXGyqcsF9T6ScVlauMHM9YFRASYMFsSI1xXE1CNtrOO7OoiZMrnx96qOYi3
+
+      */
+
+
+
+
       /*
        
 
