@@ -19,7 +19,7 @@ class MainController extends Controller
         $data=[
             'subtitle'=>'Home',
             'queues'  => $this->getQueuesList(),
-            'companyName' => Auth::user()->company->company_name,
+            'companyName' => Auth::user()?->company->company_name,
             'companyTotals' => $this->getCompanyTotals()
         ];
 
