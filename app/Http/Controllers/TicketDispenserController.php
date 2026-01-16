@@ -14,7 +14,7 @@ class TicketDispenserController extends Controller
           'subtitle' =>'Dispensador'
         ];
 
-        return view('ticket_dispenser.dispenser');
+        return view('ticket_dispenser.dispenser', $data);
       
        
    }
