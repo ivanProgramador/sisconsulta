@@ -150,6 +150,15 @@
                 if(queues.some(queue => queue.hash_code === queueHashCode)){
                     queues = queues.filter( queue => queue.hash_code !== queueHashCode);
                 }else{
+
+
+                    //limitando a quantidade de filas a 8 
+
+                    if(queues.length == 8){
+                        return;
+                    }
+
+
                     queues.push({
                         hash_code: queueHashCode,
                         name: queueName

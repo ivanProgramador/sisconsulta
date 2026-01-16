@@ -63,6 +63,28 @@ class BundlesController extends Controller
            ){
              return redirect()->back()->withInput()->withErrors(['queues_list' =>'A lista de filas é obrigatória ']);
            }
+
+         //testando se a quantidade de filas que veio é maior que 8
+         /*
+           O grupo de filas defia equantas filas vão aparecer na tela do dispensador 
+           pra não quebrar a view o maximo de filas que deve aparecer devem ser 8 
+           por isso eu vou bloquear a gravação de um grupo  quando essa quantidade 
+           ultrapassar 8 
+         */
+         
+         $tmp = json_decode($request->queues_list, true);
+         if(count($tmp)>8){
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['queues_list'=>'Alista de filas deve conter no maximo 8 filas ']);
+
+         }
+
+
+      
+      
+
            
          //verificando se  nome da fila ja existe na base de dados
          
@@ -275,6 +297,15 @@ class BundlesController extends Controller
            ){
              return redirect()->back()->withInput()->withErrors(['queues_list' =>'A lista de filas é obrigatória ']);
            }
+
+        $tmp = json_decode($request->queues_list, true);
+         if(count($tmp)>8){
+            return redirect()
+                   ->back()
+                   ->withInput()
+                   ->withErrors(['queues_list'=>'Alista de filas deve conter no maximo 8 filas ']);
+
+         }
            
          
          
