@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bundle;
+use App\Models\Queue;
 use Illuminate\Support\Facades\Hash;
 
 class TicketDispenserController extends Controller
 {
    public function index(){
+        
+     $data =  $this->getBundleData('C0bkdp0HlcfNWUWuWng0QvdoBxLUovYkXC7y9G1OVNKp9vCOSHWMSTjNZ7QxnvH6');
+     echo '<pre>';
+     echo $data->getContent();
+     echo '</pre>';
+     die();
 
         $data=[
           'subtitle' =>'Dispensador'
@@ -86,18 +93,71 @@ class TicketDispenserController extends Controller
       }
 
 
-    
-                       
+      private function getBundleData($credential_username){
+        
+        /*
+         preparando um json com os dados dos grupos pra fazer o retorno 
+        */
 
-     
+         $bundle = Bundle::where('credential_username',$credential_username)->first();
+
+         if(!$bundle){
+            return response()->json([
+               'status'=>'error',
+               'code'=>'404',
+               'error' =>'Grupo não encontrado'
+            ]);
+         }
+
+         //pegando os dados de todas as filas que fazem parte do grupo 
+
+         $queues = Queue::whereIn('hash_code',json_decode($bundle->queues))
+                          ->where('status','active')
+                          ->where('deleted_at',null)
+                          ->get();
+
+         if($queues->isEmpty()){
+
+            return response()->json([
+               'status'=>'error',
+               'code'=>'404',
+               'error' =>'Não existem filas atva nesse grupo'
+            ]);
+        }
+
+        //preparando os dados parar o retorno 
+
+            return response()->json([
+
+               'status'=>'success',
+               'code'=>'200',
+               'message' =>'success',
+               'queues' => $queues->map(function($queue){
+
+                  return[
+                     'id'  =>   $queue->id,
+                     'name'=> $queue->name,
+                     'description' => $queue->description,
+                     'service' => $queue->service_name,
+                     'desk' => $queue->service_desk,
+                     'prefix' => $queue->queue_prefix,
+                     'digits' => $queue->queue_total_digits,
+                     'colors' => json_decode($queue->queue_colors,true),
+                     ];
+               }),
+
+            ],
+            200,
+            ['Content-Type'=>'application/json'],
+            JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT,
+
+            
+            );
+        
+         
+        
 
 
-
-
-      
-      
-
-
-
+      }
    }
 
