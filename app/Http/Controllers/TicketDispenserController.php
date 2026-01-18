@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Hash;
 class TicketDispenserController extends Controller
 {
    public function index(){
-        
-     $data =  $this->getBundleData('C0bkdp0HlcfNWUWuWng0QvdoBxLUovYkXC7y9G1OVNKp9vCOSHWMSTjNZ7QxnvH6');
-     echo '<pre>';
-     echo $data->getContent();
-     echo '</pre>';
-     die();
+    /*    
+      $data =  $this->getBundleData('C0bkdp0HlcfNWUWuWng0QvdoBxLUovYkXC7y9G1OVNKp9vCOSHWMSTjNZ7QxnvH6');
+      echo '<pre>';
+      echo $data->getContent();
+      echo '</pre>';
+      die();
+   */
 
         $data=[
           'subtitle' =>'Dispensador'
@@ -110,6 +111,9 @@ class TicketDispenserController extends Controller
          }
 
          //pegando os dados de todas as filas que fazem parte do grupo 
+         //para que uma fila possa aparecer no dispensador ela deve estar 
+         //ativa e com o ampo deleted_at nulo , essas duas condições servem parara garantir 
+         //que nenehum cliente vai ficar esperando por um atadimento que não existe 
 
          $queues = Queue::whereIn('hash_code',json_decode($bundle->queues))
                           ->where('status','active')
