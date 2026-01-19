@@ -112,12 +112,15 @@ Route::middleware(['auth'])->group(function () {
   
 Route::middleware([TicketDispenserSession::class])->group(function(){
    Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
+   Route::get('/dispenser/get-bundle-data/{credential}',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
 });
 
 
 //rotas publicas para o dispensador 
 Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
 Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+
+
 
 
 

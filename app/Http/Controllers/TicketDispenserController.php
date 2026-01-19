@@ -11,12 +11,9 @@ class TicketDispenserController extends Controller
 {
    public function index(){
       
-      $bundleData =  $this->getBundleData(session()->get('ticket_dispenser_credential'))->getData(); 
-
-
         $data=[
           'subtitle' =>'Dispensador',
-          'bundle' => $bundleData
+          'credential' => session()->get('ticket_dispenser_credential') 
         ];
 
         return view('ticket_dispenser.dispenser', $data);
@@ -91,13 +88,13 @@ class TicketDispenserController extends Controller
       }
 
 
-      private function getBundleData($credential_username){
+      public function getBundleData($credential){
         
         /*
          preparando um json com os dados dos grupos pra fazer o retorno 
         */
 
-         $bundle = Bundle::where('credential_username',$credential_username)->first();
+         $bundle = Bundle::where('credential_username',$credential)->first();
 
          if(!$bundle){
             return response()->json([
