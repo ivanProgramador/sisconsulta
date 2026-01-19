@@ -10,16 +10,13 @@ use Illuminate\Support\Facades\Hash;
 class TicketDispenserController extends Controller
 {
    public function index(){
-    /*    
-      $data =  $this->getBundleData('C0bkdp0HlcfNWUWuWng0QvdoBxLUovYkXC7y9G1OVNKp9vCOSHWMSTjNZ7QxnvH6');
-      echo '<pre>';
-      echo $data->getContent();
-      echo '</pre>';
-      die();
-   */
+      
+      $bundleData =  $this->getBundleData(session()->get('ticket_dispenser_credential'))->getData(); 
+
 
         $data=[
-          'subtitle' =>'Dispensador'
+          'subtitle' =>'Dispensador',
+          'bundle' => $bundleData
         ];
 
         return view('ticket_dispenser.dispenser', $data);
@@ -106,7 +103,7 @@ class TicketDispenserController extends Controller
             return response()->json([
                'status'=>'error',
                'code'=>'404',
-               'error' =>'Grupo não encontrado'
+               'message' =>'Grupo não encontrado'
             ]);
          }
 
@@ -125,7 +122,7 @@ class TicketDispenserController extends Controller
             return response()->json([
                'status'=>'error',
                'code'=>'404',
-               'error' =>'Não existem filas atva nesse grupo'
+               'message' =>'Não existem filas atva nesse grupo'
             ]);
         }
 
