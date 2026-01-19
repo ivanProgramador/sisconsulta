@@ -28,7 +28,7 @@
                           
                           {{--A peilando um renderização condicional com base na quantidade de filas incluso no grupo --}}
                            <div class="{{ count($bundle->queues) <= 4 ? 'w-1/1' : 'w-1/2' }}">
-                               <x-dispenser-queue />
+                               <x-dispenser-queue :queue="$queue" />
                             </div> 
 
 
