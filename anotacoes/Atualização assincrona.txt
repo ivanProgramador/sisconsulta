@@ -1,0 +1,10 @@
+Estrategia Assincrona 
+
+A tela de um dispensador de filas deve ser assincrona para o caso do status de uma fila mudar 
+por exemplo um medico ou atendente de um serviço especifico parar de atedener por causa de algum
+imprevisto, a afila para o atedimento dele deve sair da tela do dispensador ao ser desativada. 
+
+Existe a possibilidade sim de criar uma cosidog relativamente curto para atualizar a pagina 
+a cada 5 ou 3  segundos mais isso causaria um porbelma maior em questão de usabilidade porque 
+enquanto o cliente esta selecionadno uma fila a tela poderia ataualizar ao mesmo tempo causando 
+uma ux ruim. Por isso será aplicado um codigo assincrono pra fazer essa atualização.     
