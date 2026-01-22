@@ -112,7 +112,8 @@ Route::middleware(['auth'])->group(function () {
   
 Route::middleware([TicketDispenserSession::class])->group(function(){
    Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
-   Route::get('/dispenser/get-bundle-data/{credential}',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
+   //refatorado pra post 
+   Route::post('/dispenser/get-bundle-data',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
 });
 
 

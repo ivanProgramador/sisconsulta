@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bundle;
 use App\Models\Queue;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class TicketDispenserController extends Controller
 {
@@ -88,7 +89,43 @@ class TicketDispenserController extends Controller
       }
 
 
-      public function getBundleData($credential){
+      public function getBundleData(Request $request){
+
+         //validando se a crencial veio no post
+         if(!$request->has('credential')){
+           try{
+             $credential = Crypt::decrypt($request->credential);
+
+              }catch(\Exception $e){
+
+                   return response()->json([
+                     'status'=>'error',
+                     'code'=>'400',
+                     'message' =>'Credencial inválida'
+                   ]);
+
+             }
+         }else{
+
+             return response()->json([
+                     'status'=>'error',
+                     'code'=>'400',
+                     'message' =>'Credencial não informada'
+                   ]);
+         }
+
+         
+
+         //validação dos dados do formulario
+
+         $request->validate([
+            'credential'=>'required|string|size:64'
+         ],[
+            'credential.required'=>'A credencial é obrigatória',
+            'credential.size'=>'A credencial deve ter 64 caracteres'
+         ]);
+
+         $credential = $request->credential;
         
         /*
          preparando um json com os dados dos grupos pra fazer o retorno 
