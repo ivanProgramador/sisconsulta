@@ -16,9 +16,7 @@ class TicketDispenserSession
     public function handle(Request $request, Closure $next): Response
     {
 
-        //aqui eu testo se na sessão existe valor pra uma variavel chamada  "ticket_dispenser_credential"
-        //se não tiver ele volta ao formulario   
-
+        
         if(!$request->session()->has('ticket_dispenser_credential') ){
             return redirect()->route('dispenser.credentials');
         }

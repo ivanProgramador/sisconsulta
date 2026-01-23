@@ -92,7 +92,7 @@ class TicketDispenserController extends Controller
       public function getBundleData(Request $request){
 
          //validando se a crencial veio no post
-         if(!$request->has('credential')){
+         if($request->has('credential')){
            try{
              $credential = Crypt::decrypt($request->credential);
 
@@ -113,6 +113,8 @@ class TicketDispenserController extends Controller
                      'message' =>'Credencial não informada'
                    ]);
          }
+
+
 
          
 
@@ -178,6 +180,7 @@ class TicketDispenserController extends Controller
                      'prefix' => $queue->queue_prefix,
                      'digits' => $queue->queue_total_digits,
                      'colors' => json_decode($queue->queue_colors,true),
+                     'hash_code' => $queue->hash_code
                      ];
                }),
 

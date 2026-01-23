@@ -109,11 +109,9 @@ Route::middleware(['auth'])->group(function () {
 
 //essa rota esta sendo pogida por um mid que leva o usuario de volta ao formulario caso ele não esteja
 //autenticado
-  
+
 Route::middleware([TicketDispenserSession::class])->group(function(){
    Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
-   //refatorado pra post 
-   Route::post('/dispenser/get-bundle-data',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
 });
 
 

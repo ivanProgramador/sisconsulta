@@ -39,7 +39,7 @@
     <script>
        
        //variavel que vai receber a rota 
-       const url = "{{ route('dispenser.get.bundle.data', ['credential' => $credential ]) }}";
+       const url = "{{ route('dispenser.get.bundle.data') }}";
 
        const queuesContainer = document.querySelector("#queues");
 
@@ -52,7 +52,20 @@
        async function getBundleData(url){
           
            try{
-             const response = await fetch(url);
+             
+            const response = await fetch(url,[
+                 method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    },
+                    body: JSON.stringify(
+                        { 
+                            credential: '{{ Crypt::encrypt($credential) }}'
+                        })
+              ]);
+
+
               if(!response.ok){
                  throw new Error('Erro ao buscar dados: ' + response.status);
               }
