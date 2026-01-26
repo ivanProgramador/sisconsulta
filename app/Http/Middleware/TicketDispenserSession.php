@@ -9,18 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 class TicketDispenserSession
 {
     /**
-     * Esse mid e pra testar se ja existe uma sessão ativa no dispensador 
+     * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!$request->session()->has('ticket_dispenser_credential')){
 
-        
-        if(!$request->session()->has('ticket_dispenser_credential') ){
             return redirect()->route('dispenser.credentials');
         }
-
         return $next($request);
     }
 }

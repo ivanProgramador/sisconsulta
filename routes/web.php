@@ -105,19 +105,40 @@ Route::middleware(['auth'])->group(function () {
     //rota de logout 
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
     
-});
+    });
 
-//essa rota esta sendo pogida por um mid que leva o usuario de volta ao formulario caso ele não esteja
-//autenticado
-
-Route::middleware([TicketDispenserSession::class])->group(function(){
-   Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
-});
+    #Dispensador ===============================================================================================
 
 
-//rotas publicas para o dispensador 
-Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
-Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+    Route::middleware([TicketDispenserSession::class])->group(function(){
+
+       Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
+
+    });
+
+    Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
+
+    Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+
+
+    /*
+    
+     cria e remove variavel de sessão 
+
+    Route::get('/dispenser/teste-add-session',function(){
+      session()->put('ticket_dispenser_credential','abc123');
+    });
+
+    Route::get('/dispenser/teste-remove-session',function(){
+      session()->forget('ticket_dispenser_credential');
+    });
+    
+    */
+
+
+
+
+
 
 
 
