@@ -16,3 +16,26 @@ colocar ou remover dados desse array usando requisições pra fazer isso
     Route::get('/removendo_dados',function(){
            session()->forget();
      });
+
+Funcionamento de sessões 
+
+  No caso eu estou desenvolvendo e testando esse porjeto em um computador local 
+  nisso os testes estao sendo feitos em instancias diferentes do mesmo navegador 
+  então se eu limpo a sessão do usuario de login executando a função de logout
+  a sessão do "DISPENSADOR DE TICKETS " vai junto.Pra fazer os testes estou usando 
+  2 navegadores assim os cokkies salvos ou apagados em um , não vão afetar o outro.  
+
+  A ideia é que o DISPENSADOR em uma situação real seja aberto em outro computador,
+  sobre o erro:
+
+  419 - PAGE EXPIRED: isso significa que op token @csrf qua mantem a segurança do formulário 
+                     foi alterado se que uma solicitação de login tenha sido registrada, nisso 
+                     o sistema interpreta como uma tentaiva de invasão então ele retorna o 419 
+                     pra avisar que o token/pagina está expirada. 
+                     nisso a apgina deve ser reaberta e o porcesso de login deve ser refeito.
+
+
+
+
+
+   

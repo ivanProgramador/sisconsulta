@@ -20,4 +20,6 @@ vou usar 2 terminais
 como o tailwind tem uma sintaxe muito verbosa eu deixei uma lista de classes pre-definifidas dentro 
 do resources/css/app.css com uma alista de classes padrão
 
+quando forma feitas alaterações na parte grafica e essa mudança não refletir na página, reinicie o serviço  
+
   

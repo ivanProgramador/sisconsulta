@@ -10,7 +10,11 @@ class TicketDispenserController extends Controller
 {
     public function index(){
 
-        echo'Dispensador de tickets';
+        $data=[
+            'subtitle' => 'Dispensador de Tickets',
+        ];
+
+        return view('ticket_dispenser.dispenser',$data);
     }
 
 
@@ -39,7 +43,7 @@ class TicketDispenserController extends Controller
             ]
         );
 
-        $result =Bundle::where('credential_username',$request->credential_username)
+        $result = Bundle::where('credential_username',$request->credential_username)
                        ->first();
 
         if(!$result){
@@ -56,11 +60,11 @@ class TicketDispenserController extends Controller
                    ->with(['server_error'=>'Credenciais invalidas.']);
 
         }
+        
 
         session()->put('ticket_dispenser_credential',$request->credential_username);
 
-        redirect()->route('dispenser');
-
+        return redirect()->route('dispenser');
     }
 
     
