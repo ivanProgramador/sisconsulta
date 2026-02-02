@@ -11,14 +11,19 @@ class TicketDispenserController extends Controller
 {
     public function index(){
 
-        $data = $this->getBundleData(session()->get('ticket_dispenser_credential'));
-        echo'<pre>';
-        echo $data->getContent();
-        echo'</pre>';
+      
+        $bundleData = $this->getBundleData(session()->get('ticket_dispenser_credential'))->getData();
+
+       
 
         $data=[
             'subtitle' => 'Dispensador de Tickets',
+            'bundle' => $bundleData 
         ];
+
+       
+
+        
 
         return view('ticket_dispenser.dispenser',$data);
     }
@@ -81,7 +86,13 @@ class TicketDispenserController extends Controller
 
         //se neneui  grupo de filas for encontrado, retorna essa mensagem  
         if(!$bundle) {
-            return response()->json(['error' => 'Grupo não encontrado'],404);
+             return response()->json(
+                [
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'Nenhum grupo de filas encontrado'
+                
+                ],404);
         }
 
 
@@ -93,7 +104,13 @@ class TicketDispenserController extends Controller
 
         //se o grupos de filas não tiver filas ativas ou associadas retorna essa mensagem
         if($queues->isEmpty()){
-            return response()->json(['error' => 'Nenhuma fila ativa encontrada ou associada ao grupo'],404);
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'Nenhuma fila ativa encontrada ou associada ao grupo'
+                
+                ],404);
         }
 
         //preparando o retorno dos dados do grupo de filas e suas filas associadas
@@ -113,7 +130,7 @@ class TicketDispenserController extends Controller
                        'description'=>$queue->description,
                        'service'=>$queue->service_name,
                        'desk'=>$queue->service_desk,
-                       'prefix'=>$queue->ticket_prefix,
+                       'prefix'=>$queue->queue_prefix,
                        'digits'=>$queue->queue_total_digits,
                        'colors'=>json_decode($queue->queue_colors, true),
                  ];
@@ -136,7 +153,7 @@ class TicketDispenserController extends Controller
 
 
 
-        dd($bundle, $queues);
+        
 
         
 
