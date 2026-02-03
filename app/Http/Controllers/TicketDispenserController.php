@@ -10,20 +10,11 @@ use Illuminate\Support\Facades\Hash;
 class TicketDispenserController extends Controller
 {
     public function index(){
-
-      
-        $bundleData = $this->getBundleData(session()->get('ticket_dispenser_credential'))->getData();
-
        
-
         $data=[
             'subtitle' => 'Dispensador de Tickets',
-            'bundle' => $bundleData 
+            'credential' => session()->get('ticket_dispenser_credential') 
         ];
-
-       
-
-        
 
         return view('ticket_dispenser.dispenser',$data);
     }
@@ -78,9 +69,11 @@ class TicketDispenserController extends Controller
         return redirect()->route('dispenser');
     }
 
-    private function getBundleData($credential_username)
+    
+
+    public function getBundleData($credential)
     {
-        $bundle = Bundle::where('credential_username', $credential_username)->first();
+        $bundle = Bundle::where('credential_username', $credential)->first();
 
 
 

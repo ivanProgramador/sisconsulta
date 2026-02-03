@@ -1,0 +1,145 @@
+
+1 - Criei uma rotra que será requisitada usando  ajax de forma assincrona, esse rota vai ficar no 
+    mesmo grupo de rotas de acesso ao dispensador portando ela está sujeita a validação do mid. Essa rota
+    vai chamar o metodo  'getBundleData' de forma direta.
+
+    Route::get('/dispenser/get-bundle-data/{credential}',[TicketDispenserController::class,'getBundleData'])->name('dispenser');
+
+2 - fui no controller no metodo index e removi a linha que chamava o metodo 'getBundleData' e alterei a forma como 
+    o ticket recebe a crendential.
+
+    METODO ORIGINAL 
+    ------------------------------------------------------------------------------------------------------
+    public function index(){
+
+      
+        $bundleData = $this->getBundleData(session()->get('ticket_dispenser_credential'))->getData();
+
+        $data=[
+            'subtitle' => 'Dispensador de Tickets',
+            'bundle' => $bundleData 
+        ];
+
+        return view('ticket_dispenser.dispenser',$data);
+    }
+
+    METODO ALTERADO 
+
+      No caso ao inves de acionar o 'getBundleData()' pra pegar a credencial e retornar os dados da fila 
+      ele acessa a sessão que foi criada e pega o ticket_dispenser_credential dela e passa para o dispensador
+      atraves do array data. 
+
+    ------------------------------------------------------------------------------------------------------------
+    public function index(){
+
+    $data=[
+            'subtitle' => 'Dispensador de Tickets',
+            'credential' => session()->get('ticket_dispenser_credential') 
+        ];
+
+        return view('ticket_dispenser.dispenser',$data);
+    }
+    ------------------------------------------------------------------------------------------------------------
+
+    3 - tornei o getBundleData publico pra ele poder ser acessado da rota que eu criei, e agora ele não recebe mais o 
+        $credential_username e sim o $crendential que vem pela rota que eu criei 
+                                                     |
+                                                     v
+         Route::get('/dispenser/get-bundle-data/{crendential}',[TicketDispenserController::class,'getBundleData'])->name('dispenser');
+
+        A $credential é mensionada em 2 linhas dentro do getBundleData então essas linhas foram alteradas para 
+
+        3.1 - public function getBundleData($credential) -> linda a assinatura do metodo
+
+        3.2 - $bundle = Bundle::where('credential_username', $credential)->first();  ->  linha de processamento da consulta        
+   
+
+    Então a sequência fica assim 
+
+    1 - mostra o formulário eo formulário recebe os dados do grupo de filas 
+
+      Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
+
+    2 - depois de recber os dados ele faz um post para a rota 
+     
+      Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+    
+    3 - que valida os dados faz a busca pelo grupo de filas e grava a hash do grupo de filas na sessão e depois retorna o dispensador 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+View 
+  1 - eu vou eliminar o cliclo foreach da view do dispensador porque ele não vai mais receber uma massa de infomações de forma sincrona, 
+      então nesse caso eu não teria oque percorrer usando o blade. alam do foreach eu tambem removi as diretivas que faziam referencias a 
+      variavel $bundle visto que ela não será mais testada pelo blade.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+  2 - codigo javascrpt incluido na view 
+
+  2.1 quando os dados chegarem no dispensador eles vem trazendo a $credential e essa credential que será passada na requisição assincrona 
+
+      const url = "{{ route('dispenser.get.bundle.data',['credential'=>$credential]) }}"; 
+
+   2.2 função assincrona funcionado e trazendo o json para o console 
+
+----------------------------------------------------------------------------------------------------------
+        <script>
+         
+         const url = "{{ route('dispenser.get.bundle.data',['credential' => $credential]) }}";
+
+         async function getBundleData(url) {
+
+            try{
+
+                const response = await fetch(url);
+
+                if(!response.ok){
+                    throw new Error('Erro ao buscar dados: ' + response.status );
+                }
+
+               return await response.json();
+
+            } catch (error) {
+
+                console.log(error);
+                return null
+                
+            }
+            
+         }
+
+         getBundleData(url).then(data=>{
+            console.log(data);
+         });
+
+       </script> 
+------------------------------------------------------------------------
+
+     
+
+
+     
+
+
+     
+
+
+     
+
+      
+       
+        
+          
+
+    
+
+        
+     
+
+
+
+
+    
+
+

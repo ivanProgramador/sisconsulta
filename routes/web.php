@@ -114,7 +114,11 @@ Route::middleware(['auth'])->group(function () {
 
        Route::get('/dispenser',[TicketDispenserController::class,'index'])->name('dispenser');
 
+       Route::get('/dispenser/get-bundle-data/{credential}',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
+       
     });
+
+
 
     Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
 
