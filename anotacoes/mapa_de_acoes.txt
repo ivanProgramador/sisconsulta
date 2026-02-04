@@ -116,6 +116,16 @@ View
        </script> 
 ------------------------------------------------------------------------
 
+ Agora que as filas ja estão sendo retornadas no json eu vou tranformar a div qua mostra as filas em um container
+ pra isso eu coloquei um id nele chamado queues
+
+   <div id="queues" class="flex flex-wrap w-full border-1 border-slate-300 rounded-xl">
+                [queues]
+   </div>
+ 
+
+
+
      
 
 
