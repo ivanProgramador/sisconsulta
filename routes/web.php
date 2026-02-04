@@ -116,6 +116,8 @@ Route::middleware(['auth'])->group(function () {
 
        Route::post('/dispenser/get-bundle-data',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
        
+       Route::post('/dispenser/get-ticket',[TicketDispenserController::class,'getTicket'])->name('dispenser.get.ticket');
+       
     });
 
 

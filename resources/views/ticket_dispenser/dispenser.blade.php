@@ -83,19 +83,19 @@
 
             queues.forEach(queue =>{
 
-                const queueContent = document.createElement('a');
-                queueContent.className = `flex gap-2 rounded-xl p-2 hover:bg-black ${queuesLayout}`;
+                const queueContent = document.createElement('div');
+                queueContent.className = `flex gap-2 rounded-xl p-2 ${queuesLayout} hover:bg-black transition-all    `;
                 queueContent.style.borderColor = queue.colors.prefix_bg_color;
-                queueContent.href="#";
+                queueContent.id = queue.hash_code;
 
                 queueContent.innerHTML = `
-                            {{-- prefix --}}
+                          
                             <div class="text-center font-mono bg-slate-100 rounded-xl p-1"
                             style="background-color:${queue.colors.prefix_bg_color}; color:${queue.colors.prefix_text_color}"
                             >
                                 <p class="text-8xl px-4 font-bold text-salte-700">${queue.prefix}</p>
                             </div>
-                            {{-- serviço e balcao --}}
+                            
 
                             <div class="bg-slate-400 w-full rounded-xl p-3"
                                 style="background-color:${queue.colors.number_bg_color};  color:${queue.colors.number_text_color}; "
@@ -105,6 +105,14 @@
                             </div>                
                 `;
 
+                //colocando um evento de click 
+
+                queueContent.addEventListener('click',()=>{
+                     getTicket(queue.hash_code);
+                });
+
+
+
 
 
                 queuesContainer.appendChild(queueContent);
@@ -113,6 +121,35 @@
 
                  
             });
+
+            async function getTicket(hash_code) {
+
+                const url ="{{ route('dispenser.get.ticket') }}";
+
+                try{
+                    const response = await fetch(url,{
+                       method:'POST',
+                       headers:{
+                         'Content-Type': 'application/json'
+                       },
+                       body: JSON.stringify({
+                          hash_code: hash_code
+                       })
+                    });
+
+                    if(!response.ok){
+                        const text = await response.text();
+                        console.error('Resposta não OK:', text);
+                        throw new Error(text);
+                    }
+
+                    const data = await response.json();
+                    console.log(data);
+                    
+                }catch(error){
+                    console.log(error)
+                }
+            }
          }
 
         

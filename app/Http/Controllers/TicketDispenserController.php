@@ -11,7 +11,8 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class TicketDispenserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
        
         $data=[
             'subtitle' => 'Dispensador de Tickets',
@@ -184,6 +185,22 @@ class TicketDispenserController extends Controller
 
         
     }
+
+    public function getTicket(Request $request)
+    {
+          return response()->json(
+            [
+                'status'=>'success',
+                'code'=>200,
+                'message'=>'Ticket Criado com sucesso !',
+                'hash_code'=> $request->hash_code,
+
+            ]
+          );
+
+    }
+
+
 
     
 
