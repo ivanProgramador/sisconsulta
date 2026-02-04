@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Bundle;
 use App\Models\Queue;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use PhpParser\Node\Stmt\TryCatch;
 
 class TicketDispenserController extends Controller
 {
@@ -71,8 +73,36 @@ class TicketDispenserController extends Controller
 
     
 
-    public function getBundleData($credential)
+    public function getBundleData(Request $request)
     {
+        if($request->has('credential')){
+
+            Try{
+
+                $credential = Crypt::decrypt($request->credential);
+
+            }catch(\Exception $e){
+                
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'code' => 404,
+                        'message' => 'Credencial de grupo invalida'
+                    
+                    ]);
+            }
+        }else{
+             return response()->json(
+                [
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'A credencial é obrigatória'
+                
+                ],404);
+        }
+
+
+
         $bundle = Bundle::where('credential_username', $credential)->first();
 
 
@@ -126,6 +156,7 @@ class TicketDispenserController extends Controller
                        'prefix'=>$queue->queue_prefix,
                        'digits'=>$queue->queue_total_digits,
                        'colors'=>json_decode($queue->queue_colors, true),
+                       'hash_code'=> $queue->hash_code
                  ];
               })
             ],

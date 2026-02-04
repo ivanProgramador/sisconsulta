@@ -1,0 +1,186 @@
+Refatoração de segurança
+
+  Atualmente  as consultas das filas estão sendo feitas atraves de um get isso pode tornar 
+  o processo de consultas de dados  algo inseguro porquqe embora seja exigida autenticação 
+  o porcesso de consulta está exposto a alteração, por isso mais uma camada de segurança sera 
+  aplicada.
+
+Rotas 
+
+  1 - eu mudei a rota que recebe a credencial de get para post e agora ela não recebe mais 
+      credencial, como pararmtro da rota , agora a credencial vai vir dentro da requisição
+      post.
+
+      Route::post('/dispenser/get-bundle-data',[TicketDispenserController::class,'getBundleData'])->name('dispenser.get.bundle.data');
+ 
+Controller 
+
+  1 - eu vou adaptar o controller pra processar um post ao inves de um get, nisso vai ser preciso que eu faça um busca dentro do obejto de requisição,
+      pra encontrar a hash e devolver o resultado.O bloco de codigo abaxio foi adicionado ao metodo, no caso ele processa  request e usa op conteudo da credential
+      pra achar o grupo de filas.
+
+          ---------------------------------------------------------------------------------------------------------
+                if($request->has('credential')){
+
+                      Try{
+
+                          $credential = Crypt::decrypt($request->credential);
+
+                      }catch(\Exception $e){
+                          
+                          return response()->json(
+                              [
+                                  'status' => 'error',
+                                  'code' => 404,
+                                  'message' => 'Credencial de grupo invalida'
+                              
+                              ]);
+                      }
+                  }else{
+                      return response()->json(
+                          [
+                              'status' => 'error',
+                              'code' => 404,
+                              'message' => 'A credencial é obrigatória'
+                          
+                          ],404);
+                  }
+          ----------------------------------------------------------------------------------------------------------
+
+    2 - coloquei um item adicional no json de retorno que foi o hash da fila 
+        
+        'hash_code'=> $queue->hash_code
+
+
+
+VIEW 
+   a função que faz a requisição para rota teve qua ser alterada ao inves de fazer simplesmente 
+   uma consulta ela tambem envia dados de autenticação e com um canbeçalho de identificação, esse dados 
+   são enviados via json. 
+
+   {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(
+          {
+              credential:'{{ Crypt::encrypt($credential) }}'
+          }
+        )
+   }   
+
+------------------------------------------------------------------------------------------------------
+
+    async function getBundleData(url) {
+
+            try {
+
+                const response = await fetch(url, {
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            credential:'{{ Crypt::encrypt($credential) }}'
+                        }
+                    )
+               });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    renderError(data);
+                    return;
+                }
+
+                // sucesso
+                renderQueues(data.queues);
+
+            } catch (error) {
+                renderError({ message: 'Erro inesperado na requisição' });
+                console.error(error);
+            }
+        }
+ 
+------------------------------------------------------------------------------------------------------------
+
+MODIFICAÇÃO NA ESTRUTURA DO LARAVEL 
+  
+  Por padrão todas as requisições post tem que passar um @csrf que seria uma identificação de que esta vindo 
+  da própria aplicação. então post sem @csrf da erro. 
+
+1 - acessei o arquivo bootstrap/app.php 
+    ele controla todo o sistema de rotas  
+    --------------------------------------------------------------
+        <?php
+
+    use Illuminate\Foundation\Application;
+    use Illuminate\Foundation\Configuration\Exceptions;
+    use Illuminate\Foundation\Configuration\Middleware;
+
+    return Application::configure(basePath: dirname(__DIR__))
+        ->withRouting(
+            web: __DIR__.'/../routes/web.php',
+            commands: __DIR__.'/../routes/console.php',
+            health: '/up',
+        )
+        ->withMiddleware(function (Middleware $middleware): void {
+            //
+        })
+        ->withExceptions(function (Exceptions $exceptions): void {
+            //
+        })->create();
+    -----------------------------------------------------------------  
+
+  Nesse arquivo eu posso adicionar excessões por exemplo , isentar uma rota de 
+  apresentar o @csrf nesse caso eu vou  acresecentar a rota que eu faço a requisição
+  sem usar formulário adicionando essa linha:
+  
+   "$middleware->validateCsrfTokens(except:[
+          '/dispenser/get-bundle-data'
+       ]);"
+       
+  dentro da função "withMiddleware"  
+
+  arquivo depois da alteração 
+   
+  =================================================================================
+  return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+       $middleware->validateCsrfTokens(except:[
+          '/dispenser/get-bundle-data'
+       ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
+
+  ========================================================================== 
+
+
+    
+   
+
+
+
+        
+
+  
+  
+
+
+
+
+
+
+    
+ 
+  
+ 

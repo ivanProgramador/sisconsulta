@@ -33,8 +33,21 @@
          getBundleData(url);
 
         async function getBundleData(url) {
+
             try {
-                const response = await fetch(url);
+
+                const response = await fetch(url, {
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            credential:'{{ Crypt::encrypt($credential) }}'
+                        }
+                    )
+               });
+
                 const data = await response.json();
 
                 if (!response.ok) {
@@ -53,7 +66,7 @@
  
 
          function renderError(data){
-         QueuesContainer.innerHTML =`  
+         queuesContainer.innerHTML =`  
                 <div class="flex w-full justify-center mt-10">
                 <div class="rounded-xl border border-red-800 text-red-800 text-center p-4">
                     <i class="text-3xl fa-solid fa-triangle-exclamation mb-4"></i>
