@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Bundle;
 use App\Models\Queue;
+use App\Models\QueueTicket;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use PhpParser\Node\Stmt\TryCatch;
+
+use function Symfony\Component\Clock\now;
 
 class TicketDispenserController extends Controller
 {
@@ -188,15 +191,86 @@ class TicketDispenserController extends Controller
 
     public function getTicket(Request $request)
     {
-          return response()->json(
-            [
-                'status'=>'success',
-                'code'=>200,
-                'message'=>'Ticket Criado com sucesso !',
+      
+       //testando se existe uma hash na requisição
+
+      if(!$request->has('hash_code')){
+
+           return response()->json(
+             [
+                'status'=>'error',
+                'code'=>404,
+                'message'=>'A hash e obrigatória ',
                 'hash_code'=> $request->hash_code,
 
-            ]
-          );
+             ]
+           );
+        }
+
+       //testando se a hash que existe é valida 
+       $queue  = Queue::where('hash_code',$request->hash_code)
+                      ->where('status','active')
+                      ->where('deleted_at',null)
+                      ->get();
+
+        if($queue->isEmpty()){
+             
+            return response()->json(
+             [
+                'status'=>'error',
+                'code'=>404,
+                'message'=>'Fila não encontrada ou vazia'
+
+             ]
+           );
+
+           // pegando a primeira fila do resultado 
+           $queue = $queue->first();
+
+           //pegando o ticket mais recente registrado 
+           $last_ticket = $queue->tickets()->lastest()->first();
+
+           //criando um novo ticket 
+           $newTicketNumber = (!$last_ticket)? 1 : $last_ticket->queue_ticket_number + 1;
+
+           $newTicket = new QueueTicket();
+           $newTicket->id_queue = $queue->id;
+           $newTicket->queue_ticket_number = $newTicketNumber;
+           $newTicket->queue_ticket_created_at = now();
+           $newTicket->queue_ticket_status = 'waiting';
+           $newTicket->save();
+
+           //retornando os dados do ticket como json
+           
+           return response()->json([
+             'status'=>'success',
+             'code' =>200,
+             'message'=>'success',
+             'ticket'=>[
+                'queue_service'=>$queue->service_name,
+                'service_desk'=>$queue_service_desk,
+                'prefix'=>$queue->queue_prefix,
+                'number'=>str_pad($newTicketNumber,$queue->queue_total_digits,'0',STR_PAD_LEFT),
+                'created_at' => now()
+             ]
+           ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+       
+
 
     }
 
