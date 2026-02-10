@@ -139,7 +139,7 @@
                     });
 
                     if(!response.ok){
-                        const text = await response.text();
+                        const text = await response.json();
                         console.error('Resposta não OK:', text);
                         throw new Error(text);
                     }
@@ -148,7 +148,7 @@
                     console.log(data);
                     
                 }catch(error){
-                    console.log(error)
+                    console.log(error);
                 }
             }
          }

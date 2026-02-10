@@ -213,22 +213,19 @@ class TicketDispenserController extends Controller
                       ->where('deleted_at',null)
                       ->get();
 
-        if($queue->isEmpty()){
-             
-            return response()->json(
-             [
-                'status'=>'error',
-                'code'=>404,
-                'message'=>'Fila não encontrada ou vazia'
-
-             ]
-           );
+        if (!$queue) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 404,
+                'message' => 'Fila não encontrada ou vazia'
+            ], 404);
+            }
 
            // pegando a primeira fila do resultado 
            $queue = $queue->first();
 
            //pegando o ticket mais recente registrado 
-           $last_ticket = $queue->tickets()->lastest()->first();
+           $last_ticket = $queue->tickets()->latest()->first();
 
            //criando um novo ticket 
            $newTicketNumber = (!$last_ticket)? 1 : $last_ticket->queue_ticket_number + 1;
@@ -248,7 +245,7 @@ class TicketDispenserController extends Controller
              'message'=>'success',
              'ticket'=>[
                 'queue_service'=>$queue->service_name,
-                'service_desk'=>$queue_service_desk,
+                'service_desk'=>$queue->service_desk,
                 'prefix'=>$queue->queue_prefix,
                 'number'=>str_pad($newTicketNumber,$queue->queue_total_digits,'0',STR_PAD_LEFT),
                 'created_at' => now()
@@ -279,4 +276,4 @@ class TicketDispenserController extends Controller
     
 
 
-}
+
