@@ -19,8 +19,9 @@
             </div>
 
 
-             <div class="flex w-1/4 h-100 border-1 border-slate-300 rounded-xl p-4" >
-                   [Ticket preview]
+             <div id="ticket" class="flex w-1/4 h-100 border-1 border-slate-300 rounded-xl p-4" >
+                
+                   
              </div>
 
         </div>
@@ -35,6 +36,7 @@
         async function getBundleData(url) {
 
             try {
+                
 
                 const response = await fetch(url, {
                     method:'POST',
@@ -127,6 +129,8 @@
                 const url ="{{ route('dispenser.get.ticket') }}";
 
                 try{
+                    
+                    
                     const response = await fetch(url,{
                        method:'POST',
                        headers:{
@@ -146,11 +150,57 @@
 
                     const data = await response.json();
                     console.log(data);
+                    renderTicket(data.ticket);
                     
-                }catch(error){
-                    console.log(error);
-                }
+                   }catch(error){
+                      renderTicketError();
+                   }
             }
+
+            function renderTicketError(){
+                const ticketContainer = document.querySelector("#ticket");
+                ticketContainer.innerHTML = `
+                <div class="flex flex-col justify-center items-center">
+                    <i class="text-6xl text-red-500 fa-solid fa-triangle-exclamation mb-2"></i>
+                    <p class="text-center text-red-500">Erro ao obter o ticket</p>
+                    <p class="text-center text-red-500 text-sm">Tente novamente ou fale com um atendente</p>
+                </div>
+                `;
+            }
+
+            function renderTicket(ticket){
+                const ticketContainer = document.querySelector("#ticket");
+
+                function formatarData(createdAt) {
+                    if (!createdAt?.date) return "Data inválida";
+
+                    const iso = createdAt.date.replace(" ", "T");
+                    const data = new Date(iso);
+
+                    return data.toLocaleString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    });
+                }
+
+               
+
+                ticketContainer.innerHTML =`
+                <div class="bg-slate-100 rounded-xl w-full text-center">
+                    <p class="w-full text-8xl font-bold text-slate-800">${ticket.prefix}</p>
+                    <p class="w-full text-7xl font-bold text-slate-800">${ticket.number}</p>
+                    <p class="w-full text-2xl font-semibold text-slate-600">${ticket.queue_service}</p>
+                    <p class="w-full text-xl font-semibold text-slate-500">${ticket.service_desk}</p>
+                    <p class="w-full text-sm text-slate-400 mt-2">Emitido em: ${formatarData(ticket.created_at)}</p>
+                </div>
+                `;
+               
+            }
+
+
          }
 
         
