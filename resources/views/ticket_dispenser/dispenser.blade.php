@@ -4,8 +4,9 @@
 
         
 
-        <div class="text-end mb-4">
-           [opções]
+        <div class="flex justify-end mb-4">
+             <p id="access_options" class="bg-slate-400 w-10 h-10"></p>
+             <i id="btn_options" class="fa-solid fa-gear btn-white p-2 !hidden " ></i>
         </div>
         
         <div class="main-card flex gap-4 w-full">
@@ -228,7 +229,12 @@
 
             }, queueInterval);
 
+        
+            //acessando opçoes 
 
+            //abrindo opçoes
+            
+            //fechando modal 
 
 
 
