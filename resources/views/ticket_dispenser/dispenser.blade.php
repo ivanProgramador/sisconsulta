@@ -27,6 +27,9 @@
         </div>
 
     <script>
+
+         let ticketInterval  = 5000; 
+         let queueInterval = 5000;
          
          const url = "{{ route('dispenser.get.bundle.data', ['credential' => $credential ]) }}";
          const queuesContainer = document.querySelector("#queues");
@@ -77,6 +80,10 @@
             </div> `;
          }
 
+
+
+
+
          function renderQueues(queues){
 
             const  queuesLayout = queues.length <= 4 ? 'w-1/1' : 'w-1/2';
@@ -112,19 +119,15 @@
                 queueContent.addEventListener('click',()=>{
                      getTicket(queue.hash_code);
                 });
-
-
-
-
-
                 queuesContainer.appendChild(queueContent);
-
-
-
-                 
             });
 
-            async function getTicket(hash_code) {
+        } // fim da funcção reneder queues 
+
+
+
+
+          async function getTicket(hash_code) {
 
                 const url ="{{ route('dispenser.get.ticket') }}";
 
@@ -157,7 +160,11 @@
                    }
             }
 
-            function renderTicketError(){
+
+
+
+
+         function renderTicketError(){
                 const ticketContainer = document.querySelector("#ticket");
                 ticketContainer.innerHTML = `
                 <div class="flex flex-col justify-center items-center">
@@ -166,9 +173,16 @@
                     <p class="text-center text-red-500 text-sm">Tente novamente ou fale com um atendente</p>
                 </div>
                 `;
+
+                setTimeout(() => {
+                   ticketContainer.innerHTML=''; 
+                }, ticketInterval);
             }
 
-            function renderTicket(ticket){
+
+
+          function renderTicket(ticket){
+
                 const ticketContainer = document.querySelector("#ticket");
 
                 function formatarData(createdAt) {
@@ -197,11 +211,28 @@
                     <p class="w-full text-sm text-slate-400 mt-2">Emitido em: ${formatarData(ticket.created_at)}</p>
                 </div>
                 `;
+
+                setTimeout(() => {
+                   ticketContainer.innerHTML=''; 
+                }, ticketInterval);
                
             }
 
 
-         }
+            //temporizador 
+            setInterval(() => {
+               
+                getBundleData(url).then(data=>{
+                 render(data);
+               });
+
+            }, queueInterval);
+
+
+
+
+
+
 
         
 

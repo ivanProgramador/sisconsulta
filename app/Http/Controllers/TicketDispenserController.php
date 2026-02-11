@@ -216,8 +216,17 @@ class TicketDispenserController extends Controller
          $queue = $queue->first(); 
          //pegando o ticket mais recente registrado 
          $last_ticket = $queue->tickets()->latest()->first(); 
+
+
          //criando um novo ticket 
          $newTicketNumber = (!$last_ticket)? 1 : $last_ticket->queue_ticket_number + 1; 
+
+         if($newTicketNumber > pow(10, $queue->queue_total_digits) - 1){
+            $newTicketNumber = 1;
+         }
+
+
+
          $newTicket = new QueueTicket(); 
          $newTicket->id_queue = $queue->id; 
          $newTicket->queue_ticket_number = $newTicketNumber; 
