@@ -8,6 +8,9 @@
              <p id="access_options" class="bg-slate-400 w-10 h-10"></p>
              <i id="btn_options" class="fa-solid fa-gear btn-white p-2 !hidden " ></i>
         </div>
+
+
+
         
         <div class="main-card flex gap-4 w-full">
 
@@ -25,6 +28,26 @@
                    
              </div>
 
+        </div>
+
+
+
+        {{-- Modal de configuração --}}
+
+        <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#000000aa]" style="display:none;">
+              <div class="bg-white rounded-xl shadow-lg p-6 w-200">
+                 <p class="title-3">Opções do dispensador</p>
+                 <hr class="border-slate-300 my-4">
+                 <div class="flex justify-between gap-4 my-10">
+                    <div class="main-card">Tempo de atualização</div>
+                    <div class="main-card">Tempo de ticket</div>
+                    <div class="main-card"><a href="#">Voltar as credênciais</a></div>
+                 </div>
+                 <div class="flex justify-center">
+                     <button id="close_modal" class="btn w-40" >Fechar</button>
+                 </div>
+
+              </div>
         </div>
 
     <script>
@@ -231,16 +254,28 @@
 
         
             //acessando opçoes 
+            document.querySelector("#access_options").addEventListener('dblclick',(event)=>{
+                
+                const btn_options = document.querySelector("#btn_options");
+                btn_options.classList.remove("!hidden");
+                event.target.classList.add("!hidden");
+
+                setTimeout(()=>{
+                    btn_options.classList.add("!hidden");
+                    event.target.classList.remove("!hidden");
+                },3000);
+
+            });
 
             //abrindo opçoes
+            document.querySelector("#btn_options").addEventListener('click',()=>{
+                document.querySelector("#modal").style.display = "flex";
+            });
             
             //fechando modal 
-
-
-
-
-
-        
+            document.querySelector("#close_modal").addEventListener('click',()=>{
+                document.querySelector("#modal").style.display = "none";
+            });
 
     </script>
 
