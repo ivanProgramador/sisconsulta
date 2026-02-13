@@ -39,9 +39,26 @@
                  <p class="title-3">Opções do dispensador</p>
                  <hr class="border-slate-300 my-4">
                  <div class="flex justify-between gap-4 my-10">
-                    <div class="main-card">Tempo de atualização</div>
-                    <div class="main-card">Tempo de ticket</div>
+
+                    <div class="main-card w-full !p-4">
+                           <p>Tempo de atualização</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_3" > <i class="fa-solid fa-clock-rotate-left"></i> 3 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_5" > <i class="fa-solid fa-clock-rotate-left"></i> 5 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_10"> <i class="fa-solid fa-clock-rotate-left"></i> 10 segundos</p>
+                    </div>
+
+
+
+                    <div class="main-card w-full !p-4">
+                        <p>Tempo de ticket</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="visible_ticket_3" > <i class="fa-solid fa-clock-rotate-left"></i> 3 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="visible_ticket_5" > <i class="fa-solid fa-clock-rotate-left"></i> 5 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="visible_ticket_10"> <i class="fa-solid fa-clock-rotate-left"></i> 10 segundos</p>
+                    </div>
+
                     <div class="main-card"><a href="#">Voltar as credênciais</a></div>
+
+
                  </div>
                  <div class="flex justify-center">
                      <button id="close_modal" class="btn w-40" >Fechar</button>
@@ -54,6 +71,7 @@
 
          let ticketInterval  = 5000; 
          let queueInterval = 5000;
+         let refresh_interval = 0;
          
          const url = "{{ route('dispenser.get.bundle.data', ['credential' => $credential ]) }}";
          const queuesContainer = document.querySelector("#queues");
