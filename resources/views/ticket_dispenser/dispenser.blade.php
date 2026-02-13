@@ -5,7 +5,7 @@
         
 
         <div class="flex justify-end mb-4">
-             <p id="access_options" class="bg-slate-400 w-10 h-10"></p>
+             <p id="access_options" class="w-10 h-10"></p>
              <i id="btn_options" class="fa-solid fa-gear btn-white p-2 !hidden " ></i>
         </div>
 
@@ -56,7 +56,9 @@
                            <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="visible_ticket_10"> <i class="fa-solid fa-clock-rotate-left"></i> 10 segundos</p>
                     </div>
 
-                    <div class="main-card"><a href="#">Voltar as credênciais</a></div>
+                    <div class="main-card w-full flex justify-center items-center text-center !p-4" >
+                        <a class="btn" href="{{ route('dispenser.credentials') }}">Voltar as credênciais</a>
+                    </div>
 
 
                  </div>
@@ -294,6 +296,24 @@
             document.querySelector("#close_modal").addEventListener('click',()=>{
                 document.querySelector("#modal").style.display = "none";
             });
+
+            //configurando o tempo de carregamento 
+            document.querySelectorAll('[id=>"refresh_interval_"]').forEach(element=>{
+                element.addEventListener('click',(event)=>{
+                    const interval = parseInt(event.target.id.split('_').pop.());
+                    queueInterval = interval * 1000;
+
+                    //resretando o tempo original do intervalo 
+                    
+                })
+            });
+
+
+
+
+
+
+            
 
     </script>
 
