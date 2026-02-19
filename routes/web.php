@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BundlesController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\QueuesDisplayController;
 use App\Http\Controllers\TicketDispenserController;
+use App\Http\Middleware\QueueDisplaySession;
 use App\Http\Middleware\TicketDispenserSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -120,11 +122,30 @@ Route::middleware(['auth'])->group(function () {
        
     });
 
-
-
     Route::get('/dispenser/credentials',[TicketDispenserController::class,'credentials'])->name('dispenser.credentials');
 
     Route::post('/dispenser/credentials',[TicketDispenserController::class,'credentialsSubmit'])->name('dispenser.credentials.submit');
+
+    #Tela da fila de espera =================================================================================================================
+     
+      Route::middleware([QueueDisplaySession::class])->group(function(){
+
+        Route::get('/queues-display',[QueuesDisplayController::class,'index'])->name('queues.display');
+        Route::post('/queues-display/get-bundle-data',[QueuesDisplayController::class,'getBundleData'])->name('queues.display.get.bundle.data');
+
+      });
+
+      Route::get('/queues-display/credentials',[QueuesDisplayController::class,'credentials'])->name('queues.display.credentials');
+
+      Route::post('/queues-display/credentials',[QueuesDisplayController::class,'credentialsSubmit'])->name('queues.display.credentials.submit');
+
+
+
+    //=======================================================================================================================================
+
+
+
+
 
 
     /*

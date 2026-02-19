@@ -1,0 +1,9 @@
+Essa tela aparece no monitor da sala de espera 
+ O cliente olha pra ele e espera ser chamado, o aconselhavel pra esse caso é mostrar 
+ em uma tv grande que fique bem exposta para que todos na sala de esperra ossam ver 
+ o ticket que está sendo chamado. 
+
+ 1 - por motivos obvios essa tela não precisa de autenticação de usuário 
+ 2 - a tela apresentada não permite nenhuma interatividade ela serve SOMENTE para mostrar dados
+ 3 - a tela tem um aviso sonoro  
+ 
