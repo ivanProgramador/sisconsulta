@@ -42,9 +42,9 @@
 
                     <div class="main-card w-full !p-4">
                            <p>Tempo de atualização</p>
-                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_3" > <i class="fa-solid fa-clock-rotate-left"></i> 3 segundos</p>
-                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_5" > <i class="fa-solid fa-clock-rotate-left"></i> 5 segundos</p>
-                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_inteval_10"> <i class="fa-solid fa-clock-rotate-left"></i> 10 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_interval_3" > <i class="fa-solid fa-clock-rotate-left"></i> 3 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_interval_5" > <i class="fa-solid fa-clock-rotate-left"></i> 5 segundos</p>
+                           <p class="cursor-pointer p-2 hover:bg-zinc-200 mb-4" id="refresh_interval_10"> <i class="fa-solid fa-clock-rotate-left"></i> 10 segundos</p>
                     </div>
 
 
@@ -71,9 +71,13 @@
 
     <script>
 
+
+
+
+
          let ticketInterval  = 5000; 
          let queueInterval = 5000;
-         let refresh_interval = 0;
+         let refreshInterval = 0;
          
          const url = "{{ route('dispenser.get.bundle.data', ['credential' => $credential ]) }}";
          const queuesContainer = document.querySelector("#queues");
@@ -264,10 +268,10 @@
 
 
             //temporizador 
-            setInterval(() => {
+           refreshInterval = setInterval(() => {
                
                 getBundleData(url).then(data=>{
-                 render(data);
+                 renderQueues(data);
                });
 
             }, queueInterval);
@@ -298,15 +302,39 @@
             });
 
             //configurando o tempo de carregamento 
-            document.querySelectorAll('[id=>"refresh_interval_"]').forEach(element=>{
+            document.querySelectorAll('[id^="refresh_interval_"]').forEach(element=>{
                 element.addEventListener('click',(event)=>{
-                    const interval = parseInt(event.target.id.split('_').pop.());
+                    const interval = parseInt(event.target.id.split('_').pop());
                     queueInterval = interval * 1000;
 
-                    //resretando o tempo original do intervalo 
+                    //resetando o tempo original do intervalo
+                    clearInterval(refreshInterval);
+                    refreshInterval = setInterval(()=>{
+                          getBundleData(url).then(data=>{
+                          renderQueues(data);
+                    });
+                        
+                    },queueInterval);
+
                     
-                })
+                });
             });
+
+
+            //configuração do tempo de visibilidade do ticket na tela 
+
+             document.querySelectorAll('[id^="visible_ticket"]').forEach(element=>{
+                element.addEventListener('click',(event)=>{
+                    const interval = parseInt(event.target.id.split('_').pop());
+                    ticketInterval = interval * 1000;
+                    document.querySelector("#modal").style.display = "none";
+                    
+
+                    
+                });
+            });
+
+
 
 
 
