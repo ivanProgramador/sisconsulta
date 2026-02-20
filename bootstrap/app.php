@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
        $middleware->validateCsrfTokens(except:[
           '/dispenser/get-bundle-data',
-          '/dispenser/get-ticket'
+          '/dispenser/get-ticket',
+          '/queues-display/get-bundle-data'
        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
