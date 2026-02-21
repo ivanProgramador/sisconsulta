@@ -25,7 +25,7 @@
              },
              body:JSON.stringify(
                 {
-                  credential:'{{$credential}}'
+                  credential:'{{ Crypt::encrypt($credential) }}'
                 }
              )
            });
