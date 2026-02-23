@@ -1,6 +1,8 @@
 <x-layouts.guest-layout subtitle="{{ $subtitle }}">
 
-    [Painel de filas]
+    <div id="dados">
+        
+    </div>
 
 
 
@@ -8,10 +10,32 @@
 
       const url = "{{ route('queues.display.get.bundle.data') }}";
 
-      console.log("{{ $credential }}");
-
+      
       getBundleData(url).then(data=>{
-        console.log(data);
+          
+          const dados = document.querySelector("#dados");
+
+          dados.innerHTML = '';
+
+          if(data.error){
+            dados.innerHTML = 'Aconteceu um erro';
+            return;
+          }
+
+          data.data.queues.forEach((item)=>{
+
+                 dados.innerHTML +=`<p>Fila: ${item.name} | Serviço: ${item.service_name} | Balcão: ${item.service_desk} </p>`;
+
+              if(item.tickets.length === 0){
+
+                 dados.innerHTML += '<p>Não tem ticket na fila</p>';
+
+              }else{
+                 dados.innerHTML += `<p>Ticket chamado: ${item.tickets[0].queue_ticket_number}</p>`;
+              }
+          });
+          
+
       });
 
       async function getBundleData(url) {
