@@ -124,7 +124,6 @@ class QueuesDisplayController extends Controller
 
         //pegando todas as filas e o primeiro ticket com o status 'called'
         $queues = Queue::whereIn('hash_code',json_decode($bundle->queues))
-                  ->where('status','active')
                   ->where('deleted_at',null)
                   ->with(['tickets'=>function($query){
                      $query->where('queue_ticket_status','called')

@@ -178,7 +178,49 @@
       }
 
       function renderQueues(queues){
-         console.log(queues);
+         const queuesLayout = queues.length <= 4 ? 'w-1/1':'w1/2';
+         const queuesContainer.innerHTML = '';
+
+         queues.forEach(queue =>{
+
+            const colors = JSON.parse(queue.queue_colors);
+            colors.bg_ticket = '#000000';
+            colors.text_ticket ='#ffffffff';
+
+            //identificando filas sem tickets ou inativas
+            //aplicando cores padrão e atributos adicionais 
+
+            if(queue.status !== 'active' || queue.tickets.length === 0){
+
+                let bg_color = '#eeeeee';
+                let text_color = '#cccccc';
+                colors.prefix_bg_color   =  bg_color;
+                colors.prefix_text_color =  text_color;
+                colors.number_bg_color   =  bg_color;
+                colors.number_text_color =  text_color;
+                colors.bg_ticket         =  bg_color;
+                colors.text_ticket       =  text_color;
+            }
+
+            const queueContent = document.createElement('div');
+             
+            queueContent.className = `flex ${queuesLayout} gap-2 rounded-xl p-2`;
+            queueContent.innerHTML =`
+               <div class="text-center font-mono rounded-xl border-1 border-zinc-800 p-1"
+                         
+               >
+                 
+               </div>
+            `;
+
+           
+            queuesContainer.appendChild(queueContent);
+
+             
+
+         });
+
+
       }
 
       refreshInterval = setInterval(() => {
