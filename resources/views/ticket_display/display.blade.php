@@ -40,7 +40,7 @@
 
             return {
                error: true,
-               message: error.message || 'um erro aconteceu na hra da requisição '
+               message: error.message || 'um erro aconteceu na hora da requisição '
             }
           
          }
