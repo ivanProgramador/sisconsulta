@@ -73,6 +73,53 @@
       const url = "{{ route('queues.display.get.bundle.data') }}";
       const queuesContainer = document.querySelector("#queues");
 
+      /*=====================CONTROLE DO MODAL ====================================*/
+
+        //acessando opçoes 
+            document.querySelector("#access_options").addEventListener('dblclick',(event)=>{
+                
+                const btn_options = document.querySelector("#btn_options");
+                btn_options.classList.remove("!hidden");
+                event.target.classList.add("!hidden");
+
+                setTimeout(()=>{
+                    btn_options.classList.add("!hidden");
+                    event.target.classList.remove("!hidden");
+                },3000);
+
+            });
+
+        //abrindo opçoes
+            document.querySelector("#btn_options").addEventListener('click',()=>{
+                document.querySelector("#modal").style.display = "flex";
+            });
+            
+        //fechando modal 
+            document.querySelector("#close_modal").addEventListener('click',()=>{
+                document.querySelector("#modal").style.display = "none";
+            });
+
+        //configurando o tempo de carregamento 
+            document.querySelectorAll('[id^="refresh_interval_"]').forEach(element=>{
+                element.addEventListener('click',(event)=>{
+                    const interval = parseInt(event.target.id.split('_').pop());
+                    queueInterval = interval * 1000;
+
+                    //resetando o tempo original do intervalo
+                    clearInterval(refreshInterval);
+                    refreshInterval = setInterval(()=>{
+                          getBundleData(url).then(data=>{
+                          renderQueues(data);
+                    });
+                        
+                    },queueInterval);
+
+                    
+                });
+            });
+
+      /*==============================================================*/
+
 
       getBundleData(url).then(data=>{
          render(data);
