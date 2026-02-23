@@ -67,34 +67,15 @@
 
     <script>
 
+      /*mudanças */
+      let queueInterval = 5000;
+      let refreshInterval = 0;
       const url = "{{ route('queues.display.get.bundle.data') }}";
+      const queuesContainer = document.querySelector("#queues");
 
-      
+
       getBundleData(url).then(data=>{
-          
-          const dados = document.querySelector("#dados");
-
-          dados.innerHTML = '';
-
-          if(data.error){
-            dados.innerHTML = 'Aconteceu um erro';
-            return;
-          }
-
-          data.data.queues.forEach((item)=>{
-
-                 dados.innerHTML +=`<p>Fila: ${item.name} | Serviço: ${item.service_name} | Balcão: ${item.service_desk} </p>`;
-
-              if(item.tickets.length === 0){
-
-                 dados.innerHTML += '<p>Não tem ticket na fila</p>';
-
-              }else{
-                 dados.innerHTML += `<p>Ticket chamado: ${item.tickets[0].queue_ticket_number}</p>`;
-              }
-          });
-          
-
+         render(data);
       });
 
       async function getBundleData(url) {
@@ -121,14 +102,46 @@
           
          } catch (error) {
 
-            return {
-               error: true,
-               message: error.message || 'um erro aconteceu na hora da requisição '
-            }
+           render(error);
           
          }
         
       }
+
+      function render(data){
+         
+        //verificando se o data trouxe um erro
+        if(data.status === 'error'){
+           //mostrar erro 
+           renderError(data);
+            
+        }else{
+          //apresentar
+          renderQueues(data.data.queues);
+
+        } 
+
+
+
+
+      }
+
+      function renderError(){
+         console.log(data);
+      }
+
+      function renderQueues(queues){
+         console.log(queues);
+      }
+
+      refreshInterval = setInterval(() => {
+          getBundleData(url).then(data=>{
+              render(data);
+           });
+        
+      }, queueInterval);
+      
+     
 
        
     </script>
