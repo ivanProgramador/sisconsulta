@@ -179,7 +179,7 @@
 
       function renderQueues(queues){
          const queuesLayout = queues.length <= 4 ? 'w-1/1':'w1/2';
-         const queuesContainer.innerHTML = '';
+         queuesContainer.innerHTML = '';
 
          queues.forEach(queue =>{
 
@@ -205,16 +205,23 @@
             const queueContent = document.createElement('div');
              
             queueContent.className = `flex ${queuesLayout} gap-2 rounded-xl p-2`;
+
             queueContent.innerHTML =`
-               <div class="text-center font-mono rounded-xl border-1 border-zinc-800 p-1"
-                         
-               >
+               <div 
+                   class="text-center font-mono rounded-xl border-1 border-zinc-800 p-1"
+                   style="background-color:${colors.prefix_bg_color};
+                          color: ${colors.prefix_text_color};"
+                >
+                <p class="text-8xl px-4 font-bold">${queue.queue_prefix}</p>
                  
                </div>
             `;
+            
 
            
             queuesContainer.appendChild(queueContent);
+
+            
 
              
 
