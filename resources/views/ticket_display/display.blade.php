@@ -72,6 +72,7 @@
       let refreshInterval = 0;
       const url = "{{ route('queues.display.get.bundle.data') }}";
       const queuesContainer = document.querySelector("#queues");
+      const ticketControl = null; 
 
       /*=====================CONTROLE DO MODAL ====================================*/
 
@@ -178,7 +179,7 @@
       }
 
       function renderQueues(queues){
-         const queuesLayout = queues.length <= 4 ? 'w-1/1':'w1/2';
+         const queuesLayout = queues.length <= 4 ? 'w-1/1':'w-1/2';
          queuesContainer.innerHTML = '';
 
          queues.forEach(queue =>{
@@ -215,19 +216,27 @@
                 <p class="text-8xl px-4 font-bold">${queue.queue_prefix}</p>
                  
                </div>
+
+               <div 
+                   class="bg-white w-full rounded-xl border-1 border-zinc-800 p-1"
+                   style="background-color:${colors.number_bg_color};
+                          color: ${colors.number_text_color};"
+                >
+                <p class="text-2xl px-4 font-bold">${queue.service_name}</p>
+                <p class="text-xl px-4 font-bold opacity-50">${queue.service_desk}</p>
+                 
+               </div>
+
+               <div class="w-1/3 rounded-xl border-1 border-zinc-800 p-3" style="background-color:${colors.bg_ticket};">
+                   <p class="text-xl font-mono" style="color:${colors.text_ticket}">
+                      ${ queue.tickets.length !== 0 ? queue.tickets[0].queue_ticket_number:'' }  
+                   </p>
+               </div>
             `;
             
 
-           
             queuesContainer.appendChild(queueContent);
-
-            
-
-             
-
          });
-
-
       }
 
       refreshInterval = setInterval(() => {
