@@ -72,7 +72,10 @@
       let refreshInterval = 0;
       const url = "{{ route('queues.display.get.bundle.data') }}";
       const queuesContainer = document.querySelector("#queues");
-      const ticketControl = null; 
+     
+
+      /*Objeto que monitora as alterações */
+        let ticketControl = null;
 
       /*=====================CONTROLE DO MODAL ====================================*/
 
@@ -179,7 +182,23 @@
       }
 
       function renderQueues(queues){
+
+        // rodando ela primeira vez esse codigo atribui ao 
+        // 'ticketControl' valor zero a funcção abaixo vai fazer um iteração sobre os dados 
+        // que a rota vai retornar nisso eu vou usar a diferença para identificar se um novo numero foi chamado
+        // e criar uma função que vai reagir a essa alteração com uma mudança de cor ou um sinal sonoro
+
+        if(ticketControl === null){
+          
+            ticketControl= {};
+            queues.forEach(queue=>{
+                ticketControl=[queue.hash_code = 0 ];
+            });
+        }
+
          const queuesLayout = queues.length <= 4 ? 'w-1/1':'w-1/2';
+
+
          queuesContainer.innerHTML = '';
 
          queues.forEach(queue =>{
@@ -203,9 +222,20 @@
                 colors.text_ticket       =  text_color;
             }
 
+
+            let highLightQueue = false;
+
+            if(queue.tickets.length !== 0 ){
+                if(ticketControl[queue.hash_code] !== queue.tickets[0].queue_ticket_number){
+                    highLightQueue = true;
+                    ticketControl[queue.hash_code] = queue.tickets[0].queue_ticket_number;
+                }
+            }
+
+
             const queueContent = document.createElement('div');
              
-            queueContent.className = `flex ${queuesLayout} gap-2 rounded-xl p-2`;
+            queueContent.className = `flex ${queuesLayout} gap-2 rounded-xl p-2 ${highLightQueue ? 'bg-yellow-500' : ''}`;
 
             queueContent.innerHTML =`
                <div 
@@ -230,6 +260,7 @@
                <div class="w-1/3 rounded-xl border-1 border-zinc-800 p-3" style="background-color:${colors.bg_ticket};">
                    <p class="text-xl font-mono" style="color:${colors.text_ticket}">
                       ${ queue.tickets.length !== 0 ? queue.tickets[0].queue_ticket_number:'' }  
+
                    </p>
                </div>
             `;
