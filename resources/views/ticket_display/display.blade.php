@@ -72,6 +72,7 @@
       let refreshInterval = 0;
       const url = "{{ route('queues.display.get.bundle.data') }}";
       const queuesContainer = document.querySelector("#queues");
+      let playSound = false;
      
 
       /*Objeto que monitora as alterações */
@@ -178,7 +179,11 @@
       }
 
       function renderError(){
-         console.log(data);
+         queuesContainer.innerHTML =`
+           <div>
+              Aconteceu um erro !
+           </div>
+         `;
       }
 
       function renderQueues(queues){
@@ -225,9 +230,11 @@
 
             let highLightQueue = false;
 
+
             if(queue.tickets.length !== 0 ){
                 if(ticketControl[queue.hash_code] !== queue.tickets[0].queue_ticket_number){
                     highLightQueue = true;
+                    playSound = true;
                     ticketControl[queue.hash_code] = queue.tickets[0].queue_ticket_number;
                 }
             }
@@ -259,7 +266,7 @@
 
                <div class="w-1/3 rounded-xl border-1 border-zinc-800 p-3" style="background-color:${colors.bg_ticket};">
                    <p class="text-xl font-mono" style="color:${colors.text_ticket}">
-                      ${ queue.tickets.length !== 0 ? queue.tickets[0].queue_ticket_number:'' }  
+                     ${ticketControl[queue.hash_code]} 
 
                    </p>
                </div>
@@ -268,6 +275,10 @@
 
             queuesContainer.appendChild(queueContent);
          });
+
+         if(playSound){
+            playCallingSound();
+         }
       }
 
       refreshInterval = setInterval(() => {
@@ -278,6 +289,17 @@
       }, queueInterval);
       
      
+      //tocando o aviso sonoro quando uma novo ticket for chamado
+      function playCallingSound(){
+
+         const audio = new Audio('{{ asset('assets/sounds/effect_01.ogg') }}');
+
+         audio.play();
+
+         playSound = false;
+
+      }
+
 
        
     </script>
