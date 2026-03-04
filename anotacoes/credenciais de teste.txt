@@ -1,13 +1,13 @@
 Bundles criados com sucesso! Lista de credenciais
 Bundle name: Filas de espera 01
-Crendencial username: 1i6IzPy7aPS0Gdau2K0BKYRGkd0xRslUQpSzJ5wG2l5Quh8sU0eukTiCZWAxjhmh
-Credencial password: Anpq53s8wSeRkypJc1q35TPY0swWqxVQDh0mU14J8ZgGbFWrGwmPrwBXiSOCSio1 
+Crendencial username: 2RvgRuHOKiVtRSZip6kiSgoJiHdokmGptMzskwcOpKYVxZhuaPyrwwuRVYMk03sx
+Credencial password: XEBmQJI0eifGehvMUZdQHpwV5NyLmpOulluCzwQ8oZidjdBzh8rjpBafmreVnX6o 
 ----------------------------------------
 Bundle name: Filas de espera 02
-Crendencial username: DcJDpAzDTtDrUlY6ZjIuXB4JI6G9VaZ4BNh3f4ra8CCkvWmuyok9b2qRbwPsuZFG
-Credencial password: ggVL9F9CRa16F6X0qNfyqWwuOfpPUjp4b8dyMF9AqTnnDc2lYLxf0ft5iIB8m2Qf 
+Crendencial username: qZjY09GgD745QGgBJBGZZcBuarAvknnkuyExKkGpF9LZ1V85f8EDouDSB07zM7cc
+Credencial password: dMxlngaMJjWEyBUWMJRpJ2ohNvvTR3kbNIUEK2mHVFxfocAPiGcOvvP9Lj8VNs14 
 ----------------------------------------
 Bundle name: Filas de espera 03
-Crendencial username: pfhXrrVIZFO4GTyXgoO0dM2445mKAEDP4eGgwAdGmBu5jvJc45eIuBpiOPlM4Gug    
-Credencial password: yuojHw1MQP8E8Axjws42xKhaPfrvpY4X8a9nNKYH4l4JWOCDgZnVBlRApf0CIN9W     
+Crendencial username: J8CBd7GCprgO9egcbwWpluDORT4ZyRjDWXf9oFsOXVs8gUml06ibXtDuyZIdwLf5
+Credencial password: iqtajeUOBSCxD99m5Ajh2NSKVkJffQRD74cS0ZYxmP3NSsBv2n53faOpOHepSvGJ 
 ----------------------------------------

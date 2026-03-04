@@ -13,14 +13,11 @@
 
 
         
-        <div class="main-card flex gap-4 w-full">
+        <div class="main-card flex-col gap-4 w-full">
 
-            <div id="queues" class="flex flex-wrap w-full border-1 border-slate-300 rounded-xl">
-
-                [Filas de espera aqui]
-
-
-
+            <div id="queues" class="flex flex-wrap w-full border-1 border-slate-300 rounded-xl"></div>
+            <div class="flex justify-end mt-6">
+                <i id="turn_sound_on" class="text-xl text-slate-300 fa-solid fa-volume-xmark"></i>
             </div>
 
 
@@ -141,7 +138,7 @@
              },
              body:JSON.stringify(
                 {
-                  credential:'{{ Crypt::encrypt($credential) }}'
+                  credential:'{{ Crypt::encrypt($credential)}}'
                 }
              )
            });
@@ -154,7 +151,7 @@
           
          } catch (error) {
 
-           render(error);
+           renderError(error);
           
          }
         
@@ -178,10 +175,13 @@
 
       }
 
-      function renderError(){
+      function renderError(data){
          queuesContainer.innerHTML =`
-           <div>
-              Aconteceu um erro !
+           <div class="flex flex-col w-full justify-center p-10">
+             <i class="text-6xl text-center text-red-500 fa-solid fa-triangle-exclamation mb-2"></i>
+             <p class="text-center text-3xl text-red-500">Aconteceu um erro!</p>
+             <p class="text-center text-red-500">Fale com o atendente.</p>
+               
            </div>
          `;
       }
@@ -299,6 +299,12 @@
          playSound = false;
 
       }
+
+      //ligando o som
+      
+      document.querySelector("#turn_sound_on").addEventListener('dblclick',(event)=>{
+         event.target.classList = "text-xl text-slate-300 fa-solid fa-volume-high";
+      });
 
 
        
