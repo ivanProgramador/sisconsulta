@@ -301,6 +301,10 @@
       }
 
       //ligando o som
+      //o acionamento do som exige pelo menos uma iteração entre o usuario e a tela 
+      // então o som sempre inicia desligado quando o usuari clica 2x no som 
+      //então ele aciona eo processo de ataualização automatica do painel de senha com somn , permanece 
+      //ativo   
       
       document.querySelector("#turn_sound_on").addEventListener('dblclick',(event)=>{
          event.target.classList = "text-xl text-slate-300 fa-solid fa-volume-high";
