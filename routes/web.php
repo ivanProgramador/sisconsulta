@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TicketCallerController;
 use App\Http\Controllers\BundlesController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\QueuesDisplayController;
@@ -141,7 +142,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    //=======================================================================================================================================
+    #CALLER =======================================================================================================================================
+    Route::get('/caller',[TicketCallerController::class,'index'])->name('caller.home');
+
 
 
 
