@@ -1,2 +1,7 @@
 Essa tela ficara disponivel para o atendente / 
- 
+
+1 - Os tickets são gerados no dispensador 
+2 - Dão enterada no sistema como waiting (esperando)
+3 - Um atednente com acesso a fila, chama o tcket em espera 
+4 - Essa operação vai mudar o status do ticket de "waiting" para "called" 
+5 - então o apinel de sneha mostra a senha e faz o som 

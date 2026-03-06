@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bundle;
+use App\Models\Company;
 use App\Models\Queue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,17 @@ use PhpParser\Node\Stmt\TryCatch;
 class BundlesController extends Controller
 {
     public function index(){
+
+       //colocando dados da empresa para o retorno na tela 
+
+       $company = Company::where('id',auth()->user()->company->id)
+                         ->select('company_name')
+                         ->first();
+
+
         $data =[
             'subtitle'=>'Bundles',
+            'company'=>$company,
             'bundles' => auth()->user()->company->bundles()->withTrashed()->get(),
 
         ];
