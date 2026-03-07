@@ -42,13 +42,13 @@ class TicketCallerController extends Controller
                  ->orderBy('id','desc')
                  ->get();
 
-                 dd($queues);
-       
+           dd($queues);
 
-
+                 
         $data = [
             'subtitle' => 'Chamadas',
-            'company' => $company
+            'company'  =>  $company,
+            'queues'   =>  $queues
         ];
         
         return view('ticket_caller.home',$data);
