@@ -42,7 +42,7 @@ class TicketCallerController extends Controller
                  ->orderBy('id','desc')
                  ->get();
 
-           dd($queues);
+           
 
                  
         $data = [
