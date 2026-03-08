@@ -62,7 +62,8 @@
 
                language:{
                   url:"{{ asset('assets/datatables/pt-PT.json') }}"
-              }
+              },
+              order:[]
             }
         );
           

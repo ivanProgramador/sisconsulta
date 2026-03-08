@@ -42,7 +42,7 @@
                      <td>{{ $queue->total_waiting }}</td>
 
                      <td class="text-end">
-                        <a href="#" class="btn">
+                        <a href="{{ route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]) }}" class="btn">
                            <i class="fa-solid fa-share-from-square me-2"></i> Chamadas
                         </a>
                      </td>

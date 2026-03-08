@@ -94,10 +94,6 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/bundle/restore/{id}',[BundlesController::class,'restore'])->name('bundle.restore');
 
 
-
-
-
-
     # USUARIOS =================================================================================================
 
     //rotas para alterar a senha 
@@ -144,10 +140,7 @@ Route::middleware(['auth'])->group(function () {
 
     #CALLER =======================================================================================================================================
     Route::get('/caller',[TicketCallerController::class,'index'])->name('caller.home');
-
-
-
-
+    Route::get('/caller/queue-details/{id}',[TicketCallerController::class,'queueDetails'])->name('caller.queue.details');
 
 
 
