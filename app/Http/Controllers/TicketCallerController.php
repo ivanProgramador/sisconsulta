@@ -96,10 +96,30 @@ class TicketCallerController extends Controller
                     return redirect()->route('caller.home');
                  }
 
+            //pegando os dados do ultimo ticket chamado
+            $lastTicket = $queue->tickets()
+                        ->where('queue_ticket_status','called')
+                        ->where('deleted_at',null)
+                        ->orderBy('id','desc')
+                        ->first();
 
+            //pegando os dados do proximo ticket da fila
+            $nextTicket = $queue->tickets()
+                        ->where('queue_ticket_status','waiting')
+                        ->where('deleted_at',null)
+                        ->orderBy('id','asc')
+                        ->first();
+
+           
+
+
+
+            //Pegando os dados da empresa pra colocar na pagina 
             $company = Company::where('id',auth()->user()->company->id)
                               ->select('company_name')
                               ->first();
+
+            
 
             $data=[
                  'subtitle' =>'Detalhes da fila',
@@ -107,7 +127,7 @@ class TicketCallerController extends Controller
                  'queue'    => $queue
             ];
 
-            dd($data);
+            return view("ticket_caller.queue_details",$data);
 
 
 
