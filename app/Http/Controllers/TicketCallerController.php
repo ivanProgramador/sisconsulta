@@ -110,6 +110,7 @@ class TicketCallerController extends Controller
                         ->orderBy('id','asc')
                         ->first();
 
+
            
 
 
@@ -124,7 +125,9 @@ class TicketCallerController extends Controller
             $data=[
                  'subtitle' =>'Detalhes da fila',
                  'company'  => $company,
-                 'queue'    => $queue
+                 'queue'    => $queue,
+                 'nextTicket'=>$nextTicket,
+                 'lastTicket'=>$lastTicket
             ];
 
             return view("ticket_caller.queue_details",$data);
