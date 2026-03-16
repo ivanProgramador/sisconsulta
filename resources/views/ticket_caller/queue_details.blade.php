@@ -44,7 +44,13 @@
                          @if(empty($nextTicket))
                             <span class="btn opacity-20 cursor-none !p-4" >Chamar</span>
                          @else 
-                             <a href="#" class="btn !p-4 !text-4xl">Chamar</a>
+                             <a href="{{ route('caller.queue.caller',
+                                         [
+                                          'queue_id', => 0000
+                                          'ticket_id' => 0000
+                                         ]
+                                   )
+                            }}" class="btn !p-4 !text-4xl">Chamar</a>
                          @endif
                         
                      </div>

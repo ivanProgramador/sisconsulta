@@ -139,8 +139,15 @@ Route::middleware(['auth'])->group(function () {
 
 
     #CALLER =======================================================================================================================================
+
     Route::get('/caller',[TicketCallerController::class,'index'])->name('caller.home');
+
     Route::get('/caller/queue-details/{id}',[TicketCallerController::class,'queueDetails'])->name('caller.queue.details');
+
+    Route::get('/caller/queue-caller/{queue_id}/{ticket_id}',[TicketCallerController::class,'queueCaller'])->name('caller.queue.caller');
+
+
+
 
 
 
