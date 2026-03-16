@@ -46,10 +46,11 @@
                          @else 
                              <a href="{{ route('caller.queue.caller',
                                          [
-                                          'queue_id', => 0000
-                                          'ticket_id' => 0000
-                                         ]
-                                   )
+                                          'queue_id' => Crypt::encrypt($queue->id),
+                                          'ticket_id' => Crypt::encrypt($nextTicket->id)
+                                         ])
+
+
                             }}" class="btn !p-4 !text-4xl">Chamar</a>
                          @endif
                         

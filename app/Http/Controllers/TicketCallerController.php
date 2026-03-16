@@ -137,4 +137,71 @@ class TicketCallerController extends Controller
 
 
     }
+
+    public function queueCaller($queue_id,$ticket_id){
+
+         //verificando se os dados foram realmente preenchidos 
+         try{
+
+            $queue_id = Crypt::decrypt($queue_id);
+            $ticket_id = Crypt::decrypt($ticket_id);
+
+         }catch(\Exception $e){
+
+             return redirect()->route('caller.home');
+
+         }
+
+        
+
+         //pegando o ticket pelo id
+         // a consulta tem a função first porque podem ter 
+         //varios tickets com esses mesmos atrbutos mas o retronado será sempre o primeiro 
+
+         $queue = Queue::with('tickets')
+                      ->where('id',$queue_id)
+                      ->where('id_company',auth()->user()->id_company)
+                      ->first();
+
+          if(!$queue){
+             return redirect()->route('caller.home');
+          }
+
+          
+
+          //pegando o ticket 
+
+          $ticket = $queue->tickets()
+                    ->where('id',$ticket_id)
+                    ->where('deleted_at',null)
+                    ->first();
+
+         
+
+          if(!$ticket){
+             return redirect()->route('caller.home');
+          }
+
+          
+
+          
+          //Mudando o status para called
+          $ticket->queue_ticket_status ='called';
+          $ticket->queue_ticket_called_at = now();
+          $ticket->updated_at = now();
+          $ticket->queue_ticket_called_by = auth()->user()->email;
+          $ticket->save();
+
+          return  redirect()->route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]);
+
+
+
+
+
+
+         
+
+
+
+    }
 }
