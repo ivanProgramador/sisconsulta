@@ -1,21 +1,13 @@
-Filas criadas com sucesso! Lista de hash_codes
-p9UXJ5Ff4dXcLTmuEJmAdOTX6ke32HiOxYlJqZG9lZ32IDA7OmwZt88K9BEXy3IE
-tcs730mFhVayANATPltvjmlNcypcYrYDYEVBCRqVRYqbK0Vzk4iNhbBDz4cIlpEy
-4kjYmRDedmczrpZZkkcym5DmlNByxQ1DiuWBDuXk98fSI5zoUt3I9v1odVcRPK5L
-rQIiqrOHues9ho0bXhLROucg2yQHBySwZYMjGe6Jg8MSITIWzHfSN8XEjOWwLuCh
-cDHhLKPQ31p0Yh3B8KnGQgV2Gu2JU9GWuAlDWCK4u14uK64vT0EU27XhNytBbmsr
-D8AZc8INFSPnfUGCElbWZCfeYE7tOzEsvqyof2O2TUFrH9VoLC13SRYUI2aUdeZA
-
 Bundles criados com sucesso! Lista de credenciais
 Bundle name: Filas de espera 01
-Crendencial username: LmSsgcd8h0HqI3odcxLQvSrAU6wy7FUTccq3aRuP19dSyFraPBhHg59cgJTAf4Et
-Credencial password: lL5N0U0DrmgpxKIdboibOavzAh6yn2w4rDOJokQJY0IUulEtlMZiHw7hPQLEbXTz
+Crendencial username: uxFJNgoX90JVwvqpQicJpQdiHgKKqylcMpsorUD1JjmYvtPHCpBLH3U94c5jYARD
+Credencial password: JIKrE1G4GTGrF5vg31bc5VJAkKrNnOBbQKQziMNiVgKRabSKzU7SxfA7jFtFO3L4 
 ----------------------------------------
 Bundle name: Filas de espera 02
-Crendencial username: 72DCiGHqKlbwAzqNtijYvxSlw0Pq9LOnn0EjGyTE2HuU0q3OKFafJAzZaU3J83nc
-Credencial password: xrtGMIfO8L0Fnei6rnTHt0eLF1PQ059LiXPzQg57UbZRFNOPtRolTFYboov3lvlt
+Crendencial username: BkrBdDfeI3ev6WwVzczFFNkXF6JJhytXhqF6RsLlcPuksS4m5Dw1ojPuEJ6YqvfS
+Credencial password: gV8yVRnKYVV1SMTI5mfAWavgjAaTpfHgSkjZhHhbxIF0QuXXZAuSM3wVwZKQeVQ3 
 ----------------------------------------
 Bundle name: Filas de espera 03
-Crendencial username: c7Mfc6PFr3WoXPl24ydiD7RTHcGefrOALG0NAjx4alkx9hSJqmwmlDjzaQa87BR9
-Credencial password: HIlata09YY0ORFaqXzvhbFwR9PJiC8YUz7zZXHGn5MRzEmQHFfTTGJzyPbXRnUG4
+Crendencial username: da2ZxqG0w3Is1STPs9n33fuEzNwRCAgyhILKRQnKXfXQRJkL7dWblFbjS6ubZMVU
+Credencial password: 83xOzCnQevgyD9MmheLXYgjfxxmGNfWE0pgIACFd6fWMpK4gp2EbBbLDlWsNYXpf
 ----------------------------------------
