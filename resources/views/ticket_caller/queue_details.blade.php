@@ -10,9 +10,16 @@
           <p class="title-3" >Serviço: <strong>{{ $queue->service_name}}</strong></p>
           <p class="title-3" >Balcão: <strong>{{ $queue->service_desk}}</strong></p>
        </div>
+            
 
 
                <div class="flex justify-center gap-6">
+
+                     <div class="flex w-1/4 justify-center items-center rounded-xl border-1 border-slate-400">
+
+                         <a href="{{ route('caller.queue.details',['id'=> Crypt::encrypt($queue->id )])}}" class="btn !p-6"> <i class="fa-solid fa-arrows-rotate text-5xl" ></i></a>
+
+                     </div>
                   
                      <div class="w-1/4 rounded-xl border-1 border-slate-400 text-center p-4" >
                            <p class="title-3">Última senha chamada:</p>

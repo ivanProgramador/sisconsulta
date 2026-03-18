@@ -11,9 +11,18 @@
 
 queries
 
+TRUNCATE queue_tickets;
+
 SELECT * FROM `queue_tickets` WHERE id_queue=6;
 
 UPDATE queue_tickets
 SET queue_ticket_status = 'waiting'
 WHERE id_queue=6;
+
+
+limpar cache 
+php artisan config:clear
+php artisan cache:clear
+
+
 
