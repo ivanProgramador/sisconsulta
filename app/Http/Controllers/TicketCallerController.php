@@ -168,7 +168,6 @@ class TicketCallerController extends Controller
           }
 
           
-
           //pegando o ticket 
 
           $ticket = $queue->tickets()
@@ -177,13 +176,9 @@ class TicketCallerController extends Controller
                     ->first();
 
          
-
           if(!$ticket){
              return redirect()->route('caller.home');
           }
-
-          
-
           
           //Mudando o status para called
           $ticket->queue_ticket_status ='called';
@@ -193,15 +188,16 @@ class TicketCallerController extends Controller
           $ticket->save();
 
           return  redirect()->route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]);
+    }
 
-
-
-
-
-
-         
-
-
+    public function markTicketAsNotAttended($queue_id,$ticket_id){
+        echo"Não atendido";
 
     }
+
+    public function markTicketAsDismissed($queue_id,$ticket_id){
+         echo"Desistiu";
+    }
+
+
 }

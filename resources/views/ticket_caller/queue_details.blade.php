@@ -13,7 +13,7 @@
             
 
 
-               <div class="flex justify-center gap-6">
+               <div class="flex gap-6 items-stretch">
 
                      <div class="flex w-1/4 justify-center items-center rounded-xl border-1 border-slate-400">
 
@@ -29,6 +29,24 @@
                               <p class="text-6xl font-bold">{{ $lastTicket->queue_ticket_number }}</p>
                               <p>Chamada em:<strong> {{ $lastTicket->queue_ticket_called_at }} </strong></p>
                               <p class="text-2xl" id="time_last_ticket"></p>
+
+                              <div class="flex justify-center gap-4 mt-4">
+
+                                   <a href="{{ route('caller.queue.ticket.not.attended',
+                                                       [
+                                                          'queue_id'=>Crypt::encrypt($queue->id ),
+                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id )
+                                                       ]
+                                                       )}}" class="btn-white ">Não atendido</a>
+
+                                     <a href="{{ route('caller.queue.ticket.dismissed',
+                                                       [
+                                                          'queue_id'=>Crypt::encrypt($queue->id ),
+                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id )
+                                                       ]
+                                                       )}}" class="btn-white ">Desistiu</a>
+
+                              </div>
                            @endif
                      </div>
 
@@ -39,10 +57,37 @@
                            <p class="title-3">Próxima senha:</p>
                            @if(empty($nextTicket)) 
                               <p class="text-slate-400 my-4">Não existe próxima senha</p>
+
+                              
                            @else 
                               <p class="text-6xl font-bold">{{ $nextTicket->queue_ticket_number }}</p>
                               <p>Criada em:<strong> {{ $nextTicket->queue_ticket_created_at }} </strong></p>
                               <p class="text-2xl" id="time_next_ticket"></p>
+
+                                <div class="flex justify-center gap-4 mt-4">
+
+                                   <a href="{{ route('caller.queue.ticket.not.attended',
+                                                       [
+                                                          'queue_id'=>Crypt::encrypt($queue->id ),
+                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id )
+                                                       ]
+                                                       )}}" class="btn-white ">Não atendido</a>
+
+                                     <a href="{{ route('caller.queue.ticket.dismissed',
+                                                       [
+                                                          'queue_id'=>Crypt::encrypt($queue->id ),
+                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id )
+                                                       ]
+                                                       )}}" class="btn-white ">Desistiu</a>
+
+                              </div>
+
+
+
+                                       
+
+                              
+
                            @endif
                      </div>
 
