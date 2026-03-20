@@ -32,17 +32,19 @@
 
                               <div class="flex justify-center gap-4 mt-4">
 
-                                   <a href="{{ route('caller.queue.ticket.not.attended',
+                                   <a href="{{ route('caller.queue.caller',
                                                        [
                                                           'queue_id'=>Crypt::encrypt($queue->id ),
-                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id )
+                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id ),
+                                                          'status'=>'not_attended'
                                                        ]
                                                        )}}" class="btn-white ">Não atendido</a>
 
-                                     <a href="{{ route('caller.queue.ticket.dismissed',
+                                     <a href="{{ route('caller.queue.caller',
                                                        [
                                                           'queue_id'=>Crypt::encrypt($queue->id ),
-                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id )
+                                                          'ticket_id'=>Crypt::encrypt($lastTicket->id ),
+                                                          'status'=>'dismissed'
                                                        ]
                                                        )}}" class="btn-white ">Desistiu</a>
 
@@ -66,17 +68,19 @@
 
                                 <div class="flex justify-center gap-4 mt-4">
 
-                                   <a href="{{ route('caller.queue.ticket.not.attended',
+                                   <a href="{{ route('caller.queue.caller',
                                                        [
                                                           'queue_id'=>Crypt::encrypt($queue->id ),
-                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id )
+                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id ),
+                                                          'status'=>'not_attended'
                                                        ]
                                                        )}}" class="btn-white ">Não atendido</a>
 
-                                     <a href="{{ route('caller.queue.ticket.dismissed',
+                                     <a href="{{ route('caller.queue.caller',
                                                        [
                                                           'queue_id'=>Crypt::encrypt($queue->id ),
-                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id )
+                                                          'ticket_id'=>Crypt::encrypt($nextTicket->id ),
+                                                          'status'=>'dismissed'
                                                        ]
                                                        )}}" class="btn-white ">Desistiu</a>
 
@@ -99,7 +103,8 @@
                              <a href="{{ route('caller.queue.caller',
                                          [
                                           'queue_id' => Crypt::encrypt($queue->id),
-                                          'ticket_id' => Crypt::encrypt($nextTicket->id)
+                                          'ticket_id' => Crypt::encrypt($nextTicket->id),
+                                           'status'=>'called'
                                          ])
 
 

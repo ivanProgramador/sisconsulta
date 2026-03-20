@@ -138,7 +138,7 @@ class TicketCallerController extends Controller
 
     }
 
-    public function queueCaller($queue_id,$ticket_id){
+    public function queueCaller($queue_id,$ticket_id,$status){
 
          //verificando se os dados foram realmente preenchidos 
          try{
@@ -180,8 +180,24 @@ class TicketCallerController extends Controller
              return redirect()->route('caller.home');
           }
           
+          //verificando se o status que veio na requisição é valido 
+          //dentro do array eu coloco os 3 status que eu espero 
+
+          $validStatus = ['called','not_attended','dismissed'];
+         
+          //aqui eu testo se dentro da variavel $status 
+          //existe um dos valores que eu pre-difini dentro do array 
+          //se não tiver o usuario volta pra home e a calseificação não acontece
+           
+          if(!in_array($status,$validStatus)){
+             return redirect()->route('caller.home');
+          }
+
+
+
+
           //Mudando o status para called
-          $ticket->queue_ticket_status ='called';
+          $ticket->queue_ticket_status = $status;
           $ticket->queue_ticket_called_at = now();
           $ticket->updated_at = now();
           $ticket->queue_ticket_called_by = auth()->user()->email;
@@ -190,14 +206,7 @@ class TicketCallerController extends Controller
           return  redirect()->route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]);
     }
 
-    public function markTicketAsNotAttended($queue_id,$ticket_id){
-        echo"Não atendido";
-
-    }
-
-    public function markTicketAsDismissed($queue_id,$ticket_id){
-         echo"Desistiu";
-    }
+   
 
 
 }
