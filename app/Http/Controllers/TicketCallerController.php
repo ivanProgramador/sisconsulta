@@ -262,7 +262,41 @@ class TicketCallerController extends Controller
 
     }
 
-   
+    public function massiveDismissConfirm($queue_id)
+    {
 
+      try{
+            
+            $queue_id = Crypt::decrypt($queue_id);
+
+            }catch(\Exception $e){
+
+            return redirect()->route('caller.home');
+
+            }
+
+            //pegando a fila pelo id 
+
+            $queue = Queue::with('tickets')
+                          ->where('id',$queue_id)
+                          ->where('id_company',auth()->user()->id_company)
+                          ->first();
+
+            if(!$queue){
+                return redirect()->route('called.home');
+            }
+
+            //colocando o status dispensados em todos os tickets
+            
+            $queue->tickets()
+                  ->where('queue_ticket_status','waiting')
+                  ->where('deleted_at',null)
+                  ->update([
+                     'queue_ticket_status'=>'dismissed',
+                     'updated_at'=> now()
+                  ]);
+            
+            return redirect()->route('caller.home');
+    }
 
 }

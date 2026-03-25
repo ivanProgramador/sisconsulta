@@ -1,0 +1,4 @@
+ATENÇÃO !
+    Essa funcionalidade agora existe para caso a clinica feche e ainda exsitam tickets pendentes que não foram 
+    finalizados, por algum motivo, acabou o horario, clientes desistiorem e foirma embora e não existe uma finalização 
+    logica operacional pra esses tickets, por isso o sisstema permite ao gestor executar uma dipensa em massa.    

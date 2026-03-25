@@ -36,7 +36,7 @@
 
      @if($queue->total_waiting === 0)
 
-       <p class="text-center text-1xl text-slate-400 mb-6">Não há tickets parar dispensar</p>
+       <p class="text-center text-1xl text-slate-400 mb-6">Não há tickets para dispensar</p>
        
        <div class="text-center">
           <a href="{{ route('caller.home') }}" class="btn !px-8">Voltar</a>
@@ -45,6 +45,15 @@
        
      @else
        <p class="text-center text-2xl">Existem <span class="text-bold text-red-500">{{ $queue->total_waiting }}</span> Tickets em espera</p>
+       <div class="flex justify-center gap-4">
+          <a href="{{ route('caller.home') }}" class="btn !px-8">Cancelar</a>
+          <a href="{{ route('caller.massive.dismiss.confirm',[ 'queue_id' => Crypt::encrypt($queue->id)]) }}" class="btn-red !px-8">Dispensar: {{ $queue->total_waiting }} tickets</a>
+
+           
+           
+       </div>
+
+
        
 
 
