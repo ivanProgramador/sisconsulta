@@ -42,6 +42,12 @@
                      <td>{{ $queue->total_waiting }}</td>
 
                      <td class="text-end">
+                        
+                        <a href="{{ route('caller.massive.dismisse',['queue_id'=>Crypt::encrypt($queue->id)]) }}" class="btn-red">
+                           <i class="fa-solid fa-gear"></i> 
+                        </a>
+
+
                         <a href="{{ route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]) }}" class="btn">
                            <i class="fa-solid fa-share-from-square me-2"></i> Chamadas
                         </a>

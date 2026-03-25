@@ -145,6 +145,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/caller/queue-details/{id}',[TicketCallerController::class,'queueDetails'])->name('caller.queue.details');
 
     Route::get('/caller/queue-caller/{queue_id}/{ticket_id}/{status}',[TicketCallerController::class,'queueCaller'])->name('caller.queue.caller');
+
+    Route::get('/caller/massive-dismiss/{queue_id}',[TicketCallerController::class,'massiveDismiss'])->name('caller.massive.dismisse');
     
     
 

@@ -206,6 +206,62 @@ class TicketCallerController extends Controller
           return  redirect()->route('caller.queue.details',['id'=>Crypt::encrypt($queue->id)]);
     }
 
+    public function massiveDismiss($queue_id)
+    {
+
+        try{
+            
+            $id = Crypt::decrypt($queue_id);
+
+            }catch(\Exception $e){
+
+            return redirect()->route('caller.home');
+
+        }
+
+      //pegando os detalhes dos tickets associados a fila
+        $queue = Queue::with('tickets')
+                 ->withTrashed()
+                 ->withCount([
+                    'tickets as total_tickets'=> function($query){
+                        $query->where('deleted_at',null);
+                    },
+                    'tickets as total_waiting' => function($query){
+                        $query->where('queue_ticket_status','waiting');
+                    },
+                    'tickets as total_called' => function($query){
+                        $query->where('queue_ticket_status','called');
+                    },
+                    'tickets as total_not_attended' => function($query){
+                        $query->where('queue_ticket_status','not_attended');
+                    },
+                    'tickets as total_dismissed' => function($query){
+                        $query->where('queue_ticket_status','dismissed');
+                    }
+                 ])
+                 ->where('id',$queue_id)
+                 ->where('id_company',auth()->user()->id_company)
+                 ->first();
+
+                 if(!$queue){
+                    return redirect()->route('caller.home');
+                 }
+
+
+                 $data=[
+                    'subtitle'=>'Resposta massiva',
+                    'queue'=>$queue
+                 ];
+
+                 return view('ticket_caller.massive_dismissed');
+
+
+
+
+      
+
+    }
+
    
 
 
