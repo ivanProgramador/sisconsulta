@@ -211,7 +211,7 @@ class TicketCallerController extends Controller
 
         try{
             
-            $id = Crypt::decrypt($queue_id);
+            $queue_id = Crypt::decrypt($queue_id);
 
             }catch(\Exception $e){
 
@@ -253,7 +253,7 @@ class TicketCallerController extends Controller
                     'queue'=>$queue
                  ];
 
-                 return view('ticket_caller.massive_dismissed');
+                 return view('ticket_caller.massive_dismissed',$data);
 
 
 
