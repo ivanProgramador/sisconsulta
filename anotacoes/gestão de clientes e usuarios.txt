@@ -1,0 +1,12 @@
+ 
+ CONTROLE DE ACESSSO 
+
+ os clientes são as empresas e os usuarios são os funcionários da empressa contratante 
+ dentro desse contexto cada empresa tem seus gestores e colaboradores e cada um desses 
+ funcionarios tem uma nivel de acesso diferente, eo sistema precisa fazer o controle de 
+ acesso.
+ 
+ O representante da empresa que entrara em contato com sisadmin recebe uma acesso de gestor
+ que permite a ele cadastrar os funcionários que vão fazer o uso do sistema.
+
+ O sistema terá 2 perfis admin e users    

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Queue;
+use App\Models\Company;
 use App\Models\QueueTicket;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,17 +16,44 @@ use PhpParser\Node\Stmt\TryCatch;
 class MainController extends Controller
 {
     public function index():View {
-       
-        $data=[
-            'subtitle'=>'Home',
-            'queues'  => $this->getQueuesList(),
-            'companyName' => Auth::user()?->company->company_name,
-            'companyTotals' => $this->getCompanyTotals()
-        ];
 
-       
+        if(Auth::User()->role === 'sys-admin'){
 
-        return view('main.home',$data);
+            $data=[
+                'subtitle'=>'Home',
+                'clients'=>$this->getClientList(),
+            ];
+
+            dd($data);
+
+             $view = 'admin.admin_home';
+
+         
+
+
+        }else{
+       
+            $data=[
+                'subtitle'=>'Home',
+                'queues'  => $this->getQueuesList(),
+                'companyName' => Auth::user()?->company->company_name,
+                'companyTotals' => $this->getCompanyTotals()
+            ];
+
+            $view = 'main.home';
+        }
+
+         
+
+        return view($view,$data);
+    }
+
+    private function getClientList(){
+        //pegando todas as empresas cadastradas
+
+        return Company::withTrashed()->get();
+        
+        
     }
 
     private function getCompanyTotals(){
