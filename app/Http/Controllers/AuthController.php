@@ -13,17 +13,15 @@ use function Symfony\Component\Clock\now;
 
 class AuthController extends Controller
 {
-    public function login()
-    {
+    public function login(){
 
-         //se o cliente errar a validação a avarivel erros recebe o valor do erro
+         //se o cliente errar a validação a variavel erros recebe o valor do erro
          //então quando o formulario voltar eu vou mandar os erros de volta pra ele ver
          
          
           
           return view('auth/login_frm',['subtitle'=>'Login'] );
     }
-
     public function loginSubmit(Request $request){
 
        $request->validate(
@@ -50,13 +48,25 @@ class AuthController extends Controller
        
        if($user && Hash::check(trim($request->password), $user->password)){
             
-           //o login será executador por uma outra função 
+           //o login será executado por uma outra função 
 
            $this->loginUser($user);
 
            //redirecionando
+           //caso o usuario que solicitou o login seja o administrador do sistema(master) 
+           //essa função vai direcionar para uma pagina administrativa diferente  
+
+           if($user->role === 'sys-admin'){
+
+              return redirect()->route('admin.home');
+
+           }else{
+
+             return redirect()->route('home');
+
+           }
            
-           return redirect()->route('home');
+          
            
           
           
@@ -92,13 +102,11 @@ class AuthController extends Controller
         
     }
 
-    public function changePassword():View
-    {
+    public function changePassword():View{
           return view('auth/change_password_frm',['subtitle'=>'Alterar Senha']);
     }
 
-     public function changePasswordSubmit(Request $request)
-    {
+    public function changePasswordSubmit(Request $request){
 
         $request->validate(
            [
@@ -130,10 +138,6 @@ class AuthController extends Controller
            return redirect()->back()->with('server_error','Senha atual invalida !');
        }
     }
-
-
-
-
 
     public  function logout(){
 

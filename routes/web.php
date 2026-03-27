@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TicketCallerController;
 use App\Http\Controllers\BundlesController;
 use App\Http\Controllers\MainController;
