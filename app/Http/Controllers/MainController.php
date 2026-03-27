@@ -17,22 +17,6 @@ class MainController extends Controller
 {
     public function index():View {
 
-        if(Auth::User()->role === 'sys-admin'){
-
-            $data=[
-                'subtitle'=>'Home',
-                'clients'=>$this->getClientList(),
-            ];
-
-            dd($data);
-
-             $view = 'admin.admin_home';
-
-         
-
-
-        }else{
-       
             $data=[
                 'subtitle'=>'Home',
                 'queues'  => $this->getQueuesList(),
@@ -40,20 +24,7 @@ class MainController extends Controller
                 'companyTotals' => $this->getCompanyTotals()
             ];
 
-            $view = 'main.home';
-        }
-
-         
-
-        return view($view,$data);
-    }
-
-    private function getClientList(){
-        //pegando todas as empresas cadastradas
-
-        return Company::withTrashed()->get();
-        
-        
+        return view('main.home',$data);
     }
 
     private function getCompanyTotals(){

@@ -9,4 +9,8 @@
  O representante da empresa que entrara em contato com sisadmin recebe uma acesso de gestor
  que permite a ele cadastrar os funcionários que vão fazer o uso do sistema.
 
- O sistema terá 2 perfis admin e users    
+ O sistema terá 2 perfis admin e users  
+
+ O administrador do sistema terá um controller exclusivo pra ele que será o "AdminController" 
+ a ideia é deixar a divisão bem clara em relação a estrutura do sistema.
+
