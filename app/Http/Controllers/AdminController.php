@@ -9,9 +9,14 @@ class AdminController extends Controller
 {
     public function index()
     {
-            $clients = $this->getClientList();
 
-            dd($clients);
+         $data=[
+
+             'subtitle' => 'Asministração',
+             'clients'  => $this->getClientList()
+         ];
+         return view('admin.home',$data);
+
     }
 
 
