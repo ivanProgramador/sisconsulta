@@ -14,3 +14,8 @@
  O administrador do sistema terá um controller exclusivo pra ele que será o "AdminController" 
  a ideia é deixar a divisão bem clara em relação a estrutura do sistema.
 
+ O laravel fornece uma recurso de controle de acesso chamado Gates basicamente elas são funçoes
+ usadas para o controle de acesso a recursos dentro do sistema.
+ 
+    
+
