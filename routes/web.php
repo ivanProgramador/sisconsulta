@@ -25,7 +25,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 //rotas para usuarios
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','can:client-admin,can:client-user'])->group(function () {
 
     #Filas ======================================================================
 
