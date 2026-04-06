@@ -113,13 +113,29 @@ Route::middleware(['auth','can:client-admin,can:client-user'])->group(function (
 
 
     # SYS-ADMIN =================================================================================================
-    /* Rota somente para o administrador  */
+
+    /* Rota somente para o administrador do sistema  */
 
     Route::middleware(['auth','can:sys-admin'])->group(function(){
 
       Route::get('/admin',[AdminController::class,"index"])->name('admin.home');
 
     });
+
+    /*Rota somente para o client-admin */
+
+    Route::middleware(['auth','can:client-admin'])->group(function(){
+
+      Route::get('/teste',function(){
+         echo'Essa rota so esta acessivel para clientes admnistradores, restrita ao SYS-ADMIN e ao CLIENT-USER';
+      });
+    });
+
+    
+
+
+
+
     
     
     
