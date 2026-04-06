@@ -23,7 +23,7 @@ class AdminController extends Controller
      private function getClientList(){
         //pegando todas as empresas cadastradas
 
-        return Company::withTrashed()->get();
+        return Company::withTrashed()->withCount('users')->get();
         
     }
 }

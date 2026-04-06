@@ -37,7 +37,7 @@ class AuthController extends Controller
        );
 
        $user = User::where('email',trim($request->username))
-                   ->where('active',true)
+                   ->where('status','active')
                    ->whereNull('deleted_at')
                    ->where(function($query){
                       $query->whereNull('blocked_until')

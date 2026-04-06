@@ -22,21 +22,21 @@ class UserSeeder extends Seeder
                     'password' => bcrypt('Aa123456'),
                     'id_company' => 0,
                     'role' => 'client-admin',
-                    'active' => true
+                    'status' => 'active'
                 ],
                 [
                     'email'=>'useradmin1@localhost.com',
                     'password' => bcrypt('Aa123456'),
                     'id_company' => 1,
                     'role' => 'client-admin',
-                    'active' => true
+                    'status' => 'inactive'
                 ],
                 [
                     'email'=>'useradmin2@localhost.com',
                     'password' => bcrypt('Aa123456'),
                     'id_company' => 2,
                     'role' => 'client-admin',
-                    'active' => true
+                    'status' => 'active'
                 ],
             ];
 

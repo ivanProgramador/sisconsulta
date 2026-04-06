@@ -175,4 +175,27 @@ if(!function_exists('getQueuetStateText')){
  }
 
 
+ if(!function_exists('getClientStatusIcon')){
+
+      function getClientStatusIcon($client){
+
+            $icons = [
+                'active' => '<i class="fa-regular fa-circle-check text-green-700" title="Ativo"></i>',
+                'inactive' => '<i class="fa-regular fa-circle-check text-red-700" title="inativo"></i>'
+            ];
+
+            if($client->deleted_at || $client->status ==='inactive'){
+               return $icons['inactive'];
+            }else{
+               return $icons['active'];
+
+            }
+
+      }
+ }
+
+
+
+
+
 

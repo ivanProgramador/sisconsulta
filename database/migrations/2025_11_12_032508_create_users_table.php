@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('last_login')->nullable();
             $table->dateTime('code_expiration')->nullable();
             $table->string('code', 20)->nullable();
-            $table->boolean('active')->default(false);
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->dateTime('blocked_until')->nullable();
             $table->softDeletes(); // adds deleted_at
             $table->timestamps();  // adds created_at and updated_at automatically

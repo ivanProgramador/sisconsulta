@@ -21,7 +21,7 @@
 
         @else
 
-            <table id="table_clients">
+            <table id="table_clients" >
                 <thead class="bg-black text-white">
                     <tr>
                         <th class="text-xs">Logo</th>
@@ -36,13 +36,13 @@
                 </thead>
                 <tbody>
                     @foreach($clients as $client)
-                        <tr>
+                        <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-58 text-red-50' : '' }}" >
                             <td>[logo]</td>
                             <td>{{ $client->company_name }}</td>
                             <td>{{ $client->email }}</td>
                             <td>{{ $client->phone }}</td>
-                            <td class="text-center">{{ $client->status }}</td>
-                            <td>[total usuarios]</td>
+                            <td class="text-center">{!! getClientStatusIcon(($client)) !!}</td>
+                            <td>{{ $client->users_count }}</td>
                             <td>{{ $client->created_at }}</td>
                             <td>[Ações]</td>
                         </tr>
