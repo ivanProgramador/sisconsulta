@@ -1,0 +1,26 @@
+um simbolic link permite o compatilhamento de alguns recursos entre a pasta 
+public(pasta publica de fato) e um apasta restrita que fica dentro do storage
+isso faz com que eu possa gravar arquivos dentro de uma pasta restrita e acessar 
+eles ataves da pasta publica como se fosse um atalho.
+
+o comando 
+ php artisan storage:link
+
+retorna isso no console avisando que um link de conexão foi criado entre a pasta
+
+  1 - pasta publica  [C:\xampp\htdocs\sisconsulta\public\storage]  
+      
+      link has been connected to
+
+  2 - pasta restrita [C:\xampp\htdocs\sisconsulta\storage\app/public]
+
+  depois de criar o link entre as duas pastas eu preciso configurar mais uma coisa 
+  tem arquivo chamado  'filesystems.php' dentro da pasta config existe uma configuração 
+  chamada 'disks'
+  
+
+
+ 
+
+
+  

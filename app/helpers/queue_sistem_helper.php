@@ -181,7 +181,7 @@ if(!function_exists('getQueuetStateText')){
 
             $icons = [
                 'active' => '<i class="fa-regular fa-circle-check text-green-700" title="Ativo"></i>',
-                'inactive' => '<i class="fa-regular fa-circle-check text-red-700" title="inativo"></i>'
+                'inactive' => '<i class="fa-regular fa-circle-xmark text-red-700" title="inativo"></i>'
             ];
 
             if($client->deleted_at || $client->status ==='inactive'){

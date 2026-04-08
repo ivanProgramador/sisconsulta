@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                     @foreach($clients as $client)
-                        <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-58 text-red-50' : '' }}" >
+                        <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-50 text-red-500' : '' }}" >
                             <td>[logo]</td>
                             <td>{{ $client->company_name }}</td>
                             <td>{{ $client->email }}</td>
