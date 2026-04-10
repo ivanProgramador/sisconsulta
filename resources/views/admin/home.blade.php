@@ -36,15 +36,15 @@
                 </thead>
                 <tbody>
                     @foreach($clients as $client)
-                        <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-50 text-red-500' : '' }}" >
-                            <td> <img src="{{ getCompanyLogo($client->company_logo) }}" class="h-10 w-10"></td>
-                            <td>{{ $client->company_name }}</td>
-                            <td>{{ $client->email }}</td>
-                            <td>{{ $client->phone }}</td>
-                            <td class="text-center">{!! getClientStatusIcon(($client)) !!}</td>
-                            <td>{{ $client->users_count }}</td>
-                            <td>{{ $client->created_at }}</td>
-                            <td>[Ações]</td>
+                        <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-500 opacity-25' : '' }}" >
+                            <td class="w-5/100"> <img src="{{ getCompanyLogo($client->company_logo) }}" class="h-10 w-10 {{ ( $client->status === 'inactive' || $client->deleted_at) ? 'grayscale-100' : '' }}"></td>
+                            <td class="w-25/100">{{ $client->company_name }}</td>
+                            <td class="w-15/100"> <i class="fa-solid fa-envelope me-2" ></i> {{ $client->email }}</td>
+                            <td class="w-10/100"> <i class="fa-solid fa-phone me-2" ></i>  {{ $client->phone }}</td>
+                            <td class="w-10/100 text-center">{!! getClientStatusIcon(($client)) !!}</td>
+                            <td class="w-10/100"><i class="fa-solid fa-users me-2" ></i> {{ $client->users_count }}</td>
+                            <td class="w-10/100">{{ $client->created_at }}</td>
+                            <td class="w-15/100">[Ações]</td>
                         </tr>
                     @endforeach
                 </tbody>
