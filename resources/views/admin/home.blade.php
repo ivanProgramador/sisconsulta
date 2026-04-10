@@ -37,7 +37,7 @@
                 <tbody>
                     @foreach($clients as $client)
                         <tr class="{{ ( $client->status === 'inactive' || $client->deleted_at) ? 'bg-red-50 text-red-500' : '' }}" >
-                            <td>[logo]</td>
+                            <td> <img src="{{ getCompanyLogo($client->company_logo) }}" class="h-10 w-10"></td>
                             <td>{{ $client->company_name }}</td>
                             <td>{{ $client->email }}</td>
                             <td>{{ $client->phone }}</td>

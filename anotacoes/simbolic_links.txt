@@ -17,7 +17,44 @@ retorna isso no console avisando que um link de conexão foi criado entre a past
   depois de criar o link entre as duas pastas eu preciso configurar mais uma coisa 
   tem arquivo chamado  'filesystems.php' dentro da pasta config existe uma configuração 
   chamada 'disks'
-  
+
+  são nessas configurações onde ficam os 'disks' os discos logicos do framework e os paths 
+  de armazenamento.No exemplo abaixo eu tenho o diretorio 'public' e as configuraçõs gerais
+  do diretorio em questão. 
+
+   'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ], 
+
+para fazer o carregamento dessas imagens de fato  eu criei uma funcção dentro dos helpers 
+
+
+if(!function_exists('getCompanyLogo')){
+
+      function getCompanyLogo($logo){
+
+           //acessando o storage e testando se o arquivo solicitado realnente existe dentro da pasta 
+           //pra fazer isso eu ou usar a classe Storage que esta ligada diretamente a administração 
+           //de discos logicos do Framework
+
+
+           if($logo &&  Storage::disk('public')->exists('company_logos/'. $logo)){
+
+               return asset('storage/company_logos/' . $logo);
+
+           }else{
+            
+               return asset('storage/company_logos/_no_logo.png');
+           }
+        }
+ }
+
+
+
 
 
  

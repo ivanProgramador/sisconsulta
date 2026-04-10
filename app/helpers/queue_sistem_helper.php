@@ -29,6 +29,8 @@
  
  */
 
+use Illuminate\Support\Facades\Storage;
+
  if(!function_exists('ShowValidationError')){
 
     function ShowValidationError($fieldName,$validationErrors){
@@ -193,6 +195,27 @@ if(!function_exists('getQueuetStateText')){
 
       }
  }
+
+
+ if(!function_exists('getCompanyLogo')){
+
+      function getCompanyLogo($logo){
+
+           //acessando o storage e testando se o arquivo solicitado realnente existe dentro da pasta 
+           //pra fazer isso eu ou usar a classe Storage que esta ligada diretamente a administração 
+           //de discos logicos do Framework
+
+
+           if($logo &&  Storage::disk('public')->exists('company_logos/'. $logo)){
+
+               return asset('storage/company_logos/' . $logo);
+
+           }else{
+               return asset('storage/company_logos/_no_logo.png');
+           }
+        }
+ }
+
 
 
 
