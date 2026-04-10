@@ -120,7 +120,17 @@ Route::middleware(['auth','can:client-admin,can:client-user'])->group(function (
 
       Route::get('/admin',[AdminController::class,"index"])->name('admin.home');
 
+      Route::get('/admin/company/create',[AdminController::class,"createCompany"])->name('admin.company.create');
+
+      Route::post('/admin/company/create',[AdminController::class,"createCompanySubmit"])->name('admin.company.create.submit');
+
+
+      
+
     });
+
+
+
 
     /*Rota somente para o client-admin */
 

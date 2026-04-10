@@ -18,12 +18,25 @@ class AdminController extends Controller
          return view('admin.home',$data);
 
     }
-
-
      private function getClientList(){
         //pegando todas as empresas cadastradas
 
         return Company::withTrashed()->withCount('users')->get();
         
     }
+
+    public function createCompany(){
+        $data=[
+             'subtitle'=>'Novo Cliente'
+        ];
+
+        return view('admin.create_company_frm',$data);
+    }
+
+    public function createCompanySubmit(Request $request){
+
+        dd($request->all());
+    }
+
+    
 }

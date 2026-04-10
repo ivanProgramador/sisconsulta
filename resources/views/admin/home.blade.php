@@ -9,7 +9,7 @@
         <hr class="my-4">
 
         <div class="mb-4">
-            <a href="#" class="btn"><i class="far fa-plus me-2"></i>Novo cliente...</a>
+            <a href="{{ Route('admin.company.create') }}" class="btn"><i class="far fa-plus me-2"></i>Novo cliente...</a>
         </div>
 
         @if($clients->count() === 0)
