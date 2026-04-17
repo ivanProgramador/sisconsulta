@@ -21,11 +21,7 @@
                 <input type="file" name="company_logo" id="company_logo" class="input" />
                 <p class="text-sm text-red-500 italic" id="error_message"></p>
 
-                {{-- Elemento de preview da imagem --}}
-
-                <div class="flex justify-center mt-8">
-                    <img id="logo_preview" src="#" alt="Logo" class="hidden w-[200px] h-[200px] boder-1 border-slate-300">
-                </div>
+                
 
 
             </div>
@@ -85,96 +81,7 @@
 
 </div>
 
-<script>
-    
-    //para criar um comportamento de preview eu vou precisa manipular o elemento 
-    //responsável por esse comportamento usnado javascript 
-     
 
-    document.querySelector("#company_logo").addEventListener('change',function(event){
-       
-        //caso aconteça um erro  eu colocco ele nessa constante e a mesnagem aparece na tela 
-
-        const error_message = document.querySelector("#error_message");
-        
-        //depois de mostrar o erro o usuario vai corrigir e eu limpo a mensagem
-
-        error_message.textContent ='';
-
-
-        //um imput do tipo file pode rreceber um arquivo só ou uma coleção deles
-        //aqui estou me assegurando que vou pegar somente o primeiro
-
-        const [file] = event.target.files;
-        const preview = document.querySelector("#logo_preview");
-
-        //para evitar que aruivos invalidos sejam carrregados é necessarios executar uma serie de validações 
-
-        if(file){
-            
-            const validTypes = ['image/png','image/jpeg'];
-            const validExtensions = ['png','jpg','jpeg'];
-            const fileType = file.type;
-
-            //nessa linha eu pego o nome coompleto do arquivo e uso o split pra separar ele
-            //usando o . como parametro
-            /*
-              se o nome do arquivo for
-
-               empresa01.png
-
-              o split('.') cria um array
-
-               ['empresa01','png']   
-
-            depois o pop() pega o ultimo indice do array
-               
-                'png'
-
-            mas existe o risco da extensão estar em caixa alta então eu uso o " toLowerCase() "
-            pra tornar a extensão minuscula parar que al possa ser lida e avaliada 
-            */  
-
-            const fileExtension = file.name.split('.').pop().toLowerCase();
-
-            if(!validTypes.includes(fileType) || !validExtensions.includes(fileExtension)){
-
-                error_message.textContent = "Imagem invalida: selecione uma imagem do tipo png ,jpg ou jpeg";
-                event.target.value='';
-                preview.src = "#";
-                preview.classList.add('hidden');
-                return; 
-            }
-
-            const img = new Image();
-
-            img.onload = function () {
-
-                if(img.width === 200 && img.height === 200){
-
-                    preview.src = URL.createObjectULR(file);
-                    preview.classList.remove('hidden'); 
-
-                }else{
-                    errorMessage.textContent = "A imagem deve ter exatamente 200x200 pixeis";
-                    event.target.value='';
-                    preview.src = "#";
-                    preview.classList.add('hidden');
-                    return; 
-                }
-            };
-
-           img.src = preview.src = URL.createObjectURL(file);
-           }else{
-
-             preview.src ="#";
-             preview.classList.add('hidden');
-              
-           }
-        }
-    );
-
-<script>
 
 
 </x-layouts.auth-layout>
