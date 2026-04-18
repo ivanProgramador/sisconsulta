@@ -66,7 +66,7 @@
                 <div class="mb-4">
 
                     <label for="status" class="label">Estado</label>
-                        <select class="input w-1/3" id="status">
+                        <select class="input w-1/3" id="status" name="status">
 
                             <option value="active" {{ old('status') === 'active' ? 'selected': '' }}>Ativo</option>
 
