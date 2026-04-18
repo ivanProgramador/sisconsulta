@@ -17,11 +17,15 @@
 
             {{-- company logo --}}
             <div class="main-card w-1/3">
+                
                 <label for="company_logo" class="label">Logo do cliente</label>
                 <input type="file" name="company_logo" id="company_logo" class="input" />
+
                 <p class="text-sm text-red-500 italic" id="error_message"></p>
 
-                
+                <div class="flex justify-center mt-8">
+                     <img id="logo_preview" src="#" alt="Logo" class="hidden w-[200] h-[200] border-slate-300">
+                </div>
 
 
             </div>
@@ -80,6 +84,83 @@
     </form>
 
 </div>
+
+<script>
+
+    document.querySelector("#company_logo").addEventListener('change',function(event){
+
+        const error_message = document.querySelector("#error_message");
+
+        error_message.textContent = '';
+
+        const [file] = event.target.files;
+
+        const preview = document.querySelector("#logo_preview");
+
+        if(file){
+
+            const validTypes = ['image/png','image/jpeg'];
+
+            const validExtensions = ['png','jpg','jpeg'];
+
+            const fileType = file.type;
+
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+
+
+                if(!validTypes.includes(fileType) || !validExtensions.includes(fileExtension)){
+
+                    error_message.textContent = 'Selecione uma imagem JPG ou PNG';
+
+                    event.target.value = '';
+
+                    preview.src = "#";
+
+                    preview.classList.add('hidden');
+
+                    return;
+
+                }
+
+            const img = new Image();
+
+                    img.onload = function(){
+
+                        if(img.width === 200 && img.height === 200){
+
+                            preview.src = URL.createObjectURL(file);
+                            preview.classList.remove('hidden');
+
+
+                        }else{
+
+                            error_message.textContent = 'A imagem deve ter exatamente 200x200 pixeis';
+
+                            event.target.value = '';
+
+                            preview.src = "#";
+
+                            preview.classList.add('hidden');
+
+                           
+                        }
+
+                    };
+
+                    img.src = URL.createObjectURL(file);
+            
+            
+        }else{
+                     preview.src = "#";
+
+                     preview.classList.add('hidden');
+
+                  
+        }
+        
+    });
+
+</script>
 
 
 
