@@ -1,0 +1,41 @@
+O cadastro de uma nova empresa como cliente além de exigir os dados básicos de um cadastro
+exige tambem que a pessoa que esta sendo assciada a ela comprove que esta cte da situação nisso 
+será implementada a confirmação desse cadastro via e-mail e soemnete depois dessa confirmação será
+posssivel cadastrar o representanrte da empresa dentro da base de dados do sistema.
+
+Pra isso eu vou usar um aplicativo que simula um servidor de e-mail , caixa de entrada via SMTP, 
+eu vou mandar uma link pra esse e-mail quando for solicitada a criação do cadastro no sistema 
+e o doino do emial vai clicar em um link que vem parar dentro do sistema e pede pra ele confirmar
+o cadastro mostrando assim que ele está cte. 
+
+como usar o MailHog o acionamento é simples basta cricar 2x no aplicativo conceder as permissões
+de acesso 
+
+link da caixa de entrada http://localhost:8025/
+
+link do endereço que recebe os emails http://0.0.0.0:1025
+
+não é acessivel de forma direta porque é o mini servidor da aplicação 
+
+configurando o laravel pra mandar e-mail
+
+A configuração acontece no .env onde eu tenho algumas constantes parara  configurações de e-mail
+
+MAIL_MAILER=smtp (protocolo de envio)
+MAIL_SCHEME=null
+MAIL_HOST=127.0.0.1 (ip do meu servidor)
+MAIL_PORT=1025 (porta do MailHog que vai receber o email e tratar a requisição)
+MAIL_USERNAME=null 
+MAIL_PASSWORD=null
+MAIL_FROM_ADDRESS="no_reply@queuesystem.com" (endereço de remetente que a minha aplicação vai moistrar no cliente)
+MAIL_FROM_NAME="${APP_NAME}"
+
+
+
+
+
+
+
+ 
+
+
