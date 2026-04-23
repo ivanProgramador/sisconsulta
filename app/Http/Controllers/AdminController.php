@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -71,6 +72,17 @@ class AdminController extends Controller
         );
 
         
+        try{
+            //enviando um e-mail de teste para o cliente 
+            Mail::raw('Email de teste (corpo do e-mail)',function($message){
+                $message->to('admin@teste.com')->subject('email de teste');
+            });
+            
+            echo'success';
+
+        }catch(\Exception $e){
+
+        }
 
         dd($request->all());
     }
