@@ -21,6 +21,9 @@ configurando o laravel pra mandar e-mail
 
 A configuração acontece no .env onde eu tenho algumas constantes parara  configurações de e-mail
 
+ATENÇÃO! SEMPRE QUE AS CONFIGURAÇÕES ABAIXO MUDAREM O CACHE DEVE SER LIMPO 
+
+
 MAIL_MAILER=smtp (protocolo de envio)
 MAIL_SCHEME=null
 MAIL_HOST=127.0.0.1 (ip do meu servidor)
