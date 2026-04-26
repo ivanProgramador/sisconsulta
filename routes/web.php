@@ -21,6 +21,15 @@ Route::middleware(['guest'])->group(function () {
 
     //rota de tratamento do formulario de login
     Route::post('/login',[AuthController::class,'loginSubmit'])->name('login.submit');
+
+    //rota de conclusão de registro do administrador 
+
+    Route::post('/conclude-registration/{code}',[AuthController::class,'concludeRegistration'])->name('conclude.registration');
+
+
+
+
+
     
 });
 

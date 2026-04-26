@@ -33,6 +33,32 @@ MAIL_PASSWORD=null
 MAIL_FROM_ADDRESS="no_reply@queuesystem.com" (endereço de remetente que a minha aplicação vai moistrar no cliente)
 MAIL_FROM_NAME="${APP_NAME}"
 
+implementando  a funcionanlidade no projeto 
+- foi criada uma nova rota no arquivo web.php nesse caso é uma rota para "guests" visiatantes ja que se trata de um usuario novo 
+
+   Route::post('/conclude-registration/{code}',[AuthController::class,'concludeRegistration'])->name('conclude.registration');
+
+- foi criado dentro do AuthController uma funcção aparar tratar essa requisição 
+   
+   public function concludeRegistration($code){}
+
+- foi criada mais uma constante dentro do arquivo de constantes globais desse projeto constants.php que esta na pasta config 
+  a constante abaixo tem o valor 1440 que seria o total de minutos que existem em 24 horas, isso significa que se o usuario não 
+  usar o link de validação ate o final desse tempo ele será invalidado.  
+
+  'MAIL_NEW_CLIENT_CODE_EXPIRATION'=> 1440
+
+- fiz a definição de uma endereço de email padrão e defiuni uma classe de view pra ele usando o comando abaixo  
+
+  php artisan make:mail NewClientAdminMail --view=emails.new_client_admin
+
+-
+  
+     
+    
+   
+    
+
 
 
 

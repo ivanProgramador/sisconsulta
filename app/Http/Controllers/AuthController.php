@@ -153,4 +153,16 @@ class AuthController extends Controller
         //redirecionando para a pagina de login
         return redirect()->route('login');
     }
+
+    public function concludeRegistration($code)
+    {
+       echo"Concluido do registro<br>";
+       echo $code;
+
+
+    }
+
+
+
+
 }

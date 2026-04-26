@@ -73,7 +73,8 @@ class AdminController extends Controller
 
         
         try{
-            //enviando um e-mail de teste para o cliente 
+            //enviando um e-mail de teste para o cliente
+             
             Mail::raw('Email de teste (corpo do e-mail)',function($message){
                 $message->to('admin@teste.com')->subject('email de teste');
             });
