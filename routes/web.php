@@ -24,14 +24,9 @@ Route::middleware(['guest'])->group(function () {
 
     //rota de conclusão de registro do administrador 
 
-    Route::post('/conclude-registration/{code}',[AuthController::class,'concludeRegistration'])->name('conclude.registration');
-
-
-
-
-
+    Route::get('/conclude-registration/{code}',[AuthController::class,'concludeRegistration'])->name('conclude.registration');
     
-});
+  });
 
 
 

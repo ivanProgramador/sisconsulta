@@ -48,11 +48,86 @@ implementando  a funcionanlidade no projeto
 
   'MAIL_NEW_CLIENT_CODE_EXPIRATION'=> 1440
 
-- fiz a definição de uma endereço de email padrão e defiuni uma classe de view pra ele usando o comando abaixo  
+- fiz a definição de uma endereço de email padrão e defini uma classe de view pra ele usando o comando abaixo,
+  esse comando vai criar dois arquivos um deles vai aparecer dento da pasta "app/Mail/NewClientAdminMail.php" 
+  ele contem uma classe totalemnete voltada para aminipulação de emails, essa classe possui um grupo de metodos 
+  especificos para a manipulação de corpo do e-mail, titulo,subtitulo e anexos entre outros.
+
+  O segundo arquivo é uma view comum que fica atrelada a funcção de conteudo do e-mail  atraves do metodo content,
+  que faz referenca ela dentro da pasta de views  
+
+    public function content(): Content
+      {
+          return new Content(
+              view: 'emails.new_client_admin',
+          );
+      }      
+
 
   php artisan make:mail NewClientAdminMail --view=emails.new_client_admin
 
--
+
+  ----------------------------------------------------------------------------------------------------------
+  Usando a classe Mailable para a definição do e-mail a classe q    ue eu criei com o comando é uma classe que extende 
+  a classe "class NewClientAdminMail extends Mailable" isso seginfica que eu posso acessar todos os metodos da classe 
+  principal e usa-los para construir um e-email.
+
+  pra fazer isso eu vou manipular o metodo construtor, aqui eu vou criar 2 paramentros publicos que serão recebidos 
+  pelo construtor então  toda vez   que eu enviar um email ele vai ter um codigo de autenticação que será inserido no corpo ,
+  e terá tambem o nome da empresa que  solicitou o cadastro desse administrador. 
+
+   public function __construct(public $code, public $company_name)
+    {
+        //
+    }
+
+  a outra alteração foi na função envelope no assunto do e-mail eu coloquei o array de configurações 
+  e desse array eu pequie o incice do nome do sistema e concatenei com u7ma mensagem de boas vindas.  
+
+  config('app.name')
+
+
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: config('app.name') .'Seja Bem vindo (a) ao sisconsulta !!, conclua seu cadastro por favor',
+        );
+    } 
+
+    --------------------------------------------------------------------------------------------------------------------
+    View de e-emal  
+
+    No caso dessa view as propriedades foram passadas então elas estão disponiveis para que eu  possa usar
+    oque tem no e-mail
+     
+    1 - apresentação do aplicativo que esta enviado o e-mial 
+    2 - porque o cliente esta recebendo o email 
+    3 - pra que serve o emial que ele recebeu 
+    4 - oque ele precisa fazer para concluir o cadastro 
+    5 - quanto tempo ele tem pra fazer isso 
+
+    --------------------------------------------------------------------------------------------------------
+    <p>Bem ao {{ config('app.name') }}</p>
+        <p>Foi solicitado o registro do cliente: <strong> {{$company_name}}  </strong> </p>
+        <p>Para a conclusão do registro, clique no link abaixo por gentileza</p>
+        <p>
+            <a href=" {{ route('conclude.registration',['code' => Crypt:encrypt($code) ]) }}" > Concluir cadastro </a>
+        </p>
+
+        <p>
+            Esse link estará disponivel até <strong>{{ now()->addMinutes(config('constants.MAIL_NEW_CLIENT_CODE_EXPIRATION')) }}</strong>
+        </p>
+    ----------------------------------------------------------------------------------------------------------- 
+
+
+
+
+   
+
+      
+
+
+
   
      
     

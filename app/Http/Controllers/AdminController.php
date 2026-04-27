@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewClientAdminMail;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -71,21 +73,24 @@ class AdminController extends Controller
             ]
         );
 
+        $code = Str::random(64);
+
         
         try{
-            //enviando um e-mail de teste para o cliente
-             
-            Mail::raw('Email de teste (corpo do e-mail)',function($message){
-                $message->to('admin@teste.com')->subject('email de teste');
-            });
-            
-            echo'success';
+            Mail::to($request->admin_email)
+                ->send(new NewClientAdminMail($code, $request->company_name));
 
         }catch(\Exception $e){
 
-        }
+         
+            
+          return redirect()
+                   ->back()
+                   ->withInput()
+                   ->with('server_error','Erro ao enviar o e-mail por favor tente de novo');
+         
 
-        dd($request->all());
+        }
     }
 
     

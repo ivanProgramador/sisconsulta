@@ -16,7 +16,10 @@ class NewClientAdminMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public $code,
+        public $company_name
+        )
     {
         //
     }
@@ -27,7 +30,7 @@ class NewClientAdminMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Client Admin Mail',
+            subject: config('app.name') .'Seja Bem vindo (a) ao sisconsulta !!, conclua seu cadastro por favor',
         );
     }
 
