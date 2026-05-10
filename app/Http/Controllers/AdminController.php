@@ -128,7 +128,7 @@ class AdminController extends Controller
         $user->role = 'client-admin';
         $user->code = $code;
         $user->code_expiration = now()->addMinutes(config('constants.MAIL_NEW_CLIENT_CODE_EXPIRATION'));
-        $user->active = $request->status === 'active' ? 1 : 0;
+        $user->status = $request->status === 'active' ? 1 : 0;
         $user->save();
 
         //mostrando a pagina de sucesso
