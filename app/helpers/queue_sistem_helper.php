@@ -64,6 +64,9 @@ use Illuminate\Support\Facades\Storage;
     }
 }
 
+
+
+
  if(!function_exists('getFormatedTicketNumber')){
     
     //Essa função serve para formatar a apresentação do prefixo das senhas das filas 
