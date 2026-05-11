@@ -102,7 +102,7 @@
 
 <script>
 
- /*   document.querySelector("#company_logo").addEventListener('change',function(event){
+   document.querySelector("#company_logo").addEventListener('change',function(event){
 
         const error_message = document.querySelector("#error_message");
 
@@ -176,7 +176,7 @@
     });
 
 
-*/
+
 
 </script>
 

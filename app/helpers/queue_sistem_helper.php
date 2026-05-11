@@ -209,12 +209,12 @@ if(!function_exists('getQueuetStateText')){
            //de discos logicos do Framework
 
 
-           if($logo &&  Storage::disk('public')->exists('company_logos/'. $logo)){
+           if($logo &&  file_exists(public_path('assets/images/company_logos/' . $logo))){
 
-               return asset('storage/company_logos/' . $logo);
+               return asset('assets/images/company_logos/' . $logo);
 
            }else{
-               return asset('storage/company_logos/_no_logo.png');
+               return asset('assets/images/company_logos/_no_logo.png');
            }
         }
  }

@@ -95,7 +95,12 @@ class AdminController extends Controller
             //criando um nome unico para o aqruivo do logo 
             
             $fileName = Str::uuid(). '.' . $request->company_logo->extension();
-            $request->company_logo->storeAs('company_logos',$fileName,'public');
+
+            //gavando a imagem do logo em uma pasta publica
+
+            $request->company_logo->move(public_path('assets/images/company_logos/'), $fileName);
+
+
             $company_logo = $fileName;
              
         }else{

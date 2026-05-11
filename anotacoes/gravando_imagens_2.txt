@@ -1,0 +1,4 @@
+A ideia de salvar imagens sem usar o simbolic link 
+1 - copia a pasta de dentro da pasta storage 
+2 - cola dentro da pasta images 
+3 - apaga o simbolic link 
