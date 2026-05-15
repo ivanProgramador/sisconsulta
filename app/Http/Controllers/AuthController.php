@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use PhpParser\Node\Stmt\TryCatch;
 
 use function Symfony\Component\Clock\now;
 
@@ -156,8 +159,51 @@ class AuthController extends Controller
 
     public function concludeRegistration($code)
     {
-       echo"Concluido do registro<br>";
-       echo $code;
+        //verificando s côdigo é valido
+        //o cdigo vai chegar aqui encriptado 
+        //então para poder ler ele  vou precisar decodificar
+
+        Try{
+
+           $code = Crypt::decrypt($code);
+
+        }catch(DecryptException $e){
+
+          return redirect()->route('login');
+
+        }
+        
+        //pegando o usuario pelo codigo
+
+          $user = User::where('code',$code)->first();
+          if(!$user){
+             return redirect()->route('login');
+          } 
+
+        //testar se o codigo esta expirado se ele estiver eu tenhoq ue limpar 
+        //os dados salvos referentes a tentativa  
+
+        if($user->code_expiration < now()){
+
+           //precisa ser um hard delete pra isso não gerar sujeira na base de dados
+           //da empresa e do usuario
+
+           //removendo a empresa 
+           $user->company()->forceDelete();
+
+
+           //removendo o usuario 
+
+           $user->forceDelete();
+
+           return redirect()->route('login');
+
+        }
+
+        dd($user->toArray());
+
+
+
 
 
     }
