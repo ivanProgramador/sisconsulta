@@ -159,8 +159,8 @@ class AuthController extends Controller
 
     public function concludeRegistration($code)
     {
-        //verificando s côdigo é valido
-        //o cdigo vai chegar aqui encriptado 
+        //verificando se côdigo é valido
+        //o côdigo vai chegar aqui encriptado 
         //então para poder ler ele  vou precisar decodificar
 
         Try{
@@ -175,13 +175,22 @@ class AuthController extends Controller
         
         //pegando o usuario pelo codigo
 
+        
+
           $user = User::where('code',$code)->first();
+
           if(!$user){
              return redirect()->route('login');
           } 
 
+         
+
+
+
         //testar se o codigo esta expirado se ele estiver eu tenhoq ue limpar 
         //os dados salvos referentes a tentativa  
+
+       
 
         if($user->code_expiration < now()){
 

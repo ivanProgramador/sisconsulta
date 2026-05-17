@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $users = [
                 [
-                    'email'=>'useradmin@localhost.com',
+                    'email'=>'sysadmin@localhost.com',
                     'password' => bcrypt('Aa123456'),
                     'id_company' => 0,
                     'role' => 'client-admin',
