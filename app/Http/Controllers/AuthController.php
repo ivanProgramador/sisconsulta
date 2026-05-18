@@ -189,9 +189,30 @@ class AuthController extends Controller
 
 
        }else{
-           dd($user->toArray());
            
+          //colocando as variaveis de controle dentro da sessão 
+          //depois que o usuario clica no link ele deve ser direcionado 
+          //para uma rota onde ele va definir a senha de acesso
+          //as variveis de sessão servem pra verificar se esse cliente realmente 
+          //deve ir pra essa pagina
+          
+          session()->put('define_password',true);
+          session()->put('user_id',Cript::encrypt($user->id));
+
+          return redirect()->route('define.password');
+
        }
+    }
+
+
+    public function definePassword(){
+
+    }
+
+    public function definePasswordSubmit(Request $request){
+
+        dd();
+
     }
 
 
