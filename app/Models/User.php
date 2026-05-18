@@ -14,4 +14,11 @@ class User extends Authenticatable
      public function company(){
          return $this->belongsTo(Company::class,'id_company');
     }
+
+    //foi adicionado pra correção da comparação da datat de expiração do codigo
+    protected $casts = [
+        'code_expiration' => 'datetime',
+        'last_login' => 'datetime',
+        'blocked_until' => 'datetime',
+     ];
 }

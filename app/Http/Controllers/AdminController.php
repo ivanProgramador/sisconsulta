@@ -15,7 +15,7 @@ class AdminController extends Controller
 
          $data=[
 
-             'subtitle' => 'Asministração',
+             'subtitle' => 'Administração',
              'clients'  => $this->getClientList()
          ];
          return view('admin.home',$data);
@@ -81,6 +81,8 @@ class AdminController extends Controller
                 ->send(new NewClientAdminMail($code, $request->company_name));
 
         }catch(\Exception $e){
+
+         dd($e);
 
           return redirect()
                    ->back()

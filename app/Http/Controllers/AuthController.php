@@ -159,62 +159,39 @@ class AuthController extends Controller
 
     public function concludeRegistration($code)
     {
-        //verificando se côdigo é valido
-        //o côdigo vai chegar aqui encriptado 
-        //então para poder ler ele  vou precisar decodificar
+      
+      //testando se o codigo é valido 
+       try{
+            $code = Crypt::decrypt($code);
 
-        Try{
-
-           $code = Crypt::decrypt($code);
-
-        }catch(DecryptException $e){
+         }catch(DecryptException $e){
 
           return redirect()->route('login');
+       }
 
-        }
-        
-        //pegando o usuario pelo codigo
+       //pegando o codigo e o usuario 
 
-        
+       $user = User::where('code',$code)->first();
 
-          $user = User::where('code',$code)->first();
-
-          if(!$user){
-             return redirect()->route('login');
-          } 
-
-         
-
-
-
-        //testar se o codigo esta expirado se ele estiver eu tenhoq ue limpar 
-        //os dados salvos referentes a tentativa  
-
-       
-
-        if($user->code_expiration < now()){
-
-           //precisa ser um hard delete pra isso não gerar sujeira na base de dados
-           //da empresa e do usuario
-
-           //removendo a empresa 
-           $user->company()->forceDelete();
-
-
-           //removendo o usuario 
-
-           $user->forceDelete();
-
+       if(!$user){
            return redirect()->route('login');
+       }
 
-        }
+       //verificando se o codigo expirou 
 
-        dd($user->toArray());
+       if($user->code_expiration < now()){
+          
+         $user->company()->forceDelete();
+
+         $user->forceDelete();
+         
+         return redirect()->route('login');
 
 
-
-
-
+       }else{
+           dd($user->toArray());
+           
+       }
     }
 
 
