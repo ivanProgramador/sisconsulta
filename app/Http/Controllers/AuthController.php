@@ -197,7 +197,7 @@ class AuthController extends Controller
           //deve ir pra essa pagina
           
           session()->put('define_password',true);
-          session()->put('user_id',Cript::encrypt($user->id));
+          session()->put('user_id',Crypt::encrypt($user->id));
 
           return redirect()->route('define.password');
 
@@ -207,11 +207,36 @@ class AuthController extends Controller
 
     public function definePassword(){
 
+       /*
+         antes de iniciar um processo de definição de senha eu tenho que checar se realmente estou dentro desse processo,
+         parrar fazer isso eu tenho que conseultarrr as variaveis de sessão que recebem valores asim que porcesso de definicção 
+         de senha é iniciado pelo usuário 
+
+         Se as variáveis estiverem vazias se trata de uma tentativa de acesso direto então o usuarios sera redirecionado para o login 
+       */
+      if(!session()->has('define_password') ||  !session()->has('user_id')){
+         return redirect()->route('login');
+      }
+      
+      $data=[
+         'subtitle'=>'Definir senha',
+         'user' => User::find(Crypt::decrypt(session()->get('user_id'))) 
+      ];
+
+      return view('auth.define_password_frm',$data);
+
+
+
+
     }
 
     public function definePasswordSubmit(Request $request){
 
-        dd();
+        dd(
+           Crypt::decrypt(session()->get('user_id')),
+           session_get('define_password'),
+           $request()->all()
+        );
 
     }
 
