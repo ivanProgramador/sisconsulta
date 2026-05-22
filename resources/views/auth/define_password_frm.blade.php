@@ -3,7 +3,7 @@
 
  <div class="flex flex-col justify-center h-screen items-center">
 
-    <div class="main-card w-1">
+    <div class="main-card w-150">
 
         <div class="flex justify-center items-center mb-8">
             <img src="{{ asset('assets/images/favicon.png') }}" class="w-10 h-10 me-2" alt="Logo">

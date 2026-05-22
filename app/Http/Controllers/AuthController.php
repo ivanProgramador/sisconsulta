@@ -232,11 +232,43 @@ class AuthController extends Controller
 
     public function definePasswordSubmit(Request $request){
 
-        dd(
+      /*
+          dd(
            Crypt::decrypt(session()->get('user_id')),
            session_get('define_password'),
            $request()->all()
-        );
+           );
+      */
+
+      if(!session()->has('define_password') ||  !session()->has('user_id')){
+         return redirect()->route('login');
+      }
+
+      $request->validate(
+            [
+               'password' => [
+                  'required',
+                  'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/'
+               ],
+
+               'password_confirmation' => [
+                  'required',
+                  'same:password'
+               ]
+            ],
+            [
+               'password.required' => 'A senha é obrigatória',
+
+               'password.regex' =>
+                  'A senha deve conter entre 6 e 16 caracteres, uma letra minúscula, uma maiúscula e um número',
+
+               'password_confirmation.same' =>
+                  'As duas senhas não são iguais'
+            ]
+      );
+
+      dd($request->all());
+      
 
     }
 
