@@ -267,9 +267,43 @@ class AuthController extends Controller
             ]
       );
 
-      dd($request->all());
-      
+       //pegando o usuario 
 
+       $user = User::find(Crypt::decrypt(session()->get('user_id')));
+
+       //se não tiver usuario 
+
+       if(!$user){
+         return redirect()->route('login');
+      }
+
+      //atualizar o campo senha com os dados passados no formulario 
+      //e limpar todos os campos 
+
+      $user->password = bcrypt($request->password);
+      $user->code = null;
+      $user->code_expiration = null;
+      $user->save();
+
+       return redirect()->route('define.password.success');
+
+      
+    }
+
+    public function definePassworSuccess(){
+
+       if(!session()->has('define_password') ||  !session()->has('user_id')){
+         return redirect()->route('login');
+      }
+
+      //quando o usuario chega nesse ponto eu não preciso mais das variavesi de controle de sessão 
+      //então eu vou limpar elas 
+      
+      session()->forget('define_password');
+      session()->forget('user_id');
+
+      return view('auth.define_password_success',['subtitle'=>'Success']);
+       
     }
 
 

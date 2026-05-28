@@ -54,21 +54,20 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        //gate para o client-admin
+        //aoa inves de separar o grupo de usuarios direto nas rotas
+        // eu decidi gerar uma rota combinada
+        // ai se outros grupos foram criados basta adicionar-los 
+        
+         
 
-        Gate::define('client-admin',function($user){
+        Gate::define('client-area', function ($user) {
 
-         return $user->role === 'client-admin';
+            return in_array($user->role, [
+             'client-admin',
+            'client-user'
+         ]);
 
-        });
-
-        //gate para o client-user
-
-        Gate::define('client-user',function($user){
-
-         return $user->role === 'client-user';
-
-        });
+});
         
         
         
