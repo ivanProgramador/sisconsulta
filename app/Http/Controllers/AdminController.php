@@ -149,5 +149,62 @@ class AdminController extends Controller
         return view('admin.create_company_success',$data);
     }
 
+    public function companyDetails($id)
+    {
+        //desencriptando o id  parar poder usa-lo na consulta  
+
+        try{
+
+          $id = Crypt::decrypt($id);
+
+        }catch(\Exception $e){
+
+           return redirect()->route('admin.home');
+        }
+
+
+        //consultando os dados da empresa 
+
+        $company = Company::withTrashed()->find($id);
+
+
+        if(!$company){
+             return redirect()->route('admin.home');
+        }
+
+        //consultando dados dos usuarios associados a ela  
+
+        $users = User::where('id_company',$id)->get(); 
+
+        //pegando as filas e os tckets da empresa por status 
+
+        $queues = Queue::withTrashed('tickets')
+                 ->where('id_company',$id)
+                 ->withCount([
+                    'tickets as total_tickets'=> function($query){
+                        $query->where('deleted_at',null);
+                    },
+                    'tickets as total_waiting' => function($query){
+                        $query->where('queue_ticket_status','waiting');
+                    },
+                    'tickets as total_called' => function($query){
+                        $query->where('queue_ticket_status','called');
+                    },
+                    'tickets as total_not_attended' => function($query){
+                        $query->where('queue_ticket_status','not_attended');
+                    },
+                    'tickets as total_dismissed' => function($query){
+                        $query->where('queue_ticket_status','dismissed');
+                    }
+                 ])->get();
+
+                 $data=[
+                    'subtitle' => 'Detalhes do cliente',
+                    'company'  =>  $company,
+                    'queues'   =>  $queues
+                 ];
+
+        }
+
     
 }

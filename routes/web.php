@@ -133,6 +133,13 @@ Route::middleware(['auth','can:client-area'])->group(function () {
 
       Route::post('/admin/company/create',[AdminController::class,"createCompanySubmit"])->name('admin.company.create.submit');
 
+      Route::get('/admin/company/details/admin/{id}',[AdminController::class,"companyDetails"])->name('admin.company.details');
+      
+      
+      
+
+
+
 
       
 
