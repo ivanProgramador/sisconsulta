@@ -44,7 +44,13 @@
                             <td class="w-10/100 text-center">{!! getClientStatusIcon(($client)) !!}</td>
                             <td class="w-10/100"><i class="fa-solid fa-users me-2" ></i> {{ $client->users_count }}</td>
                             <td class="w-10/100">{{ $client->created_at }}</td>
-                            <td class="w-15/100">[Ações]</td>
+                            <td class="w-15/100">
+                                <div class="flex justify-end gap-2">
+                                      
+                                      <a href="{{route('admin.company.details',['id' => Crypt::encrypt($client->id) ])}}" class="btn">Detahes</a>
+                                    
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

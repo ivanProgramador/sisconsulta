@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Mail\NewClientAdminMail;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Queue;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -203,6 +205,11 @@ class AdminController extends Controller
                     'company'  =>  $company,
                     'queues'   =>  $queues
                  ];
+
+                 dd($data);
+
+                 return view('admin.company_details',$data);
+                 
 
         }
 
