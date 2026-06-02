@@ -206,8 +206,6 @@ class AdminController extends Controller
                     'queues'   =>  $queues
                  ];
 
-                 dd($data);
-
                  return view('admin.company_details',$data);
                  
 
