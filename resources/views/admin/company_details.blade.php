@@ -4,7 +4,7 @@
 
             <div class="flex justify-between">
                 <p class="title-3">Detalhes de cliente</p>
-                <a href="{ route('admin.home') }" class="btn"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
+                <a href="{{ route('admin.home') }}" class="btn"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
             </div>
 
             <hr class="my-4">
@@ -41,7 +41,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($company->users as $user){
+                    @foreach($company->users as $user)
 
                         <tr>
                             <td class="w-50/100">{{ $user->role  }}</td>
@@ -49,7 +49,7 @@
                             <td class="w-25/100">{{ $user->email }}</td>
                         </tr>
 
-                    }
+                    
                     @endforeach
 
                         
