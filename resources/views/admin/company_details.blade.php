@@ -64,10 +64,13 @@
 
             <p class="title-3 mb-4">Filas de espera</p>
 
+            @if($queues->count() === 0)
+
                 <div class="text-center my-12 text-gray-500">
                     <p class="text-lg">Não existem filas para este cliente.</p>
                 </div>
 
+            @else
                 <table id="table-queues">
                     <thead class="bg-black text-white">
                     <tr>
@@ -82,21 +85,52 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                        
+                       @foreach($queues as $queue)
                         <tr>
-                            <td class="w-25/100">[Nome]</td>
-                            <td class="w-25/100">[Serviço]</td>
-                            <td class="w-10/100">[Total]</td>
-                            <td class="w-10/100">[Dispensadas]</td>
-                            <td class="w-10/100">[Não atendidas]</td>
-                            <td class="w-10/100">[Em espera]</td>
-                            <td class="w-10/100">[Chamadas]</td>
+                            <td class="w-25/100">{{ $queue->name }}</td>
+                            <td class="w-25/100">{{ $queue->service_name }}</td>
+                            <td class="w-10/100">{{ $queue->total_tickets }}</td>
+                            <td class="w-10/100">{{ $queue->total_dismissed }}</td>
+                            <td class="w-10/100">{{ $queue->total_not_attended }}</td>
+                            <td class="w-10/100">{{ $queue->total_waiting }}</td>
+                            <td class="w-10/100">{{ $queue->total_called }}</td>
                         </tr>
+
+                        @endforeach
 
                     </tbody>
                 </table>
+            @endif
 
         </div>
+
+
+    <script>
+      
+     
+
+      //apontando o datatabela pra minha tabela 
+
+      $('#table-queues').DataTable({
+         //traduzindo os componetes pra portugues
+
+         language:{
+             url:"{{ asset('assets/datatables/pt-PT.json') }}"
+         }
+      }
+     );
+
+       $('#table-users').DataTable({
+         //traduzindo os componetes pra portugues
+
+         language:{
+             url:"{{ asset('assets/datatables/pt-PT.json') }}"
+         }
+      }
+     );
+
+   </script>
    
 
 </x-layouts.auth-layout>
