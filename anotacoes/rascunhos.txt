@@ -25,4 +25,18 @@ php artisan config:clear
 php artisan cache:clear
 
 
+-------------------------------------------------------------------------------------
+sequencia para modelos não existentes
+ 1 - cria a migration 
+ 2 - cria o model (atenção ao fillable) 
+ 3 - cria os metodos (CRUD) de manipulação do modelo  
+ 4 - sempre usar o dd() pra ver se o metodo esta reonando os dados corretos 
+ 5 - cria/latera a view existente atenção ao @csrf e todos os ids devem ser encriptados sem excessão    
+
+sequencia de funcionalidades relacionadas a modelos ja existentes 
+ 1 - cria a rota 
+ 2 - cria o metodo 
+ 3 - sempre usar o dd() pra ver se o metodo esta reonando os dados corretos 
+ 4 - cria ou altera a view 
+
 

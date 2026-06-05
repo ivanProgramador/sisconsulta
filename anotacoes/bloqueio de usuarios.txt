@@ -1,0 +1,3 @@
+A ideia da implantação dessa função seria bloquar usuarios ou empresa em casos 
+de emegencia evitando acessoso indevidos ao sistema em caso de perda de senha.
+ou cancelamento do serviço. 

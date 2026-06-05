@@ -12,8 +12,7 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    public function index()
-    {
+    public function index(){
 
          $data=[
 
@@ -23,7 +22,8 @@ class AdminController extends Controller
          return view('admin.home',$data);
 
     }
-     private function getClientList(){
+
+    private function getClientList(){
         //pegando todas as empresas cadastradas
 
         return Company::withTrashed()->withCount('users')->get();
@@ -151,8 +151,8 @@ class AdminController extends Controller
         return view('admin.create_company_success',$data);
     }
 
-    public function companyDetails($id)
-    {
+    public function companyDetails($id){
+
         //desencriptando o id  parar poder usa-lo na consulta  
 
         try{
@@ -206,10 +206,39 @@ class AdminController extends Controller
                     'queues'   =>  $queues
                  ];
 
-                 return view('admin.company_details',$data);
-                 
+                 return view('admin.company_details',$data);}
 
+
+    public function CompanyControlAccess($id){
+
+       // desencriptando o id recebido
+       
+       try{
+          $id = Crypt::decrypt($id);
+        }catch(\Exception $e){
+           return redirect()->route('admin.home');
         }
 
-    
+        //consultando os dados da companhia 
+        $company = Company::withTrashed()->find($id);
+
+        if(!$company){
+             return redirect()->route('admin.home');
+        }
+
+        $data=[
+            'subtitle'=>'Controle de acesso',
+             'company' => $company
+        ];
+
+        dd($data);
+
+        //return view();
+    }
+
+
+    public function companyControlAccessSubmit(Request $request)
+    {
+       echo $request;
+    }
 }

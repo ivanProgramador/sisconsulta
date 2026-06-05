@@ -134,6 +134,17 @@ Route::middleware(['auth','can:client-area'])->group(function () {
       Route::post('/admin/company/create',[AdminController::class,"createCompanySubmit"])->name('admin.company.create.submit');
 
       Route::get('/admin/company/details/admin/{id}',[AdminController::class,"companyDetails"])->name('admin.company.details');
+
+      Route::get('/admin/company/control-access/{id}',[AdminController::class,"companyControlAccess"])->name('admin.company.control.access');
+
+      Route::post('/admin/company/control-access',[AdminController::class,"companyControlAccessSubmit"])->name('admin.company.control.access.submit');
+
+
+      
+
+
+
+
       
       
       
