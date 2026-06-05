@@ -50,6 +50,19 @@ class AuthController extends Controller
        //verificando se o usuario existe e se a senha confere com o usuario informado
        
        if($user && Hash::check(trim($request->password), $user->password)){
+
+           //verificando se o usuario pertence a uma empresa que está ativa
+
+           if($user->role !== 'sys-admin' && ($user->company->deleted_at || $user->company->status != 'active' )){
+
+             return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('server_error','Login invalido.');
+
+           }        
+           
+
             
            //o login será executado por uma outra função 
 
@@ -146,6 +159,8 @@ class AuthController extends Controller
 
         //executando o logout 
         auth()->logout();
+
+         session()->flush();
          
         //limpando os dados da sessão 
         session()->invalidate();

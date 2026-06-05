@@ -231,14 +231,51 @@ class AdminController extends Controller
              'company' => $company
         ];
 
-        dd($data);
+        
 
-        //return view();
+        return view('admin.company_control_access',$data);
     }
 
 
     public function companyControlAccessSubmit(Request $request)
     {
-       echo $request;
+        // testando se os dados sumetidos são validos pra atualizar o status da empresa
+        
+        if(!$request->has('id') || !$request->has('action')){
+            return redirect('admin.home');
+        }
+
+        // desencriptando o id recebido
+       
+       try{
+          $id = Crypt::decrypt($request->id);
+        }catch(\Exception $e){
+           return redirect()->route('admin.home');
+        }
+
+        $action = $request->action;
+
+        //pegando os dados da companhia
+
+        $company = Company::withTrashed()->find($id);
+
+        if(!$company){
+            return redirect()->route('admin.home');
+        }
+
+        //atualizando o status
+
+        if($action === 'disable'){
+
+            $company->status = 'inactive';
+            $company->save();
+
+        }else if($action ==='enable'){
+
+             $company->status = 'active';
+            $company->save();
+        }
+
+        return redirect()->route('admin.home');
     }
 }
