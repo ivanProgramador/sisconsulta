@@ -278,4 +278,30 @@ class AdminController extends Controller
 
         return redirect()->route('admin.home');
     }
+
+
+    public function companyDelete($id){
+
+         // desencriptando o id recebido
+       
+            try{
+                $id = Crypt::decrypt($id);
+                }catch(\Exception $e){
+                return redirect()->route('admin.home');
+                }
+
+                //consultando os dados da companhia 
+                $company = Company::withTrashed()->find($id);
+
+                if(!$company){
+                    return redirect()->route('admin.home');
+            }
+
+            $data=[
+                 'subtitle'=>'Excluir cliente',
+                 'company' => $company
+            ];
+
+            return view('admin.delete_company_confirm',$data);
+        }
 }
