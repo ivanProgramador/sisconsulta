@@ -167,7 +167,7 @@ class AdminController extends Controller
 
         //consultando os dados da empresa 
 
-        $company = Company::withTrashed()->find($id);
+        $company = Company::find($id);
 
 
         if(!$company){
@@ -220,7 +220,7 @@ class AdminController extends Controller
         }
 
         //consultando os dados da companhia 
-        $company = Company::withTrashed()->find($id);
+        $company = Company::find($id);
 
         if(!$company){
              return redirect()->route('admin.home');
@@ -291,7 +291,7 @@ class AdminController extends Controller
                 }
 
                 //consultando os dados da companhia 
-                $company = Company::withTrashed()->find($id);
+                $company = Company::find($id);
 
                 if(!$company){
                     return redirect()->route('admin.home');
