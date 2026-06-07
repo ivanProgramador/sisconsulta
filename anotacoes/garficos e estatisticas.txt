@@ -1,0 +1,3 @@
+A ideia é estabelecer uma forma facil de mosnitorar os resultados do sistema 
+e das empresas que usam ele nas sua operações a lib que será usada será a APEXCHARTS 
+É UMA LIB JAVASCRIPT   
