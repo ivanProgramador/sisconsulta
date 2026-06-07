@@ -47,12 +47,12 @@
                             <td class="w-15/100">
                                 <div class="flex justify-end gap-2">
                                       
-                                      <a href="{{route('admin.company.details',['id' => Crypt::encrypt($client->id) ])}}" class="btn" title="Detalhes"><i class="fa-solid fa-circle-info"></i></a>
-
-                                      <a href="{{route('admin.company.control.access',['id' => Crypt::encrypt($client->id) ])}}" class="btn" title="Controlar Acesso"><i class="fa-solid fa-user-shield"></i></a>
+                                     
 
                                         @if($client->deleted_at === null)
                                             <a href="{{route('admin.company.delete',['id' => Crypt::encrypt($client->id) ])}}" class="btn-red" title="Excluir registro"><i class="fa-solid fa-trash"></i></a>
+                                            <a href="{{route('admin.company.details',['id' => Crypt::encrypt($client->id) ])}}" class="btn" title="Detalhes"><i class="fa-solid fa-circle-info"></i></a>
+                                            <a href="{{route('admin.company.control.access',['id' => Crypt::encrypt($client->id) ])}}" class="btn" title="Controlar Acesso"><i class="fa-solid fa-user-shield"></i></a>
                                         @else 
                                             <a href="{{route('admin.company.restore',['id' => Crypt::encrypt($client->id) ])}}" class="btn" title="Restaurar registro"><i class="fa-solid fa-rotate-left"></i></a>
                                         @endif

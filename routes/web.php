@@ -145,7 +145,7 @@ Route::middleware(['auth','can:client-area'])->group(function () {
 
       Route::get('/admin/company/delete-confirm/{id}',[AdminController::class,"deleteCompanyConfirm"])->name('admin.company.delete.confirm');
 
-      Route::get('/admin/company/restore/{id}',[AdminController::class,"restore"])->name('admin.company.restore');
+      Route::get('/admin/company/restore/{id}',[AdminController::class,"restoreCompany"])->name('admin.company.restore');
 
 
 

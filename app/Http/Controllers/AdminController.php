@@ -304,4 +304,53 @@ class AdminController extends Controller
 
             return view('admin.delete_company_confirm',$data);
         }
+
+      public function deleteCompanyConfirm($id)
+      {
+
+              // desencriptando o id recebido
+       
+            try{
+                $id = Crypt::decrypt($id);
+                }catch(\Exception $e){
+                return redirect()->route('admin.home');
+                }
+
+                //consultando os dados da companhia 
+                $company = Company::find($id);
+
+                if(!$company){
+                    return redirect()->route('admin.home');
+             }
+
+             //executando um soft delete 
+             $company->delete(); 
+
+             return redirect()->route('admin.home');          
+      }
+
+      public function restoreCompany($id)
+      {
+
+            // desencriptando o id recebido
+       
+            try{
+                $id = Crypt::decrypt($id);
+                }catch(\Exception $e){
+                return redirect()->route('admin.home');
+                }
+
+                //consultando os dados da companhia 
+                $company = Company::withTrashed()->find($id);
+
+                if(!$company){
+                    return redirect()->route('admin.home');
+             }
+
+             //recuperando
+             $company->restore(); 
+
+             return redirect()->route('admin.home');          
+         
+      }
 }
