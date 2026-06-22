@@ -1,0 +1,9 @@
+A ideia da biblioteca APEX CHARTS é repostar da dos de relatórios de forma geral, de uma foma amigavel
+Boa parte da estrtura é feita com js. 
+
+ACESSO DIRETO A DOC
+-  https://apexcharts.com/docs/installation/
+
+pra instalar eu peguei o link da cdn acessei de foma direta no navegador e peguei o codigo e salvei direto nos assets 
+a ideia é manter a aplicação funcionando mesmo quando o servidor d cnd for alterado ou destaivado. 
+  
