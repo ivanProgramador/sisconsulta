@@ -7,70 +7,30 @@ use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        /*
-           No sistema eu tenho 3 tipos de usuarios até agora, são eles 
-
-           1 - sys-admin
-           2 - client-admin 
-           3 - client-user 
-
-           Nesse caso cada um desses tipos terá uma gate que definine as suas 
-           autorizações. Basicamente ela vai receber o usuário logado como párametro
-           e testar a que grupo ele pertence no caso abaixo ela testa se o usuario 
-           recebido como parametro tem o role igual ao 'sys-admin' se tiver ela retorna true
-           se não tiver ela retorna false.   
-
-
-            Gate::define('sys-admin',function($user){
-                return $user->role === 'sys-admin';
-            });
-
-          as gates podem ser chamdas em qualquer ponto do sistema, isso possbilita 
-          que eu faça esses testes em todas as página que o usuário entrar nisso eu 
-          posso remover u adionar recursos com base no retrono das gates criadas.   
-
-
-
-        */
-
-        //gate para o sys-admin
-
-        Gate::define('sys-admin',function($user){
-
-         return $user->role === 'sys-admin';
-
+        Gate::define('sys-admin', function ($user) {
+            return $user->role === 'sys-admin';
         });
 
-        //aoa inves de separar o grupo de usuarios direto nas rotas
-        // eu decidi gerar uma rota combinada
-        // ai se outros grupos foram criados basta adicionar-los 
-        
-         
+        Gate::define('client-admin', function ($user) {
+            return $user->role === 'client-admin';
+        });
+
+        Gate::define('client-user', function ($user) {
+            return $user->role === 'client-user';
+        });
 
         Gate::define('client-area', function ($user) {
-
-            return in_array($user->role, [
-             'client-admin',
+        return in_array($user->role, [
+            'client-admin',
             'client-user'
          ]);
-
-});
-        
-        
-        
-        
+        });
     }
 }

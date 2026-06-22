@@ -264,9 +264,9 @@ if(!function_exists('getQueuetStateText')){
 
      function getCompanyLogoImage($logo,$size=8){
 
-         $sizeStr = 'w-' .$size.'h-'.$size;
+        $sizeStr = 'w-' . $size . ' h-' . $size;
 
-         if(file_exists(public_path('assets/images/company_logos'.$logo))){
+         if(file_exists(public_path('assets/images/company_logos/'.$logo))){
 
                  return '
                       <div class="p-1 bg-white rounded-lg">
