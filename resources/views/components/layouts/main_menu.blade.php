@@ -15,7 +15,7 @@
          @can('sys-admin')
 
              <a href="{{ route('admin.home') }}" class="btn-white"><i class="fa-solid fa-house me-2"></i>Clientes</a>
-             <a href="#" class="btn-white"><i class="fa-solid fa-chart-column me-2"></i>Estatisticas</a>
+             <a href="{{ route('admin.statiscs') }}" class="btn-white"><i class="fa-solid fa-chart-column me-2"></i>Estatisticas</a>
 
          @endcan
 

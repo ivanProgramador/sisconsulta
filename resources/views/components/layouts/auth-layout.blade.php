@@ -17,10 +17,13 @@
     <script src="{{ asset('assets/coloris/coloris.min.js') }}"></script>
 
     {{-- apex charts --}}
-    <script src="{{ asset('assets/apexcharts/apexcharts.js') }}"></script>
+    {{-- no caso do apex charts será usada uma estrategia de carregamento condicional --}}
 
-
+    @if(!empty($apexcharts))
+      <script src="{{ asset('assets/apexcharts/apexcharts.js') }}"></script>
     
+    @endif
+        
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

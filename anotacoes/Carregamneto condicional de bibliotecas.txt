@@ -1,0 +1,29 @@
+A biblioteca Apex charts será usada somente nas paginas necessárias então
+onde o sistema não for usar ela eu vou remover ela do layout pra diminuir a carga 
+no servidor, embora pareça algo pequeno nesse momento isso pode fazer diferença em 
+um cenarios de requisições em larga escala. 
+
+pra fazer isso 
+
+1 - adcionei a condição no layout, durante o carregamento o Artisan vai testar se  
+    existe a variavel '$apexcharts' dentro da view onde ele esta sendo chamado se sim 
+    ele vai carregar a biblioteca.   
+
+    @if(!empty($apexcharts))
+        <script src="{{ asset('assets/apexcharts/apexcharts.js') }}"></script>  
+    @endif
+
+2 - coloquei a variavel  '$apexcharts' somente onde a biblioteca será necessária 
+    no caso abaixo e
+     <x-layouts.auth-layout subtitle="{{ $subtitle }}" apexcharts> 
+  
+        <div class="flex justify-between">
+            
+            <p class="title-3">Estatisticas</p>
+
+            <hr class="my-4">
+
+    </div>
+
+    </x-layouts.auth-layout> 
+   

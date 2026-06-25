@@ -139,13 +139,16 @@ Route::middleware(['auth','can:client-area'])->group(function () {
 
       Route::post('/admin/company/control-access',[AdminController::class,"companyControlAccessSubmit"])->name('admin.company.control.access.submit');
 
-
       
       Route::get('/admin/company/delete/{id}',[AdminController::class,"companyDelete"])->name('admin.company.delete');
 
       Route::get('/admin/company/delete-confirm/{id}',[AdminController::class,"deleteCompanyConfirm"])->name('admin.company.delete.confirm');
 
       Route::get('/admin/company/restore/{id}',[AdminController::class,"restoreCompany"])->name('admin.company.restore');
+
+      Route::get('/admin/statics',[AdminController::class,"statiscs"])->name('admin.statiscs');
+
+
 
 
 

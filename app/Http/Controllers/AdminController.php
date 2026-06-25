@@ -353,4 +353,13 @@ class AdminController extends Controller
              return redirect()->route('admin.home');          
          
       }
+
+      public function statiscs(){
+
+          $data = [
+              'subtitle' => 'Estatiscas'
+          ];
+
+          return view('admin.statiscs',$data);
+      }
 }
