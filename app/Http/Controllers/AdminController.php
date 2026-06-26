@@ -357,9 +357,38 @@ class AdminController extends Controller
       public function statiscs(){
 
           $data = [
-              'subtitle' => 'Estatiscas'
+              'subtitle' => 'Estatiscas',
+              'statsCompanies' => $this->getActiveAndInactiveCompany()
           ];
 
           return view('admin.statiscs',$data);
       }
+
+      //função privada que vai pegar os dados e empresas ativas e inativas 
+
+      private function getActiveAndInactiveCompany(){
+          
+          //trazendo todas as empresas mesmo as empresas deletadas por soft delete 
+
+          $totalCompanies = Company::withTrashed()->count();
+         
+         // total de empresas ativas
+         
+          $totalActive = Company::where('status','active')->whereNull('deleted_at')->count();
+
+          // total de mepresas inativas 
+
+          $totalInactive =  $totalActive = Company::withTrashed()->where(function($query){
+            $query->where('status','inactive')->orWhereNotNull('deleted_at');
+          })->count();
+
+          return [
+             'total'  =>  $totalCompanies,
+             'active' => $totalActive,
+             'inactive' => $totalInactive
+          ];
+    }
+
+
+
 }
