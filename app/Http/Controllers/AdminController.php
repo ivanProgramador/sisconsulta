@@ -358,8 +358,10 @@ class AdminController extends Controller
 
           $data = [
               'subtitle' => 'Estatiscas',
-              'statsCompanies' => $this->getActiveAndInactiveCompany()
+              'statsCompanies' => $this->getActiveAndInactiveCompany(),
+              'statsUsersByState' => $this->getUsersByState()
           ];
+          
 
           return view('admin.statiscs',$data);
       }
@@ -368,26 +370,47 @@ class AdminController extends Controller
 
       private function getActiveAndInactiveCompany(){
           
-          //trazendo todas as empresas mesmo as empresas deletadas por soft delete 
+         $totalCompanies = Company::withTrashed()->count();
 
-          $totalCompanies = Company::withTrashed()->count();
-         
-         // total de empresas ativas
-         
-          $totalActive = Company::where('status','active')->whereNull('deleted_at')->count();
+         $totalActive = Company::where('status','active')->whereNull('deleted_at')->count();
 
-          // total de mepresas inativas 
-
-          $totalInactive =  $totalActive = Company::withTrashed()->where(function($query){
-            $query->where('status','inactive')->orWhereNotNull('deleted_at');
-          })->count();
+         $totalInactive = Company::withTrashed()
+                        ->where(function($query){
+                            $query->where('status','inactive')->orWhereNotNull('deleted_at');
+                        })->count();
 
           return [
              'total'  =>  $totalCompanies,
              'active' => $totalActive,
              'inactive' => $totalInactive
           ];
-    }
+      }
+
+      private function getUsersByState(){
+          
+          $totalUsers = User::withTrashed()->where('role','!=','sys-admin')->count();
+
+          $totalUsersActive = User::where('active',1)->where('role','!=','sys-admin')->count();
+
+          $totalUsersInactive = User::withTrashed()->where(function($query){
+              $query->where('active',0)
+                    ->orWhereNull('deleted_at');
+          })->where('role','!=','sys-admin')->count();
+
+          $totalUsersBlocked = User::where('blocked_until','>',now())->where('role','!=','sys-admin')->count();
+
+          $totalUsersWithoutPassword = User::whereNull('password')->where('role','!=','sys-admin')->count();
+
+          return[
+             'total'=> $totalUsers,
+             'active'=>$totalUsersActive,
+             'inactive'=>$totalUsersInactive,
+             'blocked'=>$totalUsersBlocked,
+             'without_password'=> $totalUsersWithoutPassword
+          ];
+
+
+      }
 
 
 

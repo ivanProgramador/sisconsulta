@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('code', 20)->nullable();
             $table->enum('status', ['active','inactive'])->default('active');
             $table->dateTime('blocked_until')->nullable();
+            $table->boolean('active')->default(1);
             $table->softDeletes(); // adds deleted_at
             $table->timestamps();  // adds created_at and updated_at automatically
         });

@@ -1,15 +1,94 @@
 <x-layouts.auth-layout subtitle="{{ $subtitle }}" apexcharts> 
 
   <div class="main-card overflow-auto">
-     <div class="flex justify-between">
-     
-      <p class="title-3">Estatisticas</p>
-      <a href="{{ route('admin.home') }}"  class="btn" ><i class="fas fa-arrow-left me-2"></i>Voltar</a>
+
+      <div class="flex justify-between">
+      
+          <p class="title-3">Estatisticas</p>
+          <a href="{{ route('admin.home') }}"  class="btn" ><i class="fas fa-arrow-left me-2"></i>Voltar</a>
+      </div>
 
       <hr class="my-4">
 
-     </div>
+      <div class="flex gap-6">  
+
+            <div class="main-card w-1/2 p-6">
+              
+              <p class="title-1">Clientes ativos e inativos</p>
+              <p class="title-3">Total: <strong>{{ $statsCompanies['total'] }}</strong></p>
+              <div id="chart_1"></div>
+            
+            </div>
+
+            <div class="main-card w-1/2 p-6">
+              
+              <p class="title-1">Usuários por estado</p>
+              <p class="title-3">Total global <strong>{{ $statsUsersByState['total'] }}</strong></p>
+              <div id="chart_2"></div>
+            
+            </div>
+
+
+
+        </div>
+      </div>
+
+
   </div>
+
+
+  <script>
+     
+      let chart_1 = new ApexCharts(document.querySelector("#chart_1"),{
+      
+        chart:{
+            type:"donut",
+            height: 300,
+            toolbar:{
+              show:true
+            }
+         },
+         series:[
+             {{ $statsCompanies['active'] }},
+             {{ $statsCompanies['inactive'] }},
+          ],
+
+          labels:['Ativos', 'Inativos'],
+          colors:['#00AA00',"#AA0000"]
+       });
+
+       chart_1.render();
+
+       let chart_2 = new ApexCharts(document.querySelector("#chart_2"),{
+          
+          chart:{
+              type:'bar',
+              height:300,
+              toolbar:{
+                 show:true
+              },
+              plotOptions:{
+                bar: {
+                    distribuited:true
+                }
+              },
+              series:[{
+                 name:'Usuários',
+                 data:[{{ implode(',',array_slice($statsUsersByState,1)) }}]
+              }],
+              xaxis:{
+                 categories:['Ativos','Inativos','Bloqueados','Sem senha']
+              }
+          }
+       });
+
+    chart_2.render();
+
+
+
+
+
+  </script>
    
 
 </x-layouts.auth-layout>
