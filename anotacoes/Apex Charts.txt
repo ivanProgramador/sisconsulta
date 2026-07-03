@@ -5,5 +5,93 @@ ACESSO DIRETO A DOC
 -  https://apexcharts.com/docs/installation/
 
 pra instalar eu peguei o link da cdn acessei de foma direta no navegador e peguei o codigo e salvei direto nos assets 
-a ideia é manter a aplicação funcionando mesmo quando o servidor d cnd for alterado ou destaivado. 
-  
+a ideia é manter a aplicação funcionando mesmo quando o servidor d cnd for alterado ou desativado.
+
+mecanica de funcionamento da página de relatórios 
+
+Quando um usuário enta na apgina de estatisticas  o sistema aciona o metodo statiscs do controller admin 
+esse metodo retorna dados calculados atraves de funções privadas atualmente ele retona  clientes ativos e
+inativos, e tambem os usuários por estado.
+
+cada grafico se comporta como um componente que recebe configurações, para que ele seja renderizado é importa ligar 
+esse componente a o elementop html usando um id no caso eu liquei ele a uma div pelo id "chart_1"
+
+<div class="main-card w-1/2 p-6">              
+              <p class="title-1">Clientes ativos e inativos</p>
+              <p class="title-3">Total: <strong>{{ $statsCompanies['total'] }}</strong></p>
+              <div id="chart_1"></div>            
+</div>
+
+para que esse gráfico apareça de fato na tela e preciso chamar uma classe 
+que recebe 2 paramentos 
+
+1 - a seleção do elemento por id qua vai receber o grafico document.querySelector("#chart_2")
+
+
+2 - o objeto de configuração {
+
+       o tipo de grafico e o tamenho dele são definidos em chart
+        chart:{
+            type:"donut",
+            height: 300,
+            toolbar:{
+              show:true
+            }
+         },
+
+         As series são a separação de tipos definidias pelo usuario no caso são usuarios ativos e inativos
+
+         series:[
+             {{ $statsCompanies['active'] }},
+             {{ $statsCompanies['inactive'] }},
+          ],
+
+        labels são a definição dos rotulos que acad tipo vai receber 
+
+          labels:['Ativos', 'Inativos'],
+
+        as cores são as corea de cada barra ou segumento do domut do relatorio 
+
+          colors:['#00AA00',"#AA0000"]
+       }
+
+
+
+
+
+
+let chart_1 = new ApexCharts(1, );
+
+Classe comleta e configurada 
+-------------------------------------------------------------------------------------------------------
+ let chart_1 = new ApexCharts(document.querySelector("#chart_1"),{
+      
+        chart:{
+            type:"donut",
+            height: 300,
+            toolbar:{
+              show:true
+            }
+         },
+         series:[
+             {{ $statsCompanies['active'] }},
+             {{ $statsCompanies['inactive'] }},
+          ],
+
+          labels:['Ativos', 'Inativos'],
+          colors:['#00AA00',"#AA0000"]
+       });
+----------------------------------------------------------------------------------------------------------
+por fim para que ela realmente apareça o metodo render deve ser acionado
+
+chart_1.render();
+
+
+
+
+
+
+
+
+
+

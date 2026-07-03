@@ -10,7 +10,7 @@
 
       <hr class="my-4">
 
-      <div class="flex gap-6">  
+      <div class="flex gap-6 mb-4">  
 
             <div class="main-card w-1/2 p-6">
               
@@ -27,6 +27,18 @@
               <div id="chart_2"></div>
             
             </div>
+          </div>
+          
+          <!-- Segunda linha -->
+          <div class="main-card w-full p-6">
+              <p class="title-1">Todos os tickets por estado atual</p>
+              <p class="title-3">
+                  Total global <strong>{{ $allTicketsByStatus['total'] }}</strong>
+              </p>
+              <div id="chart_3"></div>
+          </div>
+
+           
 
 
 
@@ -58,36 +70,90 @@
        });
 
        chart_1.render();
-
-       let chart_2 = new ApexCharts(document.querySelector("#chart_2"),{
-          
+       
+       chart_2 = new ApexCharts(document.querySelector("#chart_2"),{
           chart:{
-              type:'bar',
-              height:300,
-              toolbar:{
-                 show:true
-              },
-              plotOptions:{
-                bar: {
-                    distribuited:true
-                }
-              },
-              series:[{
-                 name:'Usuários',
-                 data:[{{ implode(',',array_slice($statsUsersByState,1)) }}]
-              }],
-              xaxis:{
-                 categories:['Ativos','Inativos','Bloqueados','Sem senha']
-              }
+            type:"bar",
+            height: 300,
+            toolbar:{
+              show:true
+            }
+         },
+         plotOptions:{
+             bar:{
+                distribuited: true
+             }
+         },
+         series:[
+          {
+            name:'Usuarios',
+            data:[
+              {{ implode(',',array_slice($statsUsersByState,1)) }}
+            ]
           }
-       });
+        ],
+        xaxis:{
+           categories:['Ativos','Inativos','Bloqueados','Sem senha']
+        }, 
+        colors:['#00AA00','#AA0000','#CCCC00','#AAAAAA']
+      });
 
-    chart_2.render();
+      chart_2.render();
+
+      
+      var chart_3 = new ApexCharts(document.querySelector("#chart_3"), {
+
+        chart: {
+            type: 'bar',
+            height: 300,
+            toolbar: {
+                show: true
+            }
+        },
+
+        plotOptions: {
+            bar: {
+                distributed: true,
+                horizontal: true
+            }
+        },
+
+        series: [{
+            name: 'Tickets',
+            data: [
+                {{ implode(',', array_slice($statsUsersByState, 1)) }}
+            ]
+        }],
+
+        xaxis: {
+            categories: [
+                'Em espera',
+                'Chamados',
+                'Não atendidos',
+                'Dispensados'
+            ]
+        },
+
+        colors: [
+            '#0000AA',
+            '#00AA00',
+            '#AA0000',
+            '#AAAAAA'
+        ]
+    });
+
+chart_3.render();
+      
 
 
 
 
 
+  
+  
+  
+  
+  
   </script>
    
 

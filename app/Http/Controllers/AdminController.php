@@ -5,6 +5,7 @@ use App\Mail\NewClientAdminMail;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Queue;
+use App\Models\QueueTicket;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
@@ -359,8 +360,11 @@ class AdminController extends Controller
           $data = [
               'subtitle' => 'Estatiscas',
               'statsCompanies' => $this->getActiveAndInactiveCompany(),
-              'statsUsersByState' => $this->getUsersByState()
+              'statsUsersByState' => $this->getUsersByState(),
+              'allTicketsByStatus' => $this->getAllTicketsByStatus() 
           ];
+
+          
           
 
           return view('admin.statiscs',$data);
@@ -400,6 +404,7 @@ class AdminController extends Controller
           $totalUsersBlocked = User::where('blocked_until','>',now())->where('role','!=','sys-admin')->count();
 
           $totalUsersWithoutPassword = User::whereNull('password')->where('role','!=','sys-admin')->count();
+          
 
           return[
              'total'=> $totalUsers,
@@ -409,6 +414,19 @@ class AdminController extends Controller
              'without_password'=> $totalUsersWithoutPassword
           ];
 
+
+      }
+
+      private function getAllTicketsByStatus(){
+
+         return[
+            'total' => QueueTicket::count(),
+            'waiting' => QueueTicket::where('queue_ticket_status','waiting')->count(),
+            'called' => QueueTicket::where('queue_ticket_status','called')->count(),
+            'not_attended' => QueueTicket::where('queue_ticket_status','not_attended')->count(),
+            'dismissed' => QueueTicket::where('queue_ticket_status','dismissed')->count(),
+
+         ];
 
       }
 
