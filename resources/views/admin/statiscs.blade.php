@@ -121,7 +121,7 @@
         series: [{
             name: 'Tickets',
             data: [
-                {{ implode(',', array_slice($statsUsersByState, 1)) }}
+                {{ implode(',', array_slice($allTicketsByStatus, 1)) }}
             ]
         }],
 
