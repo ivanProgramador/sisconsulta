@@ -1,0 +1,4 @@
+Deve existir uma rota dentro da página inicial que eleve o usuario administrador 
+para um formualrio de ele possa  
+Editar,Cadastrar, Remover, Bloquear usuarios que estão sob sua administração 
+

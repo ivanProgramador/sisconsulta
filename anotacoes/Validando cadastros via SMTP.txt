@@ -119,7 +119,9 @@ implementando  a funcionanlidade no projeto
         </p>
     ----------------------------------------------------------------------------------------------------------- 
 
-
+Usuário de teste 
+adminuser@gmail.com
+Aa123456
 
 
    
